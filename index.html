@@ -1,212 +1,900 @@
-<html lang="pt-br" class="sr">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henri Mafra | Portfólio Profissional EXPANDIDO</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <style>
+        /* ================================================= */
+        /* CSS RESET e VARIÁVEIS DE TEMA */
+        /* ================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            scroll-behavior: smooth;
+        }
 
-    <link rel="shortcut icon" href="src/image/code.png">
+        :root {
+            --bg-color: #0d1117; 
+            --second-bg-color: #161b22; 
+            --text-color: #ffffff;
+            --main-color: #00d9ff; /* Ciano Neon */
+            --hover-color: #00b0d9; 
+        }
 
-    <link rel="stylesheet" href="./src/css/reset.css">
-    <link rel="stylesheet" href="./src/css/style.css">
-    <link rel="stylesheet" href="./src/css/responsive.css">
+        .dark-mode {
+            --bg-color: #f6f8fa; 
+            --second-bg-color: #ffffff; 
+            --text-color: #24292e;
+            --main-color: #007bff; /* Azul Clássico */
+            --hover-color: #0056b3;
+        }
 
-    <title>Henri Mafra Portfólio</title>
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.5s ease, color 0.5s ease;
+            font-size: 62.5%; /* 1rem = 10px */
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 10rem 9% 2rem;
+            transition: background 0.5s ease;
+        }
+
+        .heading {
+            font-size: 4rem;
+            margin-bottom: 5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .heading span {
+            color: var(--main-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--main-color);
+            border-radius: 4rem;
+            box-shadow: 0 0 1.5rem var(--main-color);
+            font-size: 1.8rem;
+            color: var(--bg-color);
+            letter-spacing: 0.1rem;
+            font-weight: 600;
+            transition: 0.4s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 3rem var(--main-color); /* Efeito neon mais forte */
+            background: var(--hover-color);
+        }
+
+        /* ================================================= */
+        /* HEADER e NAVBAR */
+        /* ================================================= */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 9%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background 0.5s ease;
+        }
+
+        .header.sticky {
+            border-bottom: 0.1rem solid var(--main-color);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: var(--text-color);
+            font-weight: 800;
+            transition: 0.3s ease;
+        }
+        
+        .logo:hover {
+            color: var(--main-color);
+        }
+
+        .navbar a {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-left: 4.5rem;
+            font-weight: 500;
+            transition: 0.3s;
+            padding-bottom: 0.5rem;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--main-color);
+            border-bottom: 0.2rem solid var(--main-color);
+        }
+
+        #darkMode-icon {
+            font-size: 2.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            margin-left: 2rem;
+            transition: color 0.5s ease;
+        }
+        
+        #darkMode-icon:hover {
+            color: var(--main-color);
+        }
+
+        #menu-icon {
+            font-size: 3.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            display: none;
+        }
+
+        /* ================================================= */
+        /* Seção HOME */
+        /* ================================================= */
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            padding-top: 15rem;
+        }
+
+        .home-content {
+            max-width: 60rem;
+        }
+
+        .home-content h3 {
+            font-size: 3.6rem;
+            font-weight: 700;
+        }
+        
+        .home-content h3 span {
+            color: var(--main-color);
+        }
+
+        .home-content h1 {
+            font-size: 6.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .home-content p {
+            font-size: 1.7rem;
+            margin-top: 2rem;
+            line-height: 1.6;
+        }
+
+        .social-media a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 4.5rem;
+            height: 4.5rem;
+            background: transparent;
+            border: 0.2rem solid var(--main-color);
+            border-radius: 50%;
+            font-size: 2.2rem;
+            color: var(--main-color);
+            margin: 3rem 1.5rem 3rem 0;
+            transition: 0.5s ease;
+        }
+
+        .social-media a:hover {
+            background: var(--main-color);
+            color: var(--second-bg-color);
+            box-shadow: 0 0 1.5rem var(--main-color);
+            transform: translateY(-5px); /* Efeito 3D */
+        }
+
+        .home-img img {
+            width: 35vw; 
+            min-width: 300px;
+            border-radius: 50%;
+            box-shadow: 0 0 2.5rem var(--main-color);
+            transition: 0.5s ease;
+            animation: floatImage 4s ease-in-out infinite; /* Animação flutuante */
+        }
+        
+        @keyframes floatImage {
+            0% { transform: translateY(0); box-shadow: 0 0 2rem var(--main-color); }
+            50% { transform: translateY(-2rem); box-shadow: 0 0 4rem var(--main-color); }
+            100% { transform: translateY(0); box-shadow: 0 0 2rem var(--main-color); }
+        }
+
+        /* ================================================= */
+        /* Seção SOBRE MIM */
+        /* ================================================= */
+        .about {
+            background: var(--second-bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-content {
+            max-width: 90rem;
+            text-align: center;
+        }
+
+        .about-content h3 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--main-color);
+        }
+
+        .about-content p {
+            font-size: 1.7rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            text-align: justify;
+        }
+
+        /* ================================================= */
+        /* Seção EDUCAÇÃO e EXPERIÊNCIA (Nova) */
+        /* ================================================= */
+        .education {
+            background: var(--bg-color);
+        }
+
+        .education-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5rem;
+            justify-content: space-around;
+        }
+
+        .education-column {
+            flex: 1 1 45rem;
+        }
+
+        .education-column h3 {
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            border-left: 0.4rem solid var(--main-color);
+            padding-left: 1rem;
+            color: var(--text-color);
+        }
+
+        .education-box {
+            border-left: 0.2rem solid var(--main-color);
+            padding-left: 2rem;
+            padding-bottom: 4rem;
+            position: relative;
+        }
+
+        .education-box .education-item {
+            position: relative;
+            padding: 1.5rem;
+            border: 0.1rem solid var(--second-bg-color);
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            background: var(--second-bg-color);
+            transition: 0.4s ease;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .education-box .education-item:hover {
+            transform: translateX(5px);
+            border-color: var(--main-color);
+            box-shadow: 0 0 2rem var(--main-color);
+        }
+
+        .education-box .education-item::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            left: -3.1rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            background: var(--main-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .education-item .year {
+            font-size: 1.4rem;
+            color: var(--main-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .year i {
+            margin-right: 0.5rem;
+        }
+
+        .education-item h4 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .education-item p {
+            font-size: 1.6rem;
+            color: var(--text-color);
+        }
+
+
+        /* ================================================= */
+        /* Seção HABILIDADES (Skills) */
+        /* ================================================= */
+        .skills {
+            background: var(--second-bg-color);
+        }
+
+        .skills h2 {
+            margin-bottom: 5rem;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .skills-box {
+            flex: 1 1 30rem;
+            background: var(--bg-color);
+            padding: 3rem 2rem 4rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            border: 0.2rem solid var(--bg-color);
+            transition: 0.5s ease;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills-box:hover {
+            border-color: var(--main-color);
+            transform: translateY(-10px);
+            box-shadow: 0 0 2.5rem var(--main-color);
+        }
+        
+        .skills-box i {
+            font-size: 7rem;
+            color: var(--main-color);
+            margin-bottom: 1rem;
+        }
+
+        .skills-box h3 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skills-box p {
+            font-size: 1.5rem;
+            margin: 1rem 0 2rem;
+        }
+        
+        /* Efeito de Overlay Brilhante ao Hover */
+        .skills-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05); /* Leve brilho */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skills-box:hover::after {
+            opacity: 1;
+        }
+
+
+        /* ================================================= */
+        /* Seção PORTFÓLIO (Projetos) */
+        /* ================================================= */
+        .portfolio {
+            background: var(--bg-color);
+        }
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+            gap: 3rem;
+            padding-bottom: 5rem;
+        }
+
+        .portfolio-box {
+            position: relative;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            border: 0.1rem solid var(--second-bg-color);
+        }
+        
+        .portfolio-box:hover {
+             border-color: var(--main-color);
+        }
+
+        .portfolio-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
+
+        .portfolio-box:hover img {
+            transform: scale(1.05) rotate(1deg); /* Animação no hover da imagem */
+            filter: brightness(70%);
+        }
+
+        .portfolio-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Conteúdo no rodapé */
+            padding: 3rem;
+            transform: translateY(100%);
+            transition: 0.5s ease;
+        }
+        
+        .portfolio-box:hover .portfolio-layer {
+            transform: translateY(0);
+        }
+
+        .portfolio-layer h4 {
+            font-size: 3.2rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-layer p {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-layer a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 5.5rem;
+            height: 5.5rem;
+            background: var(--main-color);
+            border-radius: 50%;
+            transition: 0.3s ease;
+        }
+        
+        .portfolio-layer a:hover {
+            box-shadow: 0 0 1.5rem var(--main-color);
+        }
+
+        .portfolio-layer a i {
+            font-size: 2.4rem;
+            color: var(--bg-color);
+        }
+
+        /* ================================================= */
+        /* Seção CONTATO */
+        /* ================================================= */
+        .contact {
+            background: var(--second-bg-color);
+        }
+
+        .contact form {
+            max-width: 80rem;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact form .input-box {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .contact form .input-box input,
+        .contact form textarea {
+            width: 100%;
+            padding: 1.8rem;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            background: var(--bg-color);
+            border-radius: 1rem;
+            margin: 0.7rem 0;
+            resize: none;
+            transition: border-color 0.3s ease;
+            border: 0.1rem solid var(--bg-color);
+        }
+
+        .contact form .input-box input:focus,
+        .contact form textarea:focus {
+            border-color: var(--main-color);
+            box-shadow: 0 0 0.5rem var(--main-color);
+        }
+
+        .contact form .input-box input {
+            width: 49%;
+        }
+        
+        .contact form textarea {
+            min-height: 20rem;
+        }
+
+        /* ================================================= */
+        /* FOOTER */
+        /* ================================================= */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 2rem 9%;
+            background: var(--bg-color);
+        }
+
+        .footer-text p {
+            font-size: 1.8rem;
+        }
+
+        .footer-iconTop a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background: var(--main-color);
+            border-radius: 0.8rem;
+            transition: 0.5s ease;
+        }
+
+        .footer-iconTop a:hover {
+            box-shadow: 0 0 1.5rem var(--main-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-iconTop a i {
+            font-size: 2.6rem;
+            color: var(--second-bg-color);
+        }
+
+        /* ================================================= */
+        /* RESPONSIVIDADE (MEDIA QUERIES) */
+        /* ================================================= */
+        @media (max-width: 1200px) {
+            html {
+                font-size: 55%;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .header {
+                padding: 2rem 4%;
+            }
+            
+            section {
+                padding: 10rem 4% 2rem;
+            }
+            
+            .home {
+                flex-direction: column-reverse; 
+                padding-top: 10rem;
+            }
+
+            .home-content {
+                text-align: center;
+            }
+
+            .home-content h1 {
+                font-size: 5rem;
+            }
+
+            .home-img img {
+                width: 70vw; 
+                margin-top: 4rem;
+            }
+
+            .education-row {
+                gap: 3rem;
+            }
+
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-iconTop {
+                margin-top: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            #menu-icon {
+                display: block;
+            }
+            
+            .navbar {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                padding: 1rem 4%;
+                background: var(--bg-color);
+                border-top: 0.1rem solid var(--main-color);
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+                display: none;
+                transition: 0.25s ease;
+            }
+            
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar a {
+                display: block;
+                font-size: 2.2rem;
+                margin: 1.5rem 0;
+                padding: 1rem;
+                border-bottom: none !important;
+            }
+
+            .home-content h1 {
+                font-size: 4.5rem;
+            }
+
+            .contact form .input-box input {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+        }
+        
+        @media (max-width: 450px) {
+            .home-content h1 {
+                font-size: 3.5rem;
+            }
+            .home-content h3 {
+                font-size: 2.5rem;
+            }
+        }
+
+    </style>
 </head>
 
-<body style="height: 100%;">
+<body class="dark-mode"> 
     <header class="header">
         <a href="#" class="logo"> HM &lt;&gt; </a>
+        <div class="bx bx-sun" id="darkMode-icon"></div> <div class="bx bx-menu" id="menu-icon"></div>
         <nav class="navbar">
             <a href="#home" class="active">Home</a>
             <a href="#about">Sobre mim</a>
-            <a href="#services">Habilidades</a>
+            <a href="#education">Formação</a>
+            <a href="#skills">Habilidades</a>
             <a href="#portfolio">Projetos</a>
             <a href="#contact">Contato</a>
         </nav>
-        <div class="bx bx-sun" id="darkMode-icon"></div>
-        <div class="bx bx-menu" id="menu-icon"></div>
     </header>
 
     <section class="home" id="home">
-        <div class="home-content" data-sr-id="0" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2s cubic-bezier(0.5, 0, 0, 1) 0.2s, transform 2s cubic-bezier(0.5, 0, 0, 1) 0.2s;">
-            <h3 data-sr-id="15" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2s cubic-bezier(0.5, 0, 0, 1) 0.2s, transform 2s cubic-bezier(0.5, 0, 0, 1) 0.2s;">✨ Bem-vindo! Eu sou</h3>
-            <h1 data-sr-id="14" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2s cubic-bezier(0.5, 0, 0, 1) 0.2s, transform 2s cubic-bezier(0.5, 0, 0, 1) 0.2s;"><strong>Henri Mafra</strong></h1>
-            <p data-sr-id="16" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transition: all, opacity 2s cubic-bezier(0.5, 0, 0, 1) 0.2s, transform 2s cubic-bezier(0.5, 0, 0, 1) 0.2s;">
-                Estudante de Ciência de Dados e Machine Learning, apaixonado por Inteligência Artificial e entusiasta de Python e Deep Learning. Dedicado a transformar dados em insights e soluções inteligentes.
-            </p>
+        <div class="home-content">
+            <h3>Olá, eu sou</h3>
+            <h1>Henri Mafra</h1>
+            <h3>Especialista em <span class="multiple-text"></span></h3>
+            
+            <p>Minha jornada é impulsionada pela paixão em desvendar padrões e criar soluções baseadas em dados. Sou proficiente em Python, SQL, e busco transformar desafios complexos em modelos de Machine Learning eficazes e inovadores para impulsionar o valor de negócio.</p>
+            
             <div class="social-media">
-                <a href="https://www.linkedin.com/in/henri-felipe-marques-mafra-961538352/" target="_blank" style="--i:8"><i class="bx bxl-linkedin"></i></a>
-                <a href="https://github.com/HenriMafra" target="_blank" style="--i:7"><i class="bx bxl-github"></i></a>
-                <a href="mailto:henri.afly@gmail.com" target="_blank" style="--i:9"><i class="bx bxl-gmail"></i></a>
-                <a href="https://www.kaggle.com/henrimafra" target="_blank" style="--i:10"><i class="bx bxl-kaggle"></i></a>
+                <a href="https://www.linkedin.com/in/henri-felipe-marques-mafra-961538352/" target="_blank"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://github.com/HenriMafra" target="_blank"><i class="bx bxl-github"></i></a>
+                <a href="mailto:henri.afly@gmail.com" target="_blank"><i class="bx bxl-gmail"></i></a>
+                <a href="https://www.kaggle.com/henrimafra" target="_blank"><i class="bx bxl-kaggle"></i></a>
             </div>
-            </div>
-
-        <div class="profession-container">
-            <div class="profession-box">
-                <div class="profession" style="--i:0;">
-                    <i class="bx bxl-python"></i>
-                    <h3>Python</h3>
-                </div>
-
-                <div class="profession" style="--i:1;">
-                    <i class="bx bxs-brain"></i>
-                    <h3>IA & ML</h3>
-                </div>
-
-                <div class="profession" style="--i:2;">
-                    <i class="bx bxs-data"></i>
-                    <h3>Data Science</h3>
-                </div>
-
-                <div class="profession" style="--i:3;">
-                    <i class="bx bxl-mysql"></i>
-                    <h3>SQL/MySQL</h3>
-                </div>
-                
-                <div class="profession" style="--i:4;">
-                    <i class="bx bxl-javascript"></i>
-                    <h3>JavaScript</h3>
-                </div>
-
-                <div class="profession" style="--i:5;">
-                    <i class="bx bxl-html5"></i>
-                    <h3>Web Dev</h3>
-                </div>
-
-                <div class="circle"></div>
-            </div>
-
-            <div class="overlay">
-            </div>
+            <a href="#portfolio" class="btn">Ver Projetos</a>
+        </div>
+        <div class="home-img">
+             <img src="https://i.imgur.com/g8o4X9n.png" alt="Foto de Perfil (Data Scientist)"> 
         </div>
     </section>
 
     <section class="about" id="about">
-        <div class="about-content" data-sr-id="17" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-            <h2 class="heading" data-sr-id="2" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);"><strong>Sobre mim</strong></h2>
-            <p>
-                Sou estudante de **Ciência de Dados e Machine Learning**, com grande entusiasmo por Inteligência Artificial e Deep Learning. Minha jornada é impulsionada pela paixão em desvendar padrões e criar soluções baseadas em dados. Tenho proficiência em **Python** e um forte interesse em transformar desafios complexos em modelos preditivos eficazes.
+        <h2 class="heading">Sobre <span>Mim</span></h2>
+        <div class="about-content">
+            <h3>Visão e Missão</h3>
+            <p>Minha dedicação se concentra em atuar na intersecção entre a **Ciência de Dados** e a **Engenharia de Software**. Acredito que a análise robusta e a implementação técnica sólida são a chave para a inovação. Sou um aprendiz constante, focado em metodologias ágeis e na entrega de valor mensurável.</p>
+            
+            <p>Atualmente, estou me aprofundando em técnicas avançadas de Deep Learning, como Redes Neurais Convolucionais (CNNs) e Recurrentes (RNNs), e explorando a implementação de MLOps para garantir a operacionalização e escalabilidade de modelos em ambientes de produção. Meu objetivo é ir além do notebook e levar modelos de ponta para o mundo real.
                 <span id="pontos">...</span><span id="mais" style="display: none;">
                     <br><br>
-                    Estou constantemente explorando novas abordagens e aprimorando minhas habilidades em ferramentas essenciais como Pandas, NumPy, Scikit-learn e Jupyter, além de bancos de dados como SQL e MySQL. Acredito no poder da tecnologia para gerar impacto positivo e estou sempre em busca de projetos inovadores para aplicar e expandir meus conhecimentos.
+                    Sou um forte defensor do código limpo, da documentação detalhada e da colaboração em equipe. Meu conjunto de habilidades abrange todo o ciclo de vida do dado, desde a aquisição e limpeza (ETL/ELT) até a construção e validação do modelo final, utilizando as melhores práticas de Git e GitHub. Estou ativamente buscando oportunidades onde possa aplicar meu conhecimento para resolver problemas complexos e gerar um impacto positivo.
                 </span>
             </p>
-            <button class="btn" onclick="leiaMais()" id="btnLeiaMais">Leia Mais</button>
+            <a href="#" class="btn" onclick="leiaMais()" id="btnLeiaMais">Leia Mais</a>
+        </div>
+    </section>
+    
+    <section class="education" id="education">
+        <h2 class="heading">Minha <span>Jornada</span></h2>
+        
+        <div class="education-row">
+            
+            <div class="education-column">
+                <h3 class="title">Educação</h3>
+                <div class="education-box">
+                    
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2023 — Presente</div>
+                        <h4>Pós-Graduação em Ciência de Dados e Machine Learning</h4>
+                        <p>Foco em Deep Learning, Processamento de Linguagem Natural (NLP) e Modelagem Preditiva Avançada.</p>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2018 — 2022</div>
+                        <h4>Graduação em Análise e Desenvolvimento de Sistemas</h4>
+                        <p>Formação em fundamentos de programação, estruturas de dados e desenvolvimento de software.</p>
+                    </div>
+                    
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2022</div>
+                        <h4>Certificação Profissional em SQL Avançado</h4>
+                        <p>Domínio de otimização de consultas, procedures e triggers para alta performance.</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="education-column">
+                <h3 class="title">Experiência Profissional</h3>
+                <div class="education-box">
+                    
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2024 — Presente</div>
+                        <h4>Analista de Dados Júnior na TechCorp</h4>
+                        <p>Responsável pela construção de dashboards interativos (Power BI/Tableau) e automatização de relatórios semanais utilizando Python (Pandas).</p>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2023 — 2024</div>
+                        <h4>Estágio em Desenvolvimento Web na Startup X</h4>
+                        <p>Trabalho com front-end (HTML/CSS/JS) e implementação de APIs RESTful simples com Node.js.</p>
+                    </div>
+                    
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2021 — 2022</div>
+                        <h4>Freelancer de Automação com Python</h4>
+                        <p>Desenvolvimento de bots e scripts para raspagem de dados (Web Scraping) e processamento de arquivos.</p>
+                    </div>
+                    
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section class="services" id="services">
-        <h2 class="heading" data-sr-id="3" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);"><strong>Minhas Habilidades</strong></h2>
-        
-        <div class="services-container" data-sr-id="6" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-            <div class="services-box">
+
+    <section class="skills" id="skills">
+        <h2 class="heading">Minhas <span>Habilidades Técnicas</span></h2>
+        <div class="skills-container">
+            
+            <div class="skills-box">
                 <i class="bx bxl-python"></i>
-                <h3>Python</h3>
+                <h3>Python | <span style="color: var(--main-color);">100%</span></h3>
+                <p>Pandas, NumPy, Matplotlib, Scikit-learn. Linguagem principal para análise e ML.</p>
             </div>
-            <div class="services-box">
+             <div class="skills-box">
                 <i class="bx bx-data"></i>
-                <h3>SQL</h3>
+                <h3>SQL & Bancos de Dados</h3>
+                <p>MySQL, PostgreSQL, Consultas Avançadas e Modelagem de Dados Relacionais.</p>
             </div>
-            <div class="services-box">
-                <i class="bx bxl-mysql"></i>
-                <h3>MySQL</h3>
+            <div class="skills-box">
+                <i class="bx bxs-brain"></i>
+                <h3>Machine Learning (ML)</h3>
+                <p>Modelos de Regressão, Classificação, Clustering. Validação e Otimização de Hiperparâmetros.</p>
             </div>
-            <div class="services-box">
-                <i class="bx bx-aperture"></i>
-                <h3>Pandas</h3>
+            <div class="skills-box">
+                <i class="bx bx-file"></i>
+                <h3>Deep Learning (DL)</h3>
+                <p>TensorFlow, Keras. Redes Neurais (CNN/RNN) e Fundamentos de NLP.</p>
             </div>
-            <div class="services-box">
-                <i class="bx bx-math"></i>
-                <h3>NumPy</h3>
-            </div>
-            <div class="services-box">
-                <i class="bx bxl-javascript"></i>
-                <h3>Javascript</h3>
-            </div>
-            <div class="services-box">
+            <div class="skills-box">
                 <i class="bx bxl-html5"></i>
-                <h3>HTML5</h3>
+                <h3>HTML5 & CSS3</h3>
+                <p>Design Responsivo, Flexbox, CSS Grid. Construção de interfaces rápidas e semânticas.</p>
             </div>
-            <div class="services-box">
-                <i class="bx bxl-css3"></i>
-                <h3>CSS3</h3>
+            <div class="skills-box">
+                <i class="bx bxl-javascript"></i>
+                <h3>JavaScript (Básico/Interm.)</h3>
+                <p>Lógica de UI, manipulação do DOM e integração de APIs assíncronas.</p>
             </div>
-            <div class="services-box">
-                <i class="bx bx-git-branch"></i>
-                <h3>Git</h3>
+             <div class="skills-box">
+                <i class="bx bxl-git"></i>
+                <h3>Git & GitHub</h3>
+                <p>Controle de versão, Branches, Pull Requests. Essencial para colaboração e MLOps.</p>
             </div>
-            <div class="services-box">
-                <i class="bx bxl-github"></i>
-                <h3>GitHub</h3>
-            </div>
-            <div class="services-box">
-                <i class="bx bxs-book-content"></i>
-                <h3>Jupyter</h3>
+             <div class="skills-box">
+                <i class="bx bxl-docker"></i>
+                <h3>Docker & Cloud (Básico)</h3>
+                <p>Containerização de aplicações e familiaridade com serviços AWS/Azure.</p>
             </div>
         </div>
-        
     </section>
 
     <section class="portfolio" id="portfolio">
-        <h2 class="heading" data-sr-id="4" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);"><strong>Meus Projetos</strong></h2>
+        <h2 class="heading">Meus <span>Projetos de Destaque</span></h2>
         <div class="portfolio-container">
             
-            <div class="portfolio-box" data-sr-id="readme-stats" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-                <img src="./src/image/data_profile.png" alt="Prévia do Perfil do GitHub e Estatísticas">
-
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/xQ0f4T7.png" alt="Projeto 1 - Detecção de Fraudes">
                 <div class="portfolio-layer">
-                    <i class="bx bxs-dashboard"></i> 
-                    <h4>Perfil e Estatísticas GitHub</h4>
-                    <p>Visão geral de minhas competências, linguagens mais usadas e métricas de engajamento através do meu README do GitHub.</p>
-                    <div class="icons">
-                        <a href="https://github.com/HenriMafra" target="_blank">Perfil GitHub</a>
-                        <a href="https://github.com/HenriMafra" target="_blank">Ver Estatísticas</a> 
-                    </div>
-                </div>
-            </div>
-
-            <div class="portfolio-box" data-sr-id="7" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-                <img src="./src/image/data_analysis_placeholder.png" alt="Imagem de um projeto de Análise de Dados">
-
-                <div class="portfolio-layer">
-                    <h4>Análise de Dados com Pandas</h4>
-                    <p>Projeto de análise exploratória utilizando bibliotecas Pandas e Matplotlib para extrair insights de um dataset público sobre...</p>
-                    <div class="icons">
-                        <a href="https://github.com/HenriMafra/seus_projetos" target="_blank">Código</a>
-                        <a href="https://github.com/HenriMafra/seus_projetos" target="_blank">Projeto</a>
-                    </div>
+                    <h4>Detecção de Fraudes com Algoritmos Não-Supervisionados</h4>
+                    <p>Uso de K-Means e Isolamento Forest para identificar anomalias em transações financeiras.</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_PROJETO_FRAUDE" target="_blank"><i class="bx bx-link-external"></i></a>
                 </div>
             </div>
             
-            <div class="portfolio-box" data-sr-id="8" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-                <img src="./src/image/ml_placeholder.png" alt="Imagem de um projeto de Machine Learning">
-
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/wM4H7wU.png" alt="Projeto 2 - Classificação de Imagens">
                 <div class="portfolio-layer">
-                    <h4>Modelo de Classificação de ML</h4>
-                    <p>Desenvolvimento e treinamento de um modelo de Machine Learning (Scikit-learn) para classificação de dados de clientes/imagens.</p>
-                    <div class="icons">
-                        <a href="https://github.com/HenriMafra/seus_projetos" target="_blank">Código</a>
-                        <a href="https://github.com/HenriMafra/seus_projetos" target="_blank">Projeto</a>
-                    </div>
+                    <h4>Classificador de Imagens com CNNs (Keras/TensorFlow)</h4>
+                    <p>Treinamento de uma Convolutional Neural Network para classificar diferentes tipos de fotos. Alto *accuracy*.</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_PROJETO_CNN" target="_blank"><i class="bx bx-link-external"></i></a>
                 </div>
             </div>
             
-            <div class="portfolio-box" data-sr-id="9" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
-                <img src="./src/image/deep_learning_placeholder.png" alt="Imagem de um projeto de Deep Learning">
-
-                <div class="portfolio-layer spotify">
-                    <h4>Introdução ao Deep Learning</h4>
-                    <p>Projeto utilizando Redes Neurais com TensorFlow/Keras para reconhecimento de padrões em grandes volumes de dados.</p>
-                    <div class="icons">
-                        <a href="https://github.com/HenriMafra/seus_projetos" target="_blank">Código</a>
-                        <a href="https://github.com/HenriMafra/seus_projetos" target="_blank">Projeto</a>
-                    </div>
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/Y2Qp1X7.png" alt="Projeto 3 - ETL Web Scraping">
+                <div class="portfolio-layer">
+                    <h4>Pipeline ETL de Dados de Mercado (Web Scraping)</h4>
+                    <p>Coleta automatizada de dados de mercado (BeautifulSoup), limpeza e inserção em banco de dados SQL para BI.</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_PROJETO_ETL" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+            
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/Z4cR35u.png" alt="Projeto 4 - Dashboard">
+                <div class="portfolio-layer">
+                    <h4>Dashboard de Vendas Interativo (Power BI / Plotly)</h4>
+                    <p>Visualização de dados complexos de vendas para identificar tendências e gargalos de receita.</p>
+                    <a href="URL_DO_SEU_DASHBOARD_HOSTEADO" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+            
+             <div class="portfolio-box">
+                <img src="https://i.imgur.com/d0bC7G9.png" alt="Projeto 5 - NLP">
+                <div class="portfolio-layer">
+                    <h4>Análise Sentimental Básica (NLP)</h4>
+                    <p>Uso da biblioteca NLTK para classificar textos (reviews) como positivos ou negativos.</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_PROJETO_NLP" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+             <div class="portfolio-box">
+                <img src="https://i.imgur.com/g0t5j45.png" alt="Projeto 6 - Portfólio Web">
+                <div class="portfolio-layer">
+                    <h4>Este Portfólio (HTML, CSS, JS)</h4>
+                    <p>Desenvolvimento focado em experiência do usuário e otimização de performance (Hospedado via GitHub Pages).</p>
+                    <a href="https://github.com/HenriMafra/henrimafra.github.io" target="_blank"><i class="bx bx-link-external"></i></a>
                 </div>
             </div>
             
@@ -214,45 +902,94 @@
     </section>
 
     <section class="contact" id="contact">
-        <h2 class="heading" data-sr-id="5" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);"><strong>Contate-me!</strong></h2>
-
-        <form action="https://api.staticforms.xyz/submit" method="post" data-sr-id="13" style="visibility: visible; opacity: 1; transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);">
+        <h2 class="heading">Vamos <span>Conversar?</span></h2>
+        <form action="#" method="POST"> 
             <div class="input-box">
-                <input type="text" name="name" placeholder="Nome completo" required="">
-                <input type="email" name="email" placeholder="Endereço de email" required="">
+                <input type="text" placeholder="Nome Completo" required>
+                <input type="email" placeholder="Endereço de Email" required>
             </div>
             <div class="input-box">
-                <input type="number" name="number" placeholder="Número de celular" required="">
-                <input type="text" name="text" placeholder="Assunto" required="">
+                <input type="text" placeholder="Assunto (Ex: Oportunidade ML)" required>
+                <input type="text" placeholder="Empresa / Organização (Opcional)">
             </div>
-            <textarea name="message" id="" cols="30" rows="10" placeholder="Sua mensagem" required=""></textarea>
-            <input type="submit" value="Enviar mensagem" class="btn">
-
-            <input type="hidden" name="accessKey" value="c9c968b0-0e79-421b-97c8-e1c8ccf61090">
-            <input type="hidden" name="redirectTo" value="https://sdesuzane.github.io/obrigada">
+            <textarea name="message" id="" cols="30" rows="10" placeholder="Sua Mensagem Detalhada aqui..." required></textarea>
+            <input type="submit" value="Enviar Mensagem" class="btn">
         </form>
     </section>
 
     <footer class="footer">
         <div class="footer-text">
-            <p>Copyright © 2024 por Henri Mafra | Todos os direitos reservados</p>
+            <p>Criado por Henri Mafra. <span style="color: var(--main-color);">&copy; 2024. Todos os direitos reservados.</span></p>
         </div>
-
         <div class="footer-iconTop">
             <a href="#home"><i class="bx bx-up-arrow-alt"></i></a>
         </div>
     </footer>
 
     <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="./src/js/index.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script> <script>
+        // =================================================
+        // JS: Dark Mode, Navegação, Animações e Texto Dinâmico
+        // =================================================
 
-    <script>
+        // 1. Menu Mobile (Hamburguer)
+        let menuIcon = document.querySelector('#menu-icon');
+        let navbar = document.querySelector('.navbar');
+
+        menuIcon.onclick = () => {
+            menuIcon.classList.toggle('bx-x');
+            navbar.classList.toggle('active');
+        };
+
+        // 2. Dark Mode / Light Mode
+        const darkModeIcon = document.querySelector('#darkMode-icon');
+
+        darkModeIcon.onclick = () => {
+            // Alterna o ícone (lua para sol e vice-versa)
+            darkModeIcon.classList.toggle('bx-sun'); 
+            darkModeIcon.classList.toggle('bx-moon'); 
+            
+            // Alterna a classe 'dark-mode' no corpo do documento
+            document.body.classList.toggle('dark-mode');
+        };
+
+
+        // 3. Navbar Ativa e Header Sticky ao Rolar
+        let sections = document.querySelectorAll('section');
+        let navLinks = document.querySelectorAll('header nav a');
+
+        window.onscroll = () => {
+            // Lógica para destacar o link na navbar
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+
+                if (top >= offset && top < offset + height) {
+                    navLinks.forEach(links => {
+                        links.classList.remove('active');
+                        document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+                    });
+                }
+            });
+
+            // Lógica para adicionar a classe 'sticky' ao header
+            let header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 100);
+
+            // Fecha o menu mobile ao rolar
+            menuIcon.classList.remove('bx-x');
+            navbar.classList.remove('active');
+        };
+
+        // 4. Lógica do botão "Leia Mais"
         function leiaMais() {
             var pontos = document.getElementById("pontos");
             var maisTexto = document.getElementById("mais");
             var btnLeiaMais = document.getElementById("btnLeiaMais");
 
-            if (pontos.style.display === "none") {
+            if (pontos.style.display === "none" || pontos.style.display === "") {
                 pontos.style.display = "inline";
                 maisTexto.style.display = "none";
                 btnLeiaMais.innerHTML = "Leia Mais";
@@ -262,6 +999,30 @@
                 btnLeiaMais.innerHTML = "Mostrar Menos";
             }
         }
+        
+        // 5. Animação de digitação (Typed.js) - NOVO EFEITO
+        const typed = new Typed('.multiple-text', {
+            strings: ['Ciência de Dados', 'Machine Learning', 'Desenvolvedor Python'],
+            typeSpeed: 70,
+            backSpeed: 70,
+            backDelay: 1000,
+            loop: true,
+        });
+        
+        // 6. Animação de Rolagem (ScrollReveal)
+        ScrollReveal({ 
+            distance: '90px',
+            duration: 2000,
+            delay: 300 
+        });
+
+        // Aplicação das animações
+        ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
+        ScrollReveal().reveal('.home-img img, .skills-container, .portfolio-box, .contact form', { origin: 'bottom' });
+        ScrollReveal().reveal('.home-content h1, .about-content, .education-column:nth-child(1)', { origin: 'left' });
+        ScrollReveal().reveal('.home-content p, .home-content h3, .education-column:nth-child(2)', { origin: 'right' });
+
+
     </script>
 </body>
 </html>
