@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henri Mafra | Portfólio - Estudante de Ciência de Dados</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <style>
+        /* ================================================= */
+        /* CSS RESET e VARIÁVEIS DE TEMA */
+        /* ================================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-color: #0d1117; 
+            --second-bg-color: #161b22; 
+            --text-color: #ffffff;
+            --main-color: #00d9ff; /* Ciano Neon */
+            --hover-color: #00b0d9; 
+        }
+
+        .dark-mode {
+            --bg-color: #f6f8fa; 
+            --second-bg-color: #ffffff; 
+            --text-color: #24292e;
+            --main-color: #007bff; /* Azul Clássico */
+            --hover-color: #0056b3;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            transition: background 0.5s ease, color 0.5s ease;
+            font-size: 62.5%; /* 1rem = 10px */
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 10rem 9% 2rem;
+            transition: background 0.5s ease;
+        }
+
+        .heading {
+            font-size: 4rem;
+            margin-bottom: 5rem;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .heading span {
+            color: var(--main-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--main-color);
+            border-radius: 4rem;
+            box-shadow: 0 0 1.5rem var(--main-color);
+            font-size: 1.8rem;
+            color: var(--bg-color);
+            letter-spacing: 0.1rem;
+            font-weight: 600;
+            transition: 0.4s ease;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 3rem var(--main-color); 
+            background: var(--hover-color);
+        }
+
+        /* ================================================= */
+        /* HEADER e NAVBAR */
+        /* ================================================= */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 9%;
+            background: var(--bg-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: background 0.5s ease;
+        }
+
+        .header.sticky {
+            border-bottom: 0.1rem solid var(--main-color);
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            font-size: 3rem;
+            color: var(--text-color);
+            font-weight: 800;
+            transition: 0.3s ease;
+        }
+        
+        .logo:hover {
+            color: var(--main-color);
+        }
+
+        .navbar a {
+            font-size: 1.8rem;
+            color: var(--text-color);
+            margin-left: 4.5rem;
+            font-weight: 500;
+            transition: 0.3s;
+            padding-bottom: 0.5rem;
+        }
+
+        .navbar a:hover,
+        .navbar a.active {
+            color: var(--main-color);
+            border-bottom: 0.2rem solid var(--main-color);
+        }
+
+        #darkMode-icon {
+            font-size: 2.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            margin-left: 2rem;
+            transition: color 0.5s ease;
+        }
+        
+        #darkMode-icon:hover {
+            color: var(--main-color);
+        }
+
+        #menu-icon {
+            font-size: 3.8rem;
+            color: var(--text-color);
+            cursor: pointer;
+            display: none;
+        }
+
+        /* ================================================= */
+        /* Seção HOME */
+        /* ================================================= */
+        .home {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            padding-top: 15rem;
+        }
+
+        .home-content {
+            max-width: 60rem;
+        }
+
+        .home-content h3 {
+            font-size: 3.6rem;
+            font-weight: 700;
+        }
+        
+        .home-content h3 span {
+            color: var(--main-color);
+        }
+
+        .home-content h1 {
+            font-size: 6.2rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .home-content p {
+            font-size: 1.7rem;
+            margin-top: 2rem;
+            line-height: 1.6;
+        }
+
+        .social-media a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 4.5rem;
+            height: 4.5rem;
+            background: transparent;
+            border: 0.2rem solid var(--main-color);
+            border-radius: 50%;
+            font-size: 2.2rem;
+            color: var(--main-color);
+            margin: 3rem 1.5rem 3rem 0;
+            transition: 0.5s ease;
+        }
+
+        .social-media a:hover {
+            background: var(--main-color);
+            color: var(--second-bg-color);
+            box-shadow: 0 0 1.5rem var(--main-color);
+            transform: translateY(-5px); 
+        }
+
+        .home-img img {
+            width: 35vw; 
+            min-width: 300px;
+            border-radius: 50%;
+            box-shadow: 0 0 2.5rem var(--main-color);
+            transition: 0.5s ease;
+            animation: floatImage 4s ease-in-out infinite; 
+        }
+        
+        @keyframes floatImage {
+            0% { transform: translateY(0); box-shadow: 0 0 2rem var(--main-color); }
+            50% { transform: translateY(-2rem); box-shadow: 0 0 4rem var(--main-color); }
+            100% { transform: translateY(0); box-shadow: 0 0 2rem var(--main-color); }
+        }
+
+        /* ================================================= */
+        /* Seção SOBRE MIM */
+        /* ================================================= */
+        .about {
+            background: var(--second-bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-content {
+            max-width: 90rem;
+            text-align: center;
+        }
+
+        .about-content h3 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: var(--main-color);
+        }
+
+        .about-content p {
+            font-size: 1.7rem;
+            line-height: 1.8;
+            margin-bottom: 3rem;
+            text-align: justify;
+        }
+
+        /* ================================================= */
+        /* Seção JORNADA DE APRENDIZADO */
+        /* ================================================= */
+        .education {
+            background: var(--bg-color);
+        }
+
+        .education-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5rem;
+            justify-content: space-around;
+        }
+
+        .education-column {
+            flex: 1 1 45rem;
+        }
+
+        .education-column h3 {
+            font-size: 3.5rem;
+            margin-bottom: 3rem;
+            border-left: 0.4rem solid var(--main-color);
+            padding-left: 1rem;
+            color: var(--text-color);
+        }
+
+        .education-box {
+            border-left: 0.2rem solid var(--main-color);
+            padding-left: 2rem;
+            padding-bottom: 4rem;
+            position: relative;
+        }
+
+        .education-box .education-item {
+            position: relative;
+            padding: 1.5rem;
+            border: 0.1rem solid var(--second-bg-color);
+            border-radius: 1rem;
+            margin-bottom: 3rem;
+            background: var(--second-bg-color);
+            transition: 0.4s ease;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .education-box .education-item:hover {
+            transform: translateX(5px);
+            border-color: var(--main-color);
+            box-shadow: 0 0 2rem var(--main-color);
+        }
+
+        .education-box .education-item::before {
+            content: '';
+            position: absolute;
+            top: 2rem;
+            left: -3.1rem;
+            width: 1.8rem;
+            height: 1.8rem;
+            background: var(--main-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .education-item .year {
+            font-size: 1.4rem;
+            color: var(--main-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-item .year i {
+            margin-right: 0.5rem;
+        }
+
+        .education-item h4 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .education-item p {
+            font-size: 1.6rem;
+            color: var(--text-color);
+        }
+
+
+        /* ================================================= */
+        /* Seção HABILIDADES (Skills) */
+        /* ================================================= */
+        .skills {
+            background: var(--second-bg-color);
+        }
+
+        .skills h2 {
+            margin-bottom: 5rem;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .skills-box {
+            flex: 1 1 30rem;
+            background: var(--bg-color);
+            padding: 3rem 2rem 4rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            border: 0.2rem solid var(--bg-color);
+            transition: 0.5s ease;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skills-box:hover {
+            border-color: var(--main-color);
+            transform: translateY(-10px);
+            box-shadow: 0 0 2.5rem var(--main-color);
+        }
+        
+        .skills-box i {
+            font-size: 7rem;
+            color: var(--main-color);
+            margin-bottom: 1rem;
+        }
+
+        .skills-box h3 {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .skills-box p {
+            font-size: 1.5rem;
+            margin: 1rem 0 2rem;
+        }
+        
+        /* Efeito de Overlay Brilhante ao Hover */
+        .skills-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skills-box:hover::after {
+            opacity: 1;
+        }
+
+
+        /* ================================================= */
+        /* Seção PORTFÓLIO (Projetos) */
+        /* ================================================= */
+        .portfolio {
+            background: var(--bg-color);
+        }
+
+        .portfolio-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+            gap: 3rem;
+            padding-bottom: 5rem;
+        }
+
+        .portfolio-box {
+            position: relative;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            border: 0.1rem solid var(--second-bg-color);
+        }
+        
+        .portfolio-box:hover {
+             border-color: var(--main-color);
+        }
+
+        .portfolio-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s ease;
+        }
+
+        .portfolio-box:hover img {
+            transform: scale(1.05) rotate(1deg); 
+            filter: brightness(70%);
+        }
+
+        .portfolio-layer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            padding: 3rem;
+            transform: translateY(100%);
+            transition: 0.5s ease;
+        }
+        
+        .portfolio-box:hover .portfolio-layer {
+            transform: translateY(0);
+        }
+
+        .portfolio-layer h4 {
+            font-size: 3.2rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-layer p {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-layer a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 5.5rem;
+            height: 5.5rem;
+            background: var(--main-color);
+            border-radius: 50%;
+            transition: 0.3s ease;
+        }
+        
+        .portfolio-layer a:hover {
+            box-shadow: 0 0 1.5rem var(--main-color);
+        }
+
+        .portfolio-layer a i {
+            font-size: 2.4rem;
+            color: var(--bg-color);
+        }
+
+        /* ================================================= */
+        /* Seção CONTATO */
+        /* ================================================= */
+        .contact {
+            background: var(--second-bg-color);
+        }
+
+        .contact form {
+            max-width: 80rem;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact form .input-box {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .contact form .input-box input,
+        .contact form textarea {
+            width: 100%;
+            padding: 1.8rem;
+            font-size: 1.8rem;
+            color: var(--text-color);
+            background: var(--bg-color);
+            border-radius: 1rem;
+            margin: 0.7rem 0;
+            resize: none;
+            transition: border-color 0.3s ease;
+            border: 0.1rem solid var(--bg-color);
+        }
+
+        .contact form .input-box input:focus,
+        .contact form textarea:focus {
+            border-color: var(--main-color);
+            box-shadow: 0 0 0.5rem var(--main-color);
+        }
+
+        .contact form .input-box input {
+            width: 49%;
+        }
+        
+        .contact form textarea {
+            min-height: 20rem;
+        }
+
+        /* ================================================= */
+        /* FOOTER */
+        /* ================================================= */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 2rem 9%;
+            background: var(--bg-color);
+        }
+
+        .footer-text p {
+            font-size: 1.8rem;
+        }
+
+        .footer-iconTop a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background: var(--main-color);
+            border-radius: 0.8rem;
+            transition: 0.5s ease;
+        }
+
+        .footer-iconTop a:hover {
+            box-shadow: 0 0 1.5rem var(--main-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-iconTop a i {
+            font-size: 2.6rem;
+            color: var(--second-bg-color);
+        }
+
+        /* ================================================= */
+        /* RESPONSIVIDADE (MEDIA QUERIES) */
+        /* ================================================= */
+        @media (max-width: 991px) {
+            .header { padding: 2rem 4%; }
+            section { padding: 10rem 4% 2rem; }
+            .home { flex-direction: column-reverse; padding-top: 10rem; }
+            .home-content { text-align: center; }
+            .home-content h1 { font-size: 5rem; }
+            .home-img img { width: 70vw; margin-top: 4rem; }
+            .education-row { gap: 3rem; }
+            .footer { flex-direction: column; text-align: center; }
+            .footer-iconTop { margin-top: 2rem; }
+        }
+        
+        @media (max-width: 768px) {
+            #menu-icon { display: block; }
+            .navbar {
+                position: absolute; top: 100%; left: 0; width: 100%; padding: 1rem 4%;
+                background: var(--bg-color); border-top: 0.1rem solid var(--main-color);
+                box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); display: none; transition: 0.25s ease;
+            }
+            .navbar.active { display: block; }
+            .navbar a { display: block; font-size: 2.2rem; margin: 1.5rem 0; padding: 1rem; border-bottom: none !important; }
+            .home-content h1 { font-size: 4.5rem; }
+            .contact form .input-box input { width: 100%; margin-bottom: 1rem; }
+        }
+    </style>
+</head>
+
+<body class="dark-mode"> 
+    <header class="header">
+        <a href="#" class="logo"> HM &lt;&gt; </a>
+        <div class="bx bx-sun" id="darkMode-icon"></div>
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <nav class="navbar">
+            <a href="#home" class="active">Home</a>
+            <a href="#about">Sobre mim</a>
+            <a href="#journey">Formação</a>
+            <a href="#skills">Habilidades</a>
+            <a href="#portfolio">Projetos</a>
+            <a href="#contact">Contato</a>
+        </nav>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-content">
+            <h3>Olá, eu sou</h3>
+            <h1>Henri Mafra</h1>
+            <h3>Estudante de <span class="multiple-text"></span></h3>
+            
+            <p>Desde 2025, minha dedicação está em construir uma base sólida em **Ciência de Dados e Machine Learning**. Estou focado em dominar Python e SQL, transformando a teoria em projetos práticos. Meu portfólio reflete meu progresso e dedicação como um profissional em formação.</p>
+            
+            <div class="social-media">
+                <a href="https://www.linkedin.com/in/henri-felipe-marques-mafra-961538352/" target="_blank"><i class="bx bxl-linkedin"></i></a>
+                <a href="https://github.com/HenriMafra" target="_blank"><i class="bx bxl-github"></i></a>
+                <a href="mailto:henri.afly@gmail.com" target="_blank"><i class="bx bxl-gmail"></i></a>
+                <a href="URL_DO_SEU_PERFIL_KAGGLE" target="_blank"><i class="bx bxs-data"></i></a>
+            </div>
+            <a href="#portfolio" class="btn">Ver Projetos</a>
+        </div>
+        <div class="home-img">
+             <img src="https://i.imgur.com/g8o4X9n.png" alt="Foto de Perfil (Data Scientist)"> 
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h2 class="heading">Sobre <span>Minha Jornada</span></h2>
+        <div class="about-content">
+            <h3>Paixão por Dados e Tecnologia</h3>
+            <p>Minha jornada, iniciada em **2025**, é dedicada a dominar as ferramentas e os conceitos essenciais de **Ciência de Dados e Machine Learning**. Meu foco principal é o aprendizado prático de **Python** (com Pandas e NumPy) e **SQL**, fundamentais para qualquer análise robusta.</p>
+            
+            <p>Atualmente, estou no ciclo inicial de aprendizado, construindo meu conhecimento em estatística, visualização de dados e os primeiros algoritmos de Machine Learning. 
+                <span id="pontos">...</span><span id="mais" style="display: none;">
+                    <br><br>
+                    Estou compensando a ausência de experiência profissional formal com a criação de **projetos práticos e documentados** no GitHub. Cada projeto é um exercício de aplicação, demonstrando minha capacidade de absorver novos conceitos rapidamente e aplicá-los para resolver problemas. Sou movido pela curiosidade e pelo desejo de contribuir ativamente para a comunidade de dados.
+                </span>
+            </p>
+            <a href="#" class="btn" onclick="leiaMais()" id="btnLeiaMais">Leia Mais</a>
+        </div>
+    </section>
+    
+    <section class="education" id="journey">
+        <h2 class="heading">Minha <span>Formação</span></h2>
+        
+        <div class="education-row">
+            
+            <div class="education-column">
+                <h3 class="title">Formação Acadêmica</h3>
+                <div class="education-box">
+                    
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2025 — Em Andamento</div>
+                        <h4>Graduação (Bacharelado) em Ciência de Dados e Machine Learning</h4>
+                        <p>Foco nos fundamentos, estatística, algoritmos e programação aplicada à inteligência artificial.</p>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2025 — Em Andamento</div>
+                        <h4>Trilha de Python para Data Science (Online)</h4>
+                        <p>Aprendizado aprofundado em manipulação de dados com Pandas, análise e visualização (Matplotlib, Seaborn).</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="education-column">
+                <h3 class="title">Habilidades em Foco</h3>
+                <div class="education-box">
+                    
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2025 — Em Andamento</div>
+                        <h4>SQL para Análise de Dados</h4>
+                        <p>Dominando a sintaxe de SQL para consultas avançadas, JOINs, agregação e manipulação de bases de dados.</p>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="year"><i class="bx bxs-calendar"></i> 2025 — Em Andamento</div>
+                        <h4>Construção de Portfólio no GitHub</h4>
+                        <p>Foco na documentação de projetos, controle de versão (Git) e hospedagem de sites estáticos (GitHub Pages).</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <section class="skills" id="skills">
+        <h2 class="heading">Minhas <span>Habilidades Técnicas</span></h2>
+        <div class="skills-container">
+            
+            <div class="skills-box">
+                <i class="bx bxl-python"></i>
+                <h3>Python (Em Estudo)</h3>
+                <p>Lógica de programação, bibliotecas Pandas e NumPy, e desenvolvimento de scripts para dados.</p>
+            </div>
+             <div class="skills-box">
+                <i class="bx bx-data"></i>
+                <h3>SQL (Em Estudo)</h3>
+                <p>Consultas, filtragem, agrupamento e operações básicas em bancos de dados relacionais.</p>
+            </div>
+            <div class="skills-box">
+                <i class="bx bxs-brain"></i>
+                <h3>Machine Learning (Fundamentos)</h3>
+                <p>Conceitos teóricos de Regressão e Classificação, preparando-me para aplicar Scikit-learn.</p>
+            </div>
+            <div class="skills-box">
+                <i class="bx bx-stats"></i>
+                <h3>Estatística</h3>
+                <p>Fundamentos de probabilidade, inferência estatística e visualização para tomada de decisão.</p>
+            </div>
+            <div class="skills-box">
+                <i class="bx bxl-html5"></i>
+                <h3>HTML5 & CSS3</h3>
+                <p>Estrutura básica de páginas e estilização, essenciais para o meu portfólio.</p>
+            </div>
+            <div class="skills-box">
+                <i class="bx bxl-javascript"></i>
+                <h3>JavaScript (Básico)</h3>
+                <p>Interatividade básica em páginas web (como a função Dark Mode) e manipulação do DOM.</p>
+            </div>
+             <div class="skills-box">
+                <i class="bx bxl-git"></i>
+                <h3>Git & GitHub</h3>
+                <p>Uso básico para controle de versão, commits e hospedagem de projetos.</p>
+            </div>
+             <div class="skills-box">
+                <i class="bx bxs-file-doc"></i>
+                <h3>Raciocínio Lógico</h3>
+                <p>Foco na resolução de problemas complexos e construção de algoritmos eficientes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <h2 class="heading">Meus <span>Projetos de Estudo</span></h2>
+        <div class="portfolio-container">
+            
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/xQ0f4T7.png" alt="Projeto 1 - Análise Exploratória">
+                <div class="portfolio-layer">
+                    <h4>Análise Exploratória de Dados (AED) - Python</h4>
+                    <p>Primeiro projeto usando Pandas para limpeza, manipulação e visualização de um dataset (Em Andamento).</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_AED" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+            
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/wM4H7wU.png" alt="Projeto 2 - Regressão Simples">
+                <div class="portfolio-layer">
+                    <h4>Modelo de Regressão Linear Simples - Scikit-learn</h4>
+                    <p>Implementação do primeiro modelo de Machine Learning, focado em entender o processo de treinamento e teste.</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_REGRESSAO" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+            
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/Z4cR35u.png" alt="Projeto 3 - Consultas SQL">
+                <div class="portfolio-layer">
+                    <h4>Exercícios de Consultas SQL (Prática)</h4>
+                    <p>Coleção de scripts SQL com JOINs, Subconsultas e Views para prática e domínio da linguagem de consulta.</p>
+                    <a href="URL_DO_SEU_REPOSITORIO_SQL" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+            
+            <div class="portfolio-box">
+                <img src="https://i.imgur.com/g0t5j45.png" alt="Projeto 4 - Portfólio Web">
+                <div class="portfolio-layer">
+                    <h4>Este Portfólio Pessoal em HTML/CSS/JS</h4>
+                    <p>Projeto de aplicação de fundamentos de Front-end e hospedagem com GitHub Pages.</p>
+                    <a href="https://github.com/HenriMafra/henrimafra.github.io" target="_blank"><i class="bx bx-link-external"></i></a>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="heading">Vamos <span>Conectar?</span></h2>
+        <form action="#" method="POST"> 
+            <div class="input-box">
+                <input type="text" placeholder="Nome Completo" required>
+                <input type="email" placeholder="Endereço de Email" required>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Assunto (Ex: Oportunidade Júnior / Mentoria)" required>
+                <input type="text" placeholder="Empresa / Organização (Opcional)">
+            </div>
+            <textarea name="message" id="" cols="30" rows="10" placeholder="Sua Mensagem Detalhada aqui..." required></textarea>
+            <input type="submit" value="Enviar Mensagem" class="btn">
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-text">
+            <p>Criado por Henri Mafra. <span style="color: var(--main-color);">&copy; 2025. Todos os direitos reservados.</span></p>
+        </div>
+        <div class="footer-iconTop">
+            <a href="#home"><i class="bx bx-up-arrow-alt"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script>
+        // JS: Dark Mode, Navegação, Animações e Texto Dinâmico
+
+        // 1. Menu Mobile (Hamburguer)
+        let menuIcon = document.querySelector('#menu-icon');
+        let navbar = document.querySelector('.navbar');
+
+        menuIcon.onclick = () => {
+            menuIcon.classList.toggle('bx-x');
+            navbar.classList.toggle('active');
+        };
+
+        // 2. Dark Mode / Light Mode
+        const darkModeIcon = document.querySelector('#darkMode-icon');
+
+        darkModeIcon.onclick = () => {
+            darkModeIcon.classList.toggle('bx-sun'); 
+            darkModeIcon.classList.toggle('bx-moon'); 
+            document.body.classList.toggle('dark-mode');
+        };
+
+
+        // 3. Navbar Ativa e Header Sticky ao Rolar
+        let sections = document.querySelectorAll('section');
+        let navLinks = document.querySelectorAll('header nav a');
+
+        window.onscroll = () => {
+            sections.forEach(sec => {
+                let top = window.scrollY;
+                let offset = sec.offsetTop - 150;
+                let height = sec.offsetHeight;
+                let id = sec.getAttribute('id');
+
+                if (top >= offset && top < offset + height) {
+                    navLinks.forEach(links => {
+                        links.classList.remove('active');
+                        document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+                    });
+                }
+            });
+
+            let header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 100);
+
+            menuIcon.classList.remove('bx-x');
+            navbar.classList.remove('active');
+        };
+
+        // 4. Lógica do botão "Leia Mais"
+        function leiaMais() {
+            var pontos = document.getElementById("pontos");
+            var maisTexto = document.getElementById("mais");
+            var btnLeiaMais = document.getElementById("btnLeiaMais");
+
+            if (pontos.style.display === "none" || pontos.style.display === "") {
+                pontos.style.display = "inline";
+                maisTexto.style.display = "none";
+                btnLeiaMais.innerHTML = "Leia Mais";
+            } else {
+                pontos.style.display = "none";
+                maisTexto.style.display = "inline";
+                btnLeiaMais.innerHTML = "Mostrar Menos";
+            }
+        }
+        
+        // 5. Animação de digitação (Typed.js)
+        const typed = new Typed('.multiple-text', {
+            // Strings corrigidas para foco em Ciência de Dados e ML
+            strings: ['Ciência de Dados', 'Machine Learning', 'Desenvolvimento em Python'],
+            typeSpeed: 70,
+            backSpeed: 70,
+            backDelay: 1000,
+            loop: true,
+        });
+        
+        // 6. Animação de Rolagem (ScrollReveal)
+        ScrollReveal({ 
+            distance: '90px',
+            duration: 2000,
+            delay: 300 
+        });
+
+        // Aplicação das animações
+        ScrollReveal().reveal('.home-content, .heading', { origin: 'top' });
+        ScrollReveal().reveal('.home-img img, .skills-container, .portfolio-box, .contact form', { origin: 'bottom' });
+        ScrollReveal().reveal('.home-content h1, .about-content, .education-column:nth-child(1)', { origin: 'left' });
+        ScrollReveal().reveal('.home-content p, .home-content h3, .education-column:nth-child(2)', { origin: 'right' });
+
+
+    </script>
+</body>
+</html>
