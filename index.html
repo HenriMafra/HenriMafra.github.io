@@ -40,10 +40,9 @@
     -moz-osx-font-smoothing:grayscale;
     transition: background var(--trans), color var(--trans);
     overflow-y:auto;
-    cursor:none; /* we render a custom cursor */
+    cursor:none;
   }
 
-  /* fixed nav - frosted glass */
   nav{
     position:fixed;
     top:14px;
@@ -71,20 +70,18 @@
   }
   .brand{display:flex;align-items:center;gap:12px}
   .logo{font-family:'Crimson Text',serif;color:var(--gold);font-weight:700;font-size:1.12rem}
-  .nav-links{display:flex;align-items:center;gap:10px}
-  .nav-links a{color:var(--text);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:10px;transition:all .16s}
+  .nav-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .nav-links a{color:var(--text);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:10px;transition:all .16s;font-size:0.9rem}
   .nav-links a:hover{color:var(--gold);transform:translateY(-3px);text-shadow:0 6px 18px rgba(255,205,75,0.06)}
-  .nav-btn{border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;background:transparent;color:var(--text);cursor:pointer;font-weight:700;transition:transform .14s}
+  .nav-btn{border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;background:transparent;color:var(--text);cursor:pointer;font-weight:700;transition:transform .14s;font-size:0.9rem}
   .nav-btn:hover{transform:scale(1.03)}
 
-  /* subtle background eyes */
   .eyes{position:fixed;left:50%;top:28vh;transform:translateX(-50%);width:320px;height:110px;pointer-events:none;z-index:48}
   .eye{position:absolute;width:104px;height:44px;border-radius:999px;background:radial-gradient(circle at 50% 40%, var(--ink) 0%, transparent 60%);filter:blur(6px);opacity:0;mix-blend-mode:screen}
   .eye.left{left:0;animation:blink 6s infinite}
   .eye.right{right:0;animation:blink 6s infinite 2.8s}
   @keyframes blink{0%,8%,92%,100%{opacity:0;transform:scale(.85)}45%,55%{opacity:.92;transform:scale(1.08)}}
 
-  /* header */
   header{
     min-height: calc(100vh - var(--nav-h));
     padding: calc(var(--nav-h) + 40px) 20px 60px;
@@ -115,7 +112,6 @@
   .bio p + p{margin-top:0.9rem}
   .intro-desc{margin-top:18px;color:var(--text);max-width:760px;opacity:.95}
 
-  /* sections centered */
   main{display:block}
   section{padding:72px 20px;max-width:980px;margin:0 auto;text-align:center;position:relative;z-index:90}
   h2{font-family:'Crimson Text',serif;font-size:30px;color:var(--ink);margin-bottom:8px}
@@ -124,13 +120,76 @@
   .badge{padding:10px 14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.03));border:1px solid rgba(255,255,255,0.03);color:var(--text);text-decoration:none;font-weight:700;transition:transform .18s,box-shadow .18s}
   .badge:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(0,0,0,0.5)}
 
-  /* fade reveal */
+  /* Sobre Mim */
+  .about-content{max-width:800px;margin:0 auto;text-align:left;line-height:1.8;color:var(--text)}
+  .about-content p{margin-bottom:1.2rem;opacity:0.92}
+
+  /* Habilidades */
+  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:24px}
+  .skill-card{background:var(--panel);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);border-radius:14px;padding:20px;text-align:left;transition:transform .2s,box-shadow .2s}
+  .skill-card:hover{transform:translateY(-8px);box-shadow:var(--glow)}
+  .skill-name{font-weight:700;color:var(--ink);margin-bottom:10px;font-size:1.1rem}
+  .skill-bar{height:8px;background:rgba(255,255,255,0.05);border-radius:10px;overflow:hidden;margin-top:8px}
+  .skill-fill{height:100%;background:linear-gradient(90deg,var(--ink),var(--gold));border-radius:10px;transition:width 1s ease}
+
+  /* Timeline */
+  .timeline{max-width:700px;margin:32px auto;position:relative;padding-left:40px}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--ink),var(--gold))}
+  .timeline-item{position:relative;margin-bottom:32px;padding-left:30px}
+  .timeline-item::before{content:'';position:absolute;left:-43px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--ink);border:3px solid var(--bg);box-shadow:0 0 0 3px rgba(185,0,0,0.2)}
+  .timeline-year{font-size:0.85rem;color:var(--gold);font-weight:700;margin-bottom:4px}
+  .timeline-title{font-weight:700;color:var(--text);margin-bottom:4px}
+  .timeline-desc{color:var(--muted);font-size:0.95rem;line-height:1.5}
+
+  /* Projetos Destaque */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;margin-top:28px}
+  .project-card{background:var(--panel);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);border-radius:16px;overflow:hidden;transition:transform .3s,box-shadow .3s;text-align:left}
+  .project-card:hover{transform:translateY(-10px);box-shadow:var(--glow)}
+  .project-img{width:100%;height:180px;background:linear-gradient(135deg,rgba(185,0,0,0.2),rgba(255,207,92,0.2));display:flex;align-items:center;justify-content:center;font-size:3rem}
+  .project-content{padding:20px}
+  .project-title{font-weight:700;color:var(--ink);margin-bottom:8px;font-size:1.15rem}
+  .project-desc{color:var(--muted);font-size:0.95rem;line-height:1.6;margin-bottom:12px}
+  .project-tech{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .tech-tag{font-size:0.8rem;padding:4px 10px;background:rgba(185,0,0,0.1);color:var(--ink);border-radius:6px;font-weight:600}
+  .project-links{display:flex;gap:10px}
+  .project-links a{padding:8px 14px;border-radius:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);color:var(--text);text-decoration:none;font-size:0.9rem;font-weight:600;transition:all .2s}
+  .project-links a:hover{background:var(--ink);color:var(--bg)}
+
+  /* Certificações */
+  .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:24px}
+  .cert-badge{background:var(--panel);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);border-radius:12px;padding:24px 16px;transition:transform .2s,box-shadow .2s;text-align:center}
+  .cert-badge:hover{transform:scale(1.05);box-shadow:var(--glow)}
+  .cert-icon{font-size:2.5rem;margin-bottom:10px}
+  .cert-name{font-weight:700;color:var(--text);font-size:1rem;margin-bottom:4px}
+  .cert-org{color:var(--muted);font-size:0.85rem}
+
+  /* GitHub Stats */
+  .stats-container{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+  .stat-img{border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:var(--panel);backdrop-filter:blur(10px);padding:8px;transition:transform .3s}
+  .stat-img:hover{transform:scale(1.02)}
+
+  /* Tech Stack */
+  .stack-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:28px}
+  .stack-item{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px;background:var(--panel);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.04);border-radius:12px;transition:transform .2s,box-shadow .2s;min-width:100px}
+  .stack-item:hover{transform:translateY(-6px);box-shadow:var(--glow)}
+  .stack-icon{font-size:2.8rem}
+  .stack-name{font-size:0.85rem;font-weight:600;color:var(--text)}
+
+  /* Formulário Contato */
+  .contact-form{max-width:600px;margin:28px auto;text-align:left}
+  .form-group{margin-bottom:20px}
+  .form-group label{display:block;color:var(--text);font-weight:600;margin-bottom:8px}
+  .form-group input,.form-group textarea{width:100%;padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:var(--panel);backdrop-filter:blur(10px);color:var(--text);font-family:inherit;font-size:0.95rem;transition:border .2s}
+  .form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--ink)}
+  .form-group textarea{resize:vertical;min-height:120px}
+  .submit-btn{width:100%;padding:14px;border-radius:10px;border:none;background:linear-gradient(135deg,var(--ink),#d60000);color:var(--bg);font-weight:700;font-size:1rem;cursor:pointer;transition:transform .2s,box-shadow .2s}
+  .submit-btn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(185,0,0,0.3)}
+
   [data-anim]{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease}
   [data-anim].show{opacity:1;transform:none}
 
   footer{padding:36px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);position:relative;z-index:80}
 
-  /* cursor and trail */
   .cursor{position:fixed;width:18px;height:18px;border-radius:999px;pointer-events:none;z-index:2000;transform:translate(-50%,-50%);background:radial-gradient(circle at 40% 35%, rgba(255,255,255,0.95), rgba(255,255,255,0.6) 10%, transparent 30%);box-shadow:0 8px 26px rgba(185,0,0,0.14);transition:transform 120ms ease,box-shadow 140ms ease,background 140ms ease}
   .cursor.big{transform:translate(-50%,-50%) scale(2.6);box-shadow:0 18px 46px rgba(180,0,0,0.22)}
   .trail{position:fixed;border-radius:50%;pointer-events:none;mix-blend-mode:screen;filter:blur(6px);opacity:0.9}
@@ -139,35 +198,41 @@
     .sig-wrap{width:340px;height:70px}
     .avatar{width:124px;height:124px}
     #signatureText{font-size:36px;top:52%}
+    .nav-links{font-size:0.8rem;gap:6px}
+    .nav-links a,.nav-btn{padding:6px 10px;font-size:0.8rem}
+    .projects-grid{grid-template-columns:1fr}
+    .stats-container{flex-direction:column;align-items:center}
   }
 </style>
 </head>
 <body>
-  <!-- nav -->
   <nav aria-label="Navegação principal">
     <div class="nav-inner">
       <div class="brand"><div class="logo">&lt;HenriMafra/&gt;</div></div>
       <div class="nav-links" role="navigation">
         <a href="#inicio">Início</a>
-        <a href="#projetos">Projetos</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#experiencia">Experiência</a>
+        <a href="#projetos-destaque">Projetos</a>
+        <a href="#certificacoes">Certificações</a>
+        <a href="#stats">Stats</a>
+        <a href="#stack">Stack</a>
         <a href="#contato">Contato</a>
         <a href="#perfis">Perfis</a>
         <button class="nav-btn" id="themeToggle" aria-pressed="false" title="Alternar tema">Tema</button>
-        <button class="nav-btn" id="soundBtn" title="Ativar som">Ativar som</button>
+        <button class="nav-btn" id="soundBtn" title="Ativar som">Som</button>
       </div>
     </div>
   </nav>
 
-  <!-- subtle eyes -->
   <div class="eyes" aria-hidden="true">
     <div class="eye left"></div>
     <div class="eye right"></div>
   </div>
 
-  <!-- custom cursor -->
   <div id="cursor" class="cursor" aria-hidden="true"></div>
 
-  <!-- header -->
   <header id="inicio" role="banner">
     <div class="avatar" aria-hidden="true">
       <img src="https://avatars.githubusercontent.com/u/104782116?v=4" alt="Avatar de Henri Mafra">
@@ -191,27 +256,261 @@
   </header>
 
   <main>
-    <section id="projetos" data-anim>
-      <h2>💻 Projetos</h2>
-      <p class="lead">Repositórios, experimentos e demonstrações de modelos, pipelines e visualizações.</p>
-      <div class="row">
-        <a class="badge" href="https://github.com/HenriMafra?tab=projects" target="_blank" rel="noopener">🔗 GitHub</a>
+    <!-- Sobre Mim -->
+    <section id="sobre" data-anim>
+      <h2>👤 Sobre Mim</h2>
+      <p class="lead">Conheça mais sobre minha jornada na tecnologia</p>
+      <div class="about-content">
+        <p>Sou estudante apaixonado por Ciência de Dados e Machine Learning, dedicado a transformar dados em insights acionáveis e construir soluções inteligentes que fazem a diferença.</p>
+        <p>Minha jornada na tecnologia começou com a curiosidade sobre como os algoritmos podem aprender e evoluir. Desde então, tenho me dedicado a dominar ferramentas como Python, SQL e bibliotecas essenciais para análise de dados.</p>
+        <p>Acredito no poder da tecnologia para resolver problemas complexos e estou sempre em busca de novos desafios que me permitam crescer profissionalmente e contribuir com projetos inovadores.</p>
+        <p>Quando não estou codificando, gosto de explorar novos datasets no Kaggle, resolver desafios algorítmicos e me manter atualizado com as últimas tendências em IA e Deep Learning.</p>
       </div>
     </section>
 
+    <!-- Habilidades Técnicas -->
+    <section id="habilidades" data-anim>
+      <h2>🛠️ Habilidades Técnicas</h2>
+      <p class="lead">Principais competências e ferramentas que domino</p>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-name">🐍 Python</div>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">🗄️ SQL / MySQL</div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">📊 NumPy</div>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">🐼 Pandas</div>
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">🤖 Machine Learning</div>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-name">📈 Data Visualization</div>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experiência & Educação -->
+    <section id="experiencia" data-anim>
+      <h2>🎓 Experiência & Educação</h2>
+      <p class="lead">Minha trajetória acadêmica e profissional</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">2024 - Presente</div>
+          <div class="timeline-title">Ciência de Dados e Machine Learning</div>
+          <div class="timeline-desc">Estudante focado em análise de dados, algoritmos de ML e desenvolvimento de modelos preditivos.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023 - 2024</div>
+          <div class="timeline-title">Projetos em Python e SQL</div>
+          <div class="timeline-desc">Desenvolvimento de diversos projetos práticos envolvendo manipulação de dados, análise exploratória e visualização.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <div class="timeline-title">Fundamentos de Programação</div>
+          <div class="timeline-desc">Início dos estudos em programação com foco em Python, lógica algorítmica e estruturas de dados.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <div class="timeline-title">Descoberta da Tecnologia</div>
+          <div class="timeline-desc">Primeiros contatos com ciência de dados e interesse por inteligência artificial.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projetos em Destaque -->
+    <section id="projetos-destaque" data-anim>
+      <h2>💡 Projetos em Destaque</h2>
+      <p class="lead">Alguns dos meus trabalhos mais relevantes</p>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-img">📊</div>
+          <div class="project-content">
+            <div class="project-title">Análise de Dados COVID-19</div>
+            <div class="project-desc">Dashboard interativo com análise exploratória de dados da pandemia, incluindo visualizações e insights estatísticos.</div>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Pandas</span>
+              <span class="tech-tag">Matplotlib</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/HenriMafra" target="_blank">Repositório</a>
+              <a href="#" target="_blank">Demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-img">🤖</div>
+          <div class="project-content">
+            <div class="project-title">Modelo de Classificação ML</div>
+            <div class="project-desc">Sistema de classificação usando algoritmos de machine learning para prever resultados com alta precisão.</div>
+            <div class="project-tech">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Scikit-learn</span>
+              <span class="tech-tag">NumPy</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/HenriMafra" target="_blank">Repositório</a>
+              <a href="#" target="_blank">Demo</a>
+            </div>
+          </div>
+        </div>
+        <div class="project-card">
+          <div class="project-img">🗄️</div>
+          <div class="project-content">
+            <div class="project-title">Sistema de Gestão de Dados</div>
+            <div class="project-desc">Banco de dados relacional com queries otimizadas para análise de grandes volumes de informação.</div>
+            <div class="project-tech">
+              <span class="tech-tag">SQL</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">Python</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/HenriMafra" target="_blank">Repositório</a>
+              <a href="#" target="_blank">Demo</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top:28px">
+        <a class="badge" href="https://github.com/HenriMafra?tab=repositories" target="_blank" rel="noopener">Ver todos os projetos →</a>
+      </div>
+    </section>
+
+    <!-- Certificações -->
+    <section id="certificacoes" data-anim>
+      <h2>🏆 Certificações</h2>
+      <p class="lead">Cursos e certificações completados</p>
+      <div class="cert-grid">
+        <div class="cert-badge">
+          <div class="cert-icon">🐍</div>
+          <div class="cert-name">Python para Data Science</div>
+          <div class="cert-org">Coursera</div>
+        </div>
+        <div class="cert-badge">
+          <div class="cert-icon">📊</div>
+          <div class="cert-name">Machine Learning</div>
+          <div class="cert-org">Stanford Online</div>
+        </div>
+        <div class="cert-badge">
+          <div class="cert-icon">🗄️</div>
+          <div class="cert-name">SQL para Análise de Dados</div>
+          <div class="cert-org">Udacity</div>
+        </div>
+        <div class="cert-badge">
+          <div class="cert-icon">📈</div>
+          <div class="cert-name">Data Visualization</div>
+          <div class="cert-org">DataCamp</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Estatísticas GitHub -->
+    <section id="stats" data-anim>
+      <h2>📈 Estatísticas GitHub</h2>
+      <p class="lead">Minhas contribuições e atividades no GitHub</p>
+      <div class="stats-container">
+        <img class="stat-img" src="https://github-readme-stats.vercel.app/api?username=HenriMafra&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true" alt="Stats GitHub">
+        <img class="stat-img" src="https://github-readme-stats.vercel.app/api/top-langs/?username=HenriMafra&layout=compact&langs_count=7&theme=tokyonight" alt="Linguagens mais usadas">
+      </div>
+      <div class="row" style="margin-top:20px">
+        <img class="stat-img" src="https://github-readme-streak-stats.herokuapp.com/?user=HenriMafra&theme=tokyonight" alt="GitHub Streak" style="max-width:100%">
+      </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section id="stack" data-anim>
+      <h2>⚙️ Ferramentas & Stack</h2>
+      <p class="lead">Tecnologias que utilizo no dia a dia</p>
+      <div class="stack-grid">
+        <div class="stack-item">
+          <div class="stack-icon">🐍</div>
+          <div class="stack-name">Python</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">🗄️</div>
+          <div class="stack-name">MySQL</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">📊</div>
+          <div class="stack-name">NumPy</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">🐼</div>
+          <div class="stack-name">Pandas</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">📈</div>
+          <div class="stack-name">Matplotlib</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">🔬</div>
+          <div class="stack-name">Jupyter</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">🤖</div>
+          <div class="stack-name">Scikit-learn</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">💻</div>
+          <div class="stack-name">VS Code</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">🐙</div>
+          <div class="stack-name">Git</div>
+        </div>
+        <div class="stack-item">
+          <div class="stack-icon">🐧</div>
+          <div class="stack-name">Linux</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
     <section id="contato" data-anim>
-      <h2>📡 Contato</h2>
-      <p class="lead">Vamos conversar sobre colaboração, consultoria ou projetos.</p>
-      <div class="row">
+      <h2>📡 Entre em Contato</h2>
+      <p class="lead">Vamos conversar sobre colaboração, consultoria ou projetos</p>
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+          <label for="subject">Assunto</label>
+          <input type="text" id="subject" name="subject" required placeholder="Sobre o que quer falar?">
+        </div>
+        <div class="form-group">
+          <label for="message">Mensagem</label>
+          <textarea id="message" name="message" required placeholder="Descreva sua ideia ou proposta..."></textarea>
+        </div>
+        <button type="submit" class="submit-btn">Enviar Mensagem</button>
+      </form>
+      <div class="row" style="margin-top:28px">
         <a class="badge" href="mailto:henri.afly@gmail.com">📧 henri.afly@gmail.com</a>
         <a class="badge" href="https://www.linkedin.com/in/henri-felipe-marques-mafra-961538352/" target="_blank" rel="noopener">💼 LinkedIn</a>
       </div>
     </section>
 
+    <!-- Perfis -->
     <section id="perfis" data-anim>
       <h2>👾 Perfis de Desenvolvimento</h2>
-      <p class="lead">Siga e veja meus projetos e contribuições técnicas.</p>
+      <p class="lead">Siga e veja meus projetos e contribuições técnicas</p>
       <div class="row">
+        <a class="badge" href="https://github.com/HenriMafra" target="_blank" rel="noopener">🐙 GitHub</a>
         <a class="badge" href="https://huggingface.co/HENRI10" target="_blank" rel="noopener">🤗 Hugging Face</a>
         <a class="badge" href="https://leetcode.com/u/Henri1/" target="_blank" rel="noopener">💡 LeetCode</a>
         <a class="badge" href="https://www.hackerrank.com/profile/henri_afly" target="_blank" rel="noopener">🧩 HackerRank</a>
@@ -223,13 +522,11 @@
   <footer>© 2025 Henri Mafra — Portfólio</footer>
 
 <script>
-/* ---------- small helpers ---------- */
 const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+const $ = sel => Array.from(document.querySelectorAll(sel));
 
-/* ---------- signature: show-only-on-first-visit (visual) ---------- */
+/* Signature animation */
 const sigPath = document.getElementById('sigPath');
-const sigText = document.getElementById('signatureText');
 
 function prepareSignature(){
   if(!sigPath) return;
@@ -254,24 +551,32 @@ function animateSignature(){
   }
   requestAnimationFrame(frame);
 }
-// on first visit (session) animate; otherwise show static
 if(!sessionStorage.getItem('sigShown')){
   prepareSignature();
-  // animate as soon as DOM loaded
   window.addEventListener('load', ()=> { animateSignature(); sessionStorage.setItem('sigShown','1'); });
 } else {
-  // show immediately
   if(sigPath) sigPath.style.strokeDashoffset = 0;
   if(sigText) sigText.style.opacity = 1;
 }
 
-/* ---------- fade reveal for sections ---------- */
+/* Fade reveal */
 const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
+  entries.forEach(e => { 
+    if(e.isIntersecting) {
+      e.target.classList.add('show');
+      // Animate skill bars
+      if(e.target.id === 'habilidades'){
+        $('.skill-fill').forEach(bar => {
+          const width = bar.getAttribute('data-width');
+          setTimeout(() => bar.style.width = width + '%', 200);
+        });
+      }
+    }
+  });
 },{threshold:0.18});
-$$('[data-anim]').forEach(el => observer.observe(el));
+$('[data-anim]').forEach(el => observer.observe(el));
 
-/* ---------- particles canvas ---------- */
+/* Particles canvas */
 const canvas = document.createElement('canvas');
 canvas.style.position = 'fixed';
 canvas.style.inset = '0';
@@ -289,7 +594,7 @@ for(let i=0;i<84;i++){
 function loop(){ ctx.clearRect(0,0,W,H); for(const p of parts){ ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle=p.color; ctx.fill(); p.x+=p.dx; p.y+=p.dy; if(p.x<-20||p.x>W+20) p.dx*=-1; if(p.y<-20||p.y>H+20) p.dy*=-1; } requestAnimationFrame(loop); }
 loop();
 
-/* ---------- custom cursor & trail ---------- */
+/* Custom cursor */
 const cursor = $('#cursor');
 if(cursor){
   let mx = innerWidth/2, my = innerHeight/2;
@@ -312,7 +617,7 @@ function spawnTrail(x,y){
   setTimeout(()=> el.remove(), 950);
 }
 
-/* ---------- WebAudio: cinematic orchestral ambient (synth-based) ---------- */
+/* WebAudio */
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null, masterGain = null, ambientNodes = [], ambientRunning = false;
 function ensureAudio(){
@@ -323,7 +628,6 @@ function ensureAudio(){
   masterGain.connect(audioCtx.destination);
   return audioCtx;
 }
-/* make a simple reverb (impulse) */
 function makeReverb(seconds = 2.2){
   const ctx = audioCtx;
   const rate = ctx.sampleRate;
@@ -332,7 +636,6 @@ function makeReverb(seconds = 2.2){
   for(let ch=0; ch<2; ch++){
     const data = impulse.getChannelData(ch);
     for(let i=0;i<length;i++){
-      // exponential decay noise for a dark hall
       data[i] = (Math.random()*2-1) * Math.pow(1 - i/length, 3);
     }
   }
@@ -343,7 +646,6 @@ function startAmbientCinematic(){
   ensureAudio();
   const ctx = audioCtx;
 
-  // pad cluster (detuned oscillators)
   const pad = ctx.createGain(); pad.gain.value = 0.0;
   const freqs = [40, 48, 60];
   const padOsc = freqs.map(f => {
@@ -356,25 +658,20 @@ function startAmbientCinematic(){
     return {o,g};
   });
 
-  // filter for warmth
   const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 900;
   pad.connect(lp);
 
-  // reverb
   const convolver = ctx.createConvolver();
   convolver.buffer = makeReverb(3.6);
   const revMix = ctx.createGain(); revMix.gain.value = 0.15;
   lp.connect(revMix); revMix.connect(convolver); convolver.connect(masterGain);
 
-  // dry to master
   lp.connect(masterGain);
 
-  // slow LFO to modulate filter frequency (texture)
   const lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value = 0.05;
   const lfoG = ctx.createGain(); lfoG.gain.value = 400;
   lfo.connect(lfoG); lfoG.connect(lp.frequency); lfo.start();
 
-  // orchestral hits (bell-like) occasionally
   function scheduleHit(){
     const now = ctx.currentTime;
     const osc = ctx.createOscillator(); osc.type='triangle';
@@ -388,18 +685,15 @@ function startAmbientCinematic(){
   }
   setTimeout(scheduleHit, 2400);
 
-  // crescendo: ramp pad gain up
   const target = 0.5;
-  pad.connect(masterGain); // direct path (also filtered above)
+  pad.connect(masterGain);
   pad.gain.setValueAtTime(0.0001, ctx.currentTime);
   pad.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.8);
-  // slowly set each oscillator gain to voiced level
   padOsc.forEach((obj, i) => {
     obj.g.gain.setValueAtTime(0.0001, ctx.currentTime);
     obj.g.gain.exponentialRampToValueAtTime(0.06 * (1 + i*0.2), ctx.currentTime + 3.2);
   });
 
-  // set master loudness target (crescendo)
   masterGain.gain.cancelScheduledValues(ctx.currentTime);
   masterGain.gain.setValueAtTime(0.0001, ctx.currentTime);
   masterGain.gain.exponentialRampToValueAtTime(0.6, ctx.currentTime + 4.0);
@@ -413,7 +707,6 @@ function stopAmbientCinematic(){
   ambientRunning = false;
 }
 
-/* play a pen-like transient (used optionally on first enable) */
 function playPenShort(){
   const ctx = ensureAudio();
   const now = ctx.currentTime;
@@ -429,42 +722,39 @@ function playPenShort(){
   src.start(now); src.stop(now + 0.25);
 }
 
-/* ---------- connect UI: theme & sound ---------- */
+/* Theme & Sound */
 $('#themeToggle').addEventListener('click', () => {
   document.body.classList.toggle('light');
-  // small audio cue if available
   try{ ensureAudio(); playPenShort(); }catch(e){}
 });
 
 let soundEnabled = false;
 $('#soundBtn').addEventListener('click', () => {
-  // first gesture: ensure context and play pen then ambient crescendo
   ensureAudio();
   if(!soundEnabled){
     playPenShort();
     startAmbientCinematic();
-    $('#soundBtn').textContent = 'Som ativado';
+    $('#soundBtn').textContent = 'Som ✓';
     soundEnabled = true;
   } else {
-    // toggle mute/fade out
     if(ambientRunning){
       stopAmbientCinematic();
-      $('#soundBtn').textContent = 'Som desativado';
+      $('#soundBtn').textContent = 'Som ✗';
     } else {
       startAmbientCinematic();
-      $('#soundBtn').textContent = 'Som ativado';
+      $('#soundBtn').textContent = 'Som ✓';
     }
   }
 });
 
-/* ---------- hover/click micro-sounds ---------- */
-$$('.badge, .nav-links a, .nav-btn').forEach(el=>{
+/* Hover sounds */
+$('.badge, .nav-links a, .nav-btn, .project-card, .skill-card, .cert-badge, .stack-item').forEach(el=>{
   el.addEventListener('mouseenter', ()=>{ try{ ensureAudio(); const ctx = audioCtx; const o = ctx.createOscillator(); const g = ctx.createGain(); o.type='sine'; o.frequency.value = 420; o.connect(g); g.connect(masterGain); g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12); o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.14);}catch(e){} });
   el.addEventListener('click', ()=>{ try{ ensureAudio(); playPenShort(); }catch(e){} });
 });
 
-/* ---------- smooth anchor scroll ---------- */
-$$('a[href^="#"]').forEach(a=>{
+/* Smooth scroll */
+$('a[href^="#"]').forEach(a=>{
   a.addEventListener('click', (ev)=>{
     const id = a.getAttribute('href').slice(1);
     const el = document.getElementById(id);
@@ -472,10 +762,23 @@ $$('a[href^="#"]').forEach(a=>{
   });
 });
 
-/* ---------- signature: ensure it triggers on first *visit* (not reload behavior) ---------- */
-// Already handled at top by sessionStorage 'sigShown'
+/* Contact form */
+$('#contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = $('#name').value;
+  const email = $('#email').value;
+  const subject = $('#subject').value;
+  const message = $('#message').value;
+  
+  // Criar mailto link
+  const mailtoLink = `mailto:henri.afly@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nome: ${name}\nEmail: ${email}\n\nMensagem:\n${message}`)}`;
+  window.location.href = mailtoLink;
+  
+  // Feedback visual
+  alert('Abrindo seu cliente de email...');
+  e.target.reset();
+});
 
-// ensure audio unlock on first pointerdown for browsers
 function resumeOnGesture(){ if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); window.removeEventListener('pointerdown', resumeOnGesture); }
 window.addEventListener('pointerdown', resumeOnGesture, { once: true });
 </script>
