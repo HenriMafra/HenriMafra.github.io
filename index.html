@@ -4,278 +4,130 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Henri Mafra — Portfólio</title>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Sacramento&family=Fira+Code:wght@400;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Sacramento&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#060506;
-    --panel: rgba(18,18,20,0.48);
-    --muted:#bdb9bf;
-    --text:#f6f6f7;
-    --ink:#b90000;
-    --gold:#ffcf5c;
-    --glow: 0 14px 60px rgba(185,0,0,0.12);
-    --trans: 420ms cubic-bezier(.2,.9,.2,1);
-    --nav-h:72px;
+    --bg:#060506; --muted:#bdb9bf; --text:#f6f6f7;
+    --ink:#b90000; --gold:#ffcf5c; --glow: 0 14px 60px rgba(185,0,0,0.12);
+    --trans: 420ms cubic-bezier(.2,.9,.2,1); --nav-h:72px;
   }
-  body.light{
-    --bg:#fbfaf8;
-    --panel: rgba(255,255,255,0.62);
-    --muted:#33363a;
-    --text:#111214;
-    --ink:#8b0000;
-    --gold:#c9a200;
-    --glow: 0 12px 48px rgba(150,80,80,0.06);
-  }
+  body.light{ --bg:#fbfaf8; --muted:#33363a; --text:#111214; --ink:#8b0000; --gold:#c9a200; }
 
   *{box-sizing:border-box}
-  html,body{height:100%}
   body{
-    margin:0;
-    font-family: 'Montserrat', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-    background:
-      radial-gradient(900px 420px at 8% 12%, rgba(185,0,0,0.03), transparent),
-      var(--bg);
-    color:var(--text);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    transition: background var(--trans), color var(--trans);
-    overflow-y:auto;
-    cursor:none; 
+    margin:0; font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(900px 420px at 8% 12%, rgba(185,0,0,0.03), transparent), var(--bg);
+    color:var(--text); transition: background var(--trans), color var(--trans);
+    overflow-x: hidden; cursor: none;
   }
 
-  nav{
-    position:fixed;
-    top:14px;
-    left:0;
-    right:0;
-    display:flex;
-    justify-content:center;
-    z-index:1400;
-  }
+  nav{ position:fixed; top:14px; left:0; right:0; display:flex; justify-content:center; z-index:1400; }
   .nav-inner{
-    box-sizing:border-box;
-    width:100%;
-    max-width:1180px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:10px 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-    border-radius:14px;
-    backdrop-filter: blur(12px) saturate(120%);
-    -webkit-backdrop-filter: blur(12px) saturate(120%);
-    box-shadow: var(--glow);
+    width:95%; max-width:1180px; display:flex; align-items:center; justify-content:space-between;
+    padding:10px 20px; background: rgba(255,255,255,0.02); border-radius:14px;
+    backdrop-filter: blur(12px); box-shadow: var(--glow);
   }
-  .brand{display:flex;align-items:center;gap:12px}
-  .logo{font-family:'Crimson Text',serif;color:var(--gold);font-weight:700;font-size:1.12rem}
-  .nav-links{display:flex;align-items:center;gap:10px}
-  .nav-links a{color:var(--text);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:10px;transition:all .16s}
-  .nav-links a:hover{color:var(--gold);transform:translateY(-3px)}
-  .nav-btn{border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;background:transparent;color:var(--text);cursor:pointer;font-weight:700;transition:transform .14s}
-
-  .eyes{position:fixed;left:50%;top:28vh;transform:translateX(-50%);width:320px;height:110px;pointer-events:none;z-index:48}
-  .eye{position:absolute;width:104px;height:44px;border-radius:999px;background:radial-gradient(circle at 50% 40%, var(--ink) 0%, transparent 60%);filter:blur(6px);opacity:0;mix-blend-mode:screen}
-  .eye.left{left:0;animation:blink 6s infinite}
-  .eye.right{right:0;animation:blink 6s infinite 2.8s}
-  @keyframes blink{0%,8%,92%,100%{opacity:0;transform:scale(.85)}45%,55%{opacity:.92;transform:scale(1.08)}}
+  .logo{font-family:'Crimson Text',serif; color:var(--gold); font-weight:700;}
+  .nav-links a{color:var(--text); text-decoration:none; font-weight:700; margin-left:15px;}
 
   header{
-    min-height: calc(100vh - var(--nav-h));
-    padding: calc(var(--nav-h) + 40px) 20px 60px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    text-align:center;
-    gap:14px;
-    position:relative;
-    z-index:100;
+    min-height: 100vh; padding: 100px 20px;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center;
   }
-  .avatar{
-    width:180px;height:180px;border-radius:18px;overflow:hidden;border:3px solid rgba(255,255,255,0.04);box-shadow:var(--glow);
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  .avatar{ width:180px; height:180px; border-radius:20px; overflow:hidden; border:3px solid rgba(255,255,255,0.05); margin-bottom: 20px;}
+  .avatar img{width:100%; height:100%; object-fit:cover;}
+
+  /* ESTRUTURA DA ASSINATURA SEM SOBREPOSIÇÃO */
+  .sig-wrap {
+    width: 100%; max-width: 520px; min-height: 120px;
+    position: relative; margin-bottom: 20px;
   }
-  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
-
-  .sig-wrap{width:560px;height:96px;margin-top:8px;display:flex;align-items:center;justify-content:center;position:relative}
-  .sig-svg{width:100%;height:100%}
-  .sig-path{fill:none;stroke:var(--text);stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1000;stroke-dashoffset:1000}
-  .sig-fill{fill:var(--ink);opacity:0;font-family:'Sacramento';font-size:64px}
-
-  #signatureText{position:absolute;left:50%;transform:translateX(-50%);top:52%;font-family:'Sacramento';font-size:60px;color:var(--ink);opacity:0;pointer-events:none;text-shadow:0 10px 40px rgba(185,0,0,0.06)}
-
-  .bio{margin-top:12px;color:var(--muted);font-size:1.06rem;line-height:1.6;max-width:760px}
-  .intro-desc{margin-top:18px;color:var(--text);max-width:760px;opacity:.95}
-
-  main{display:block}
-  section{padding:72px 20px;max-width:980px;margin:0 auto;text-align:center;position:relative;z-index:90}
-  h2{font-family:'Crimson Text',serif;font-size:30px;color:var(--ink);margin-bottom:8px}
-  .lead{color:var(--muted);margin-bottom:14px}
-  .row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-  .badge{padding:10px 14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.012), rgba(0,0,0,0.03));border:1px solid rgba(255,255,255,0.03);color:var(--text);text-decoration:none;font-weight:700;transition:transform .18s,box-shadow .18s}
-  .badge:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(0,0,0,0.5)}
-
-  [data-anim]{opacity:0;transform:translateY(10px);transition:opacity .7s ease,transform .7s ease}
-  [data-anim].show{opacity:1;transform:none}
-
-  footer{padding:36px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);position:relative;z-index:80}
-
-  .cursor{position:fixed;width:18px;height:18px;border-radius:999px;pointer-events:none;z-index:2000;transform:translate(-50%,-50%);background:radial-gradient(circle at 40% 35%, rgba(255,255,255,0.95), rgba(255,255,255,0.6) 10%, transparent 30%);box-shadow:0 8px 26px rgba(185,0,0,0.14);transition:transform 120ms ease}
-  .cursor.big{transform:translate(-50%,-50%) scale(2.6)}
-  .trail{position:fixed;border-radius:50%;pointer-events:none;mix-blend-mode:screen;filter:blur(6px);opacity:0.9}
-
-  @media (max-width:820px){
-    .sig-wrap{width:340px;height:70px}
-    .avatar{width:124px;height:124px}
-    #signatureText{font-size:36px;top:52%}
+  .sig-svg { width: 100%; height: auto; }
+  .sig-path { fill:none; stroke:var(--text); stroke-width:2.5; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
+  
+  #signatureText {
+    font-family: 'Sacramento'; font-size: 60px; color: var(--ink);
+    opacity: 0; margin-top: -45px; pointer-events: none;
   }
+
+  .bio { font-size: 1.1rem; color: var(--muted); max-width: 600px; line-height: 1.6; }
+  .badge { 
+    display: inline-block; padding: 10px 20px; margin: 5px; 
+    background: rgba(255,255,255,0.05); border-radius: 10px; 
+    color: var(--text); text-decoration: none; font-weight: bold; transition: 0.3s;
+  }
+  .badge:hover { transform: translateY(-3px); background: var(--ink); }
+
+  .cursor{ position:fixed; width:15px; height:15px; border-radius:50%; background:var(--ink); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition: transform 0.1s; }
+
+  @media (max-width: 600px) { #signatureText { font-size: 40px; margin-top: -30px; } }
 </style>
 </head>
 <body>
-  <nav>
-    <div class="nav-inner">
-      <div class="brand"><div class="logo">&lt;HenriMafra/&gt;</div></div>
-      <div class="nav-links">
-        <a href="#inicio">Início</a>
-        <a href="#projetos">Projetos</a>
-        <a href="#contato">Contato</a>
-        <a href="#perfis">Perfis</a>
-        <button class="nav-btn" id="themeToggle">Tema</button>
-        <button class="nav-btn" id="soundBtn">Ativar som</button>
-      </div>
+
+<div id="cursor" class="cursor"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">HENRI MAFRA</div>
+    <div class="nav-links">
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <div class="eyes"><div class="eye left"></div><div class="eye right"></div></div>
-  <div id="cursor" class="cursor"></div>
+<header>
+  <div class="avatar">
+    <img src="https://avatars.githubusercontent.com/u/104782116?v=4">
+  </div>
 
-  <header id="inicio">
-    <div class="avatar">
-      <img src="https://avatars.githubusercontent.com/u/104782116?v=4" alt="Avatar">
-    </div>
+  <div class="sig-wrap">
+    <svg class="sig-svg" viewBox="0 0 520 86">
+      <path id="sigPath" class="sig-path" d="M12 54 C36 18, 86 12, 132 36 C180 62, 220 52, 260 34 C300 16, 340 40, 380 30 C420 20, 460 62, 504 52"/>
+    </svg>
+    <div id="signatureText">Henri Mafra</div>
+  </div>
 
-    <div class="sig-wrap">
-      <svg class="sig-svg" viewBox="0 0 520 86" preserveAspectRatio="xMidYMid meet">
-        <path id="sigPath" class="sig-path" d="M12 54 C36 18, 86 12, 132 36 C180 62, 220 52, 260 34 C300 16, 340 40, 380 30 C420 20, 460 62, 504 52"/>
-      </svg>
-      <div id="signatureText">Henri Mafra</div>
-    </div>
+  <div class="bio">
+    <p>👨‍💻 Estudante de Ciência de Dados e Machine Learning</p>
+    <p>🤖 Apaixonado por IA | 🐍 Entusiasta de Python</p>
+    <p style="font-size: 0.9rem; opacity: 0.8;">Exploro inteligência artificial e automação para criar soluções precisas.</p>
+  </div>
 
-    <div class="bio">
-      <p>👨‍💻 Estudante de Ciência de Dados e Machine Learning</p>
-      <p>🤖 Apaixonado por IA | 🐍 Entusiasta de Python</p>
-    </div>
-    <p class="intro-desc">Exploro inteligência artificial, ciência de dados e automação com foco em criar soluções precisas e elegantes.</p>
-  </header>
-
-  <main>
-    <section id="projetos" data-anim>
-      <h2>💻 Projetos</h2>
-      <p class="lead">Repositórios, experimentos e demonstrações de modelos, pipelines e visualizações.</p>
-      <div class="row">
-        <a class="badge" href="https://github.com/HenriMafra?tab=repositories" target="_blank">🔗 GitHub</a>
-      </div>
-    </section>
-
-    <section id="contato" data-anim>
-      <h2>📡 Contato</h2>
-      <p class="lead">Vamos conversar sobre colaboração, consultoria ou projetos.</p>
-      <div class="row">
-        <a class="badge" href="mailto:henri.afly@gmail.com">📧 henri.afly@gmail.com</a>
-        <a class="badge" href="https://www.linkedin.com/in/henrimafra" target="_blank">💼 LinkedIn</a>
-      </div>
-    </section>
-
-    <section id="perfis" data-anim>
-      <h2>👾 Perfis de Desenvolvimento</h2>
-      <div class="row">
-        <a class="badge" href="https://huggingface.co/HENRI10" target="_blank">🤗 Hugging Face</a>
-        <a class="badge" href="https://leetcode.com/u/Henri1/" target="_blank">💡 LeetCode</a>
-        <a class="badge" href="https://www.hackerrank.com/profile/henri_afly" target="_blank">🧩 HackerRank</a>
-        <a class="badge" href="https://www.kaggle.com/henrimafra" target="_blank">📊 Kaggle</a>
-      </div>
-    </section>
-  </main>
-
-  <footer>© 2025 Henri Mafra — Portfólio</footer>
+  <div style="margin-top: 30px;">
+    <a href="https://github.com/HenriMafra?tab=repositories" class="badge" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/henrimafra" class="badge" target="_blank">LinkedIn</a>
+  </div>
+</header>
 
 <script>
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+  // Animação da Assinatura
+  window.addEventListener('DOMContentLoaded', () => {
+    const path = document.getElementById('sigPath');
+    const text = document.getElementById('signatureText');
+    const length = path.getTotalLength();
 
-/* ---------- SIGNATURE ENGINE (CORRIGIDA) ---------- */
-function initSignature() {
-  const path = $('#sigPath');
-  const text = $('#signatureText');
-  if (!path) return;
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
 
-  // Força o cálculo do tamanho ou usa 600 como padrão se falhar
-  const length = path.getTotalLength() || 600;
-  
-  // Setup inicial (invisível)
-  path.style.strokeDasharray = length;
-  path.style.strokeDashoffset = length;
-  path.style.transition = 'none';
-
-  // Inicia a animação após um micro-delay
-  setTimeout(() => {
-    path.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
-    path.style.strokeDashoffset = '0';
-    
-    // Mostra o texto preenchido após o desenho
     setTimeout(() => {
-      text.style.transition = 'opacity 0.8s ease';
-      text.style.opacity = '1';
-    }, 1200);
-  }, 300);
-}
-
-document.addEventListener('DOMContentLoaded', initSignature);
-
-/* ---------- FADE REVEAL ---------- */
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('show'); });
-},{threshold:0.1});
-$$('[data-anim]').forEach(el => observer.observe(el));
-
-/* ---------- PARTICLES ---------- */
-const canvas = document.createElement('canvas');
-canvas.style.position = 'fixed'; canvas.style.inset = '0'; canvas.style.zIndex = '0';
-document.body.appendChild(canvas);
-const ctx = canvas.getContext('2d');
-let W, H;
-function resize(){ W = innerWidth; H = innerHeight; canvas.width = W; canvas.height = H; }
-window.addEventListener('resize', resize); resize();
-const parts = [];
-for(let i=0;i<80;i++) parts.push({ x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.5, dx:(Math.random()-.5)*0.5, dy:(Math.random()-.5)*0.5 });
-function loop(){
-  ctx.clearRect(0,0,W,H);
-  parts.forEach(p => {
-    ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fillStyle='rgba(185,0,0,0.3)'; ctx.fill();
-    p.x+=p.dx; p.y+=p.dy;
-    if(p.x<0||p.x>W) p.dx*=-1; if(p.y<0||p.y>H) p.dy*=-1;
+      path.style.transition = 'stroke-dashoffset 2s ease-in-out';
+      path.style.strokeDashoffset = '0';
+      setTimeout(() => {
+        text.style.transition = 'opacity 1s ease';
+        text.style.opacity = '1';
+      }, 1500);
+    }, 500);
   });
-  requestAnimationFrame(loop);
-}
-loop();
 
-/* ---------- CURSOR ---------- */
-const cursor = $('#cursor');
-window.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
-});
-
-/* ---------- THEME ---------- */
-$('#themeToggle').addEventListener('click', () => document.body.classList.toggle('light'));
-
-/* ---------- SOUND (BASIC) ---------- */
-let audioCtx;
-$('#soundBtn').addEventListener('click', () => {
-  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if(audioCtx.state === 'suspended') audioCtx.resume();
-  $('#soundBtn').textContent = 'Som Ativado';
-});
+  // Cursor personalizado
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
 </script>
+
 </body>
 </html>
