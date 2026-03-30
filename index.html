@@ -69,7 +69,7 @@
   }
   .badge:hover{ transform:translateY(-5px); background: var(--ink); color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-  /* ESTILOS ESPECÍFICOS PARA O PROJETO EM DESTAQUE */
+  /* ESTILOS DO PROJETO EM DESTAQUE */
   .featured-project {
     width: 100%; max-width: 800px; margin: 30px auto;
     background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
@@ -82,9 +82,9 @@
   .project-thumb {
     width: 100%; height: auto; max-height: 350px;
     border-radius: 12px; overflow: hidden; margin-bottom: 20px;
-    border: 2px solid rgba(255,255,255,0.05);
+    border: 2px solid rgba(255,255,255,0.05); background: #111;
   }
-  .project-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .project-thumb img { width: 100%; height: 100%; object-fit: contain; }
   
   .project-details h3 { font-family:'Crimson Text',serif; font-size: 24px; color: var(--gold); margin: 0 0 10px; }
   .project-details p { font-size: 1rem; color: var(--muted); line-height: 1.6; margin-bottom: 15px; }
@@ -109,6 +109,7 @@
     <div class="nav-links">
       <a href="#inicio">Início</a>
       <a href="#projetos">Projetos</a>
+      <a href="#perfis">Perfis</a>
       <a href="#contato">Contato</a>
       <button class="nav-btn" id="themeToggle">Tema</button>
       <button class="nav-btn" id="soundBtn">Som</button>
@@ -138,11 +139,11 @@
     
     <div class="featured-project">
       <div class="project-thumb">
-        <img src="https://raw.githubusercontent.com/HenriMafra/dashboard-cartoes.gov/master/src/assets/thumbnail.png" alt="Capa do Dashboard">
+        <img src="https://github.com/HenriMafra/HenriMafra/raw/main/src/github_default.gif" alt="Capa do Dashboard">
       </div>
       <div class="project-details">
         <h3>Análise de Gastos: Cartões Corporativos do Governo</h3>
-        <p>Desenvolvi um Dashboard interativo e analítico para monitoramento de despesas com cartões de pagamento do Governo Federal Brasileiro. O projeto foca em transparência e visualização de dados sênior, permitindo a identificação de anomalias e *outliers* de gastos.</p>
+        <p>Desenvolvi um Dashboard interativo e simples para monitorar despesas com cartões de pagamento do Governo Federal Brasileiro. O projeto tem como objetivo principal o aprendizado de ferramentas de visualização e a transparência básica dos dados.</p>
         <p class="tech-stack">Tecnologias: Python | Streamlit | Pandas | Plotly Express | Git</p>
         <div class="row" style="justify-content: flex-start;">
           <a href="https://dashboard-cartoesgov-a69fyt3udebrewhsyskt8p.streamlit.app/" target="_blank" class="badge">📊 Acessar Dashboard Online</a>
@@ -185,6 +186,7 @@ const $$ = sel => Array.from(document.querySelectorAll(sel));
 function initSig() {
   const path = $('#sigPath');
   const text = $('#signatureText');
+  if(!path) return;
   const L = path.getTotalLength();
   path.style.strokeDasharray = L;
   path.style.strokeDashoffset = L;
