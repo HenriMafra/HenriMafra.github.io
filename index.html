@@ -40,7 +40,7 @@
     -moz-osx-font-smoothing:grayscale;
     transition: background var(--trans), color var(--trans);
     overflow-y:auto;
-    cursor:none; /* we render a custom cursor */
+    cursor:none; 
   }
 
   /* fixed nav - frosted glass */
@@ -143,7 +143,6 @@
 </style>
 </head>
 <body>
-  <!-- nav -->
   <nav aria-label="Navegação principal">
     <div class="nav-inner">
       <div class="brand"><div class="logo">&lt;HenriMafra/&gt;</div></div>
@@ -158,16 +157,13 @@
     </div>
   </nav>
 
-  <!-- subtle eyes -->
   <div class="eyes" aria-hidden="true">
     <div class="eye left"></div>
     <div class="eye right"></div>
   </div>
 
-  <!-- custom cursor -->
   <div id="cursor" class="cursor" aria-hidden="true"></div>
 
-  <!-- header -->
   <header id="inicio" role="banner">
     <div class="avatar" aria-hidden="true">
       <img src="https://avatars.githubusercontent.com/u/104782116?v=4" alt="Avatar de Henri Mafra">
@@ -195,7 +191,7 @@
       <h2>💻 Projetos</h2>
       <p class="lead">Repositórios, experimentos e demonstrações de modelos, pipelines e visualizações.</p>
       <div class="row">
-        <a class="badge" href="https://github.com/HenriMafra?tab=projects" target="_blank" rel="noopener">🔗 GitHub</a>
+        <a class="badge" href="https://github.com/HenriMafra?tab=repositories" target="_blank" rel="noopener">🔗 GitHub</a>
       </div>
     </section>
 
@@ -223,11 +219,10 @@
   <footer>© 2025 Henri Mafra — Portfólio</footer>
 
 <script>
-/* ---------- small helpers ---------- */
 const $ = sel => document.querySelector(sel);
 const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-/* ---------- signature: show-only-on-first-visit (visual) ---------- */
+/* ---------- signature: AUTOMÁTICA E ROBUSTA ---------- */
 const sigPath = document.getElementById('sigPath');
 const sigText = document.getElementById('signatureText');
 
@@ -236,8 +231,8 @@ function prepareSignature(){
   const L = sigPath.getTotalLength();
   sigPath.style.strokeDasharray = L;
   sigPath.style.strokeDashoffset = L;
-  sigPath.getBoundingClientRect();
 }
+
 function animateSignature(){
   if(!sigPath) return;
   const L = sigPath.getTotalLength();
@@ -249,21 +244,19 @@ function animateSignature(){
     sigPath.style.strokeDashoffset = Math.max(0, Math.floor(L*(1-ease)));
     if(now - start < dur) requestAnimationFrame(frame);
     else {
+      sigText.style.transition = "opacity 0.5s ease";
       sigText.style.opacity = 1;
     }
   }
   requestAnimationFrame(frame);
 }
-// on first visit (session) animate; otherwise show static
-if(!sessionStorage.getItem('sigShown')){
+
+// Inicia assim que o DOM carregar, sem depender de cache ou F5
+document.addEventListener('DOMContentLoaded', () => {
   prepareSignature();
-  // animate as soon as DOM loaded
-  window.addEventListener('load', ()=> { animateSignature(); sessionStorage.setItem('sigShown','1'); });
-} else {
-  // show immediately
-  if(sigPath) sigPath.style.strokeDashoffset = 0;
-  if(sigText) sigText.style.opacity = 1;
-}
+  // Pequeno delay para garantir que o SVG foi renderizado
+  setTimeout(animateSignature, 300);
+});
 
 /* ---------- fade reveal for sections ---------- */
 const observer = new IntersectionObserver((entries)=>{
@@ -312,7 +305,7 @@ function spawnTrail(x,y){
   setTimeout(()=> el.remove(), 950);
 }
 
-/* ---------- WebAudio: cinematic orchestral ambient (synth-based) ---------- */
+/* ---------- WebAudio Engine ---------- */
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
 let audioCtx = null, masterGain = null, ambientNodes = [], ambientRunning = false;
 function ensureAudio(){
@@ -323,7 +316,6 @@ function ensureAudio(){
   masterGain.connect(audioCtx.destination);
   return audioCtx;
 }
-/* make a simple reverb (impulse) */
 function makeReverb(seconds = 2.2){
   const ctx = audioCtx;
   const rate = ctx.sampleRate;
@@ -331,10 +323,7 @@ function makeReverb(seconds = 2.2){
   const impulse = ctx.createBuffer(2, length, rate);
   for(let ch=0; ch<2; ch++){
     const data = impulse.getChannelData(ch);
-    for(let i=0;i<length;i++){
-      // exponential decay noise for a dark hall
-      data[i] = (Math.random()*2-1) * Math.pow(1 - i/length, 3);
-    }
+    for(let i=0;i<length;i++) data[i] = (Math.random()*2-1) * Math.pow(1 - i/length, 3);
   }
   return impulse;
 }
@@ -342,69 +331,20 @@ function startAmbientCinematic(){
   if(ambientRunning) return;
   ensureAudio();
   const ctx = audioCtx;
-
-  // pad cluster (detuned oscillators)
   const pad = ctx.createGain(); pad.gain.value = 0.0;
   const freqs = [40, 48, 60];
   const padOsc = freqs.map(f => {
-    const o = ctx.createOscillator();
-    o.type = 'sine';
-    o.frequency.value = f + (Math.random()-0.5)*1.6;
-    const g = ctx.createGain(); g.gain.value = 0.0;
-    o.connect(g); g.connect(pad);
-    o.start();
+    const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f + (Math.random()-0.5)*1.6;
+    const g = ctx.createGain(); g.gain.value = 0.0; o.connect(g); g.connect(pad); o.start();
     return {o,g};
   });
-
-  // filter for warmth
-  const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 900;
-  pad.connect(lp);
-
-  // reverb
-  const convolver = ctx.createConvolver();
-  convolver.buffer = makeReverb(3.6);
-  const revMix = ctx.createGain(); revMix.gain.value = 0.15;
-  lp.connect(revMix); revMix.connect(convolver); convolver.connect(masterGain);
-
-  // dry to master
+  const lp = ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 900; pad.connect(lp);
+  const convolver = ctx.createConvolver(); convolver.buffer = makeReverb(3.6);
+  const revMix = ctx.createGain(); revMix.gain.value = 0.15; lp.connect(revMix); revMix.connect(convolver); convolver.connect(masterGain);
   lp.connect(masterGain);
-
-  // slow LFO to modulate filter frequency (texture)
   const lfo = ctx.createOscillator(); lfo.type='sine'; lfo.frequency.value = 0.05;
-  const lfoG = ctx.createGain(); lfoG.gain.value = 400;
-  lfo.connect(lfoG); lfoG.connect(lp.frequency); lfo.start();
-
-  // orchestral hits (bell-like) occasionally
-  function scheduleHit(){
-    const now = ctx.currentTime;
-    const osc = ctx.createOscillator(); osc.type='triangle';
-    const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, now);
-    osc.frequency.setValueAtTime(420 + Math.random()*220, now);
-    osc.connect(g); g.connect(masterGain);
-    g.gain.exponentialRampToValueAtTime(0.06, now + 0.02);
-    g.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
-    osc.start(now); osc.stop(now + 0.9);
-    setTimeout(scheduleHit, 4000 + Math.random()*9000);
-  }
-  setTimeout(scheduleHit, 2400);
-
-  // crescendo: ramp pad gain up
-  const target = 0.5;
-  pad.connect(masterGain); // direct path (also filtered above)
-  pad.gain.setValueAtTime(0.0001, ctx.currentTime);
-  pad.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.8);
-  // slowly set each oscillator gain to voiced level
-  padOsc.forEach((obj, i) => {
-    obj.g.gain.setValueAtTime(0.0001, ctx.currentTime);
-    obj.g.gain.exponentialRampToValueAtTime(0.06 * (1 + i*0.2), ctx.currentTime + 3.2);
-  });
-
-  // set master loudness target (crescendo)
-  masterGain.gain.cancelScheduledValues(ctx.currentTime);
-  masterGain.gain.setValueAtTime(0.0001, ctx.currentTime);
+  const lfoG = ctx.createGain(); lfoG.gain.value = 400; lfo.connect(lfoG); lfoG.connect(lp.frequency); lfo.start();
   masterGain.gain.exponentialRampToValueAtTime(0.6, ctx.currentTime + 4.0);
-
-  ambientNodes = { padOsc, lp, convolver, lfo, revMix };
   ambientRunning = true;
 }
 function stopAmbientCinematic(){
@@ -412,8 +352,6 @@ function stopAmbientCinematic(){
   masterGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.0);
   ambientRunning = false;
 }
-
-/* play a pen-like transient (used optionally on first enable) */
 function playPenShort(){
   const ctx = ensureAudio();
   const now = ctx.currentTime;
@@ -429,41 +367,29 @@ function playPenShort(){
   src.start(now); src.stop(now + 0.25);
 }
 
-/* ---------- connect UI: theme & sound ---------- */
 $('#themeToggle').addEventListener('click', () => {
   document.body.classList.toggle('light');
-  // small audio cue if available
   try{ ensureAudio(); playPenShort(); }catch(e){}
 });
 
 let soundEnabled = false;
 $('#soundBtn').addEventListener('click', () => {
-  // first gesture: ensure context and play pen then ambient crescendo
   ensureAudio();
   if(!soundEnabled){
-    playPenShort();
-    startAmbientCinematic();
+    playPenShort(); startAmbientCinematic();
     $('#soundBtn').textContent = 'Som ativado';
     soundEnabled = true;
   } else {
-    // toggle mute/fade out
-    if(ambientRunning){
-      stopAmbientCinematic();
-      $('#soundBtn').textContent = 'Som desativado';
-    } else {
-      startAmbientCinematic();
-      $('#soundBtn').textContent = 'Som ativado';
-    }
+    if(ambientRunning){ stopAmbientCinematic(); $('#soundBtn').textContent = 'Som desativado'; }
+    else { startAmbientCinematic(); $('#soundBtn').textContent = 'Som ativado'; }
   }
 });
 
-/* ---------- hover/click micro-sounds ---------- */
 $$('.badge, .nav-links a, .nav-btn').forEach(el=>{
   el.addEventListener('mouseenter', ()=>{ try{ ensureAudio(); const ctx = audioCtx; const o = ctx.createOscillator(); const g = ctx.createGain(); o.type='sine'; o.frequency.value = 420; o.connect(g); g.connect(masterGain); g.gain.setValueAtTime(0.0001, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.02, ctx.currentTime + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12); o.start(ctx.currentTime); o.stop(ctx.currentTime + 0.14);}catch(e){} });
   el.addEventListener('click', ()=>{ try{ ensureAudio(); playPenShort(); }catch(e){} });
 });
 
-/* ---------- smooth anchor scroll ---------- */
 $$('a[href^="#"]').forEach(a=>{
   a.addEventListener('click', (ev)=>{
     const id = a.getAttribute('href').slice(1);
@@ -472,10 +398,6 @@ $$('a[href^="#"]').forEach(a=>{
   });
 });
 
-/* ---------- signature: ensure it triggers on first *visit* (not reload behavior) ---------- */
-// Already handled at top by sessionStorage 'sigShown'
-
-// ensure audio unlock on first pointerdown for browsers
 function resumeOnGesture(){ if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume(); window.removeEventListener('pointerdown', resumeOnGesture); }
 window.addEventListener('pointerdown', resumeOnGesture, { once: true });
 </script>
