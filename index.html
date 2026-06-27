@@ -1,229 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Henri Mafra — Portfólio</title>
-<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;700&family=Sacramento&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#060506; --panel: rgba(18,18,20,0.48); --muted:#bdb9bf; --text:#f6f6f7;
-    --ink:#b90000; --gold:#ffcf5c; --glow: 0 14px 60px rgba(185,0,0,0.12);
-    --trans: 420ms cubic-bezier(.2,.9,.2,1); --nav-h:72px;
-  }
-  body.light{
-    --bg:#fbfaf8; --panel: rgba(255,255,255,0.62); --muted:#33363a; 
-    --text:#111214; --ink:#8b0000; --gold:#c9a200; 
-  }
-
-  *{box-sizing:border-box}
-  body{
-    margin:0; font-family: 'Montserrat', sans-serif;
-    background: radial-gradient(900px 420px at 8% 12%, rgba(185,0,0,0.03), transparent), var(--bg);
-    color:var(--text); transition: background var(--trans), color var(--trans);
-    overflow-x:hidden; cursor:none;
-  }
-
-  nav{ position:fixed; top:14px; left:0; right:0; display:flex; justify-content:center; z-index:1400; }
-  .nav-inner{
-    width:95%; max-width:1180px; display:flex; align-items:center; justify-content:space-between;
-    padding:10px 20px; background: var(--panel); border-radius:14px;
-    backdrop-filter: blur(12px) saturate(120%); box-shadow: var(--glow);
-  }
-  .logo{font-family:'Crimson Text',serif; color:var(--gold); font-weight:700; font-size:1.12rem}
-  .nav-links{display:flex; align-items:center; gap:10px}
-  .nav-links a, .nav-btn{
-    color:var(--text); text-decoration:none; font-weight:700; padding:8px 12px; 
-    border-radius:10px; transition:all .16s; background:transparent; border:1px solid rgba(255,255,255,0.06); cursor:pointer;
-  }
-  .nav-links a:hover, .nav-btn:hover{ color:var(--gold); transform:translateY(-3px); }
-
-  header{
-    min-height: 100vh; padding: 120px 20px 60px;
-    display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center;
-  }
-  .avatar{ width:180px; height:180px; border-radius:18px; overflow:hidden; border:3px solid rgba(255,255,255,0.04); margin-bottom: 20px;}
-  .avatar img{width:100%; height:100%; object-fit:cover;}
-
-  .sig-wrap {
-    width: 100%; max-width: 520px; min-height: 110px;
-    position: relative; display: flex; flex-direction: column; align-items: center;
-  }
-  .sig-svg { width: 100%; height: auto; }
-  .sig-path { fill:none; stroke:var(--text); stroke-width:2.8; stroke-linecap:round; stroke-dasharray: 1000; stroke-dashoffset: 1000; }
-  
-  #signatureText {
-    font-family: 'Sacramento'; font-size: 60px; color: var(--ink);
-    opacity: 0; margin-top: -45px; pointer-events: none;
-  }
-
-  .bio { margin-top:15px; font-size: 1.06rem; color: var(--muted); max-width: 760px; line-height: 1.6; }
-  
-  section{ padding:60px 20px; max-width:980px; margin:0 auto; text-align:center; }
-  h2{ font-family:'Crimson Text',serif; font-size:28px; color:var(--ink); margin-bottom:15px; }
-  .row{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-  .badge{ 
-    padding:12px 18px; border-radius:12px; background: rgba(255,255,255,0.03); 
-    border:1px solid rgba(255,255,255,0.05); color:var(--text); text-decoration:none; 
-    font-weight:700; transition: .2s; 
-  }
-  .badge:hover{ transform:translateY(-5px); background: var(--ink); color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
-
-  /* PROJETO EM DESTAQUE (SEM IMAGEM) */
-  .featured-project {
-    width: 100%; max-width: 800px; margin: 30px auto;
-    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 16px; padding: 30px;
-    text-align: left; transition: 0.3s ease;
-  }
-  .featured-project:hover { border-color: var(--ink); box-shadow: 0 10px 30px rgba(185,0,0,0.1); }
-  
-  .project-details h3 { font-family:'Crimson Text',serif; font-size: 26px; color: var(--gold); margin: 0 0 15px; }
-  .project-details p { font-size: 1.05rem; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
-  .tech-stack { font-family: monospace; font-size: 0.9rem; color: var(--ink); margin-bottom: 25px; font-weight: bold; display: block;}
-
-  .cursor{ position:fixed; width:18px; height:18px; border-radius:50%; pointer-events:none; z-index:2000; transform:translate(-50%,-50%); background:radial-gradient(circle at 40% 35%, rgba(255,255,255,0.9), transparent 50%); box-shadow:0 0 15px var(--ink); }
-  .trail{ position:fixed; border-radius:50%; pointer-events:none; filter:blur(4px); opacity:0.5; z-index: 1999; }
-
-  footer{ padding:40px; text-align:center; color:var(--muted); border-top:1px solid rgba(255,255,255,0.05); }
-
-  @media (max-width: 600px) { #signatureText { font-size: 42px; margin-top: -35px; } .nav-inner { flex-direction: column; gap: 10px; } }
-</style>
-</head>
-<body>
-
-<div id="cursor" class="cursor"></div>
-
-<nav>
-  <div class="nav-inner">
-    <div class="logo">&lt;HenriMafra/&gt;</div>
-    <div class="nav-links">
-      <a href="#inicio">Início</a>
-      <a href="#projetos">Projetos</a>
-      <a href="#perfis">Perfis</a>
-      <a href="#contato">Contato</a>
-      <button class="nav-btn" id="themeToggle">Tema</button>
-      <button class="nav-btn" id="soundBtn">Som</button>
-    </div>
-  </div>
-</nav>
-
-<header id="inicio">
-  <div class="avatar">
-    <img src="https://avatars.githubusercontent.com/u/104782116?v=4" alt="Henri">
-  </div>
-  <div class="sig-wrap">
-    <svg class="sig-svg" viewBox="0 0 520 86">
-      <path id="sigPath" class="sig-path" d="M12 54 C36 18, 86 12, 132 36 C180 62, 220 52, 260 34 C300 16, 340 40, 380 30 C420 20, 460 62, 504 52"/>
-    </svg>
-    <div id="signatureText">Henri Mafra</div>
-  </div>
-  <div class="bio">
-    <p>👨‍💻 Estudante de Ciência de Dados e Machine Learning</p>
-    <p>🤖 Apaixonado por IA | 🐍 Entusiasta de Python</p>
-  </div>
-</header>
-
-<main>
-  <section id="projetos">
-    <h2>💻 Projeto em Destaque</h2>
-    
-    <div class="featured-project">
-      <div class="project-details">
-        <h3>Análise de Gastos: Cartões Corporativos do Governo</h3>
-        <p>Desenvolvi um Dashboard interativo e simples para monitorar despesas com cartões de pagamento do Governo Federal Brasileiro. O projeto tem como objetivo o aprendizado de ferramentas de visualização e a transparência básica dos dados.</p>
-        <span class="tech-stack">Tecnologias: Python | Streamlit | Pandas | Plotly Express</span>
-        <div class="row" style="justify-content: flex-start;">
-          <a href="https://dashboard-cartoesgov-a69fyt3udebrewhsyskt8p.streamlit.app/" target="_blank" class="badge">📊 Acessar Dashboard Online</a>
-          <a href="https://github.com/HenriMafra/dashboard-cartoes.gov" target="_blank" class="badge">🔗 Ver Código no GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="row" style="margin-top: 40px;">
-      <a class="badge" href="https://github.com/HenriMafra?tab=repositories" target="_blank">🔍 Ver todos os repositórios no GitHub</a>
-    </div>
-  </section>
-
-  <section id="perfis">
-    <h2>👾 Perfis Técnicos</h2>
-    <div class="row">
-      <a class="badge" href="https://huggingface.co/HENRI10" target="_blank">🤗 Hugging Face</a>
-      <a class="badge" href="https://leetcode.com/u/Henri1/" target="_blank">💡 LeetCode</a>
-      <a class="badge" href="https://www.hackerrank.com/profile/henri_afly" target="_blank">🧩 HackerRank</a>
-      <a class="badge" href="https://www.kaggle.com/henrimafra" target="_blank">📊 Kaggle</a>
-    </div>
-  </section>
-
-  <section id="contato">
-    <h2>📡 Contato e conexões</h2>
-    <div class="row">
-      <a class="badge" href="mailto:henri.afly@gmail.com">📧 henri.afly@gmail.com</a>
-      <a class="badge" href="https://www.linkedin.com/in/henrimafra" target="_blank">💼 LinkedIn</a>
-    </div>
-  </section>
-</main>
-
-<footer>© 2025 Henri Mafra</footer>
-
-<script>
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
-
-/* ---------- ASSINATURA ---------- */
-function initSig() {
-  const path = $('#sigPath');
-  const text = $('#signatureText');
-  if(!path) return;
-  const L = path.getTotalLength();
-  path.style.strokeDasharray = L;
-  path.style.strokeDashoffset = L;
-  setTimeout(() => {
-    path.style.transition = 'stroke-dashoffset 1.8s ease-in-out';
-    path.style.strokeDashoffset = '0';
-    setTimeout(() => {
-      text.style.transition = 'opacity 0.8s ease';
-      text.style.opacity = '1';
-    }, 1400);
-  }, 400);
-}
-document.addEventListener('DOMContentLoaded', initSig);
-
-/* ---------- BOTÕES TEMA E SOM ---------- */
-$('#themeToggle').addEventListener('click', () => document.body.classList.toggle('light'));
-
-let audioCtx;
-$('#soundBtn').addEventListener('click', () => {
-  if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if(audioCtx.state === 'suspended') audioCtx.resume();
-  $('#soundBtn').textContent = 'Som: Ativo';
-  
-  const osc = audioCtx.createOscillator();
-  const g = audioCtx.createGain();
-  osc.connect(g); g.connect(audioCtx.destination);
-  g.gain.setValueAtTime(0.1, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-  osc.start(); osc.stop(audioCtx.currentTime + 0.5);
-});
-
-/* ---------- CURSOR ---------- */
-const cursor = $('#cursor');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  
-  const trail = document.createElement('div');
-  trail.className = 'trail';
-  trail.style.left = e.clientX + 'px'; trail.style.top = e.clientY + 'px';
-  trail.style.width = '6px'; trail.style.height = '6px';
-  trail.style.background = 'var(--ink)';
-  document.body.appendChild(trail);
-  setTimeout(() => {
-    trail.style.transition = 'all 0.5s';
-    trail.style.opacity = '0';
-    setTimeout(() => trail.remove(), 500);
-  }, 50);
-});
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#070b14" />
+    <meta
+      name="description"
+      content="Henri Mafra — Estudante de Ciência de Dados e Machine Learning. Construo ferramentas de automação e dados orientadas por IA."
+    />
+    <meta property="og:title" content="Henri Mafra — Ciência de Dados, ML & Automação com IA" />
+    <meta
+      property="og:description"
+      content="Portfólio de Henri Mafra: projetos de dados, automação e inteligência artificial."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://henrimafra.github.io/" />
+    <title>Henri Mafra — Ciência de Dados, ML & Automação com IA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
