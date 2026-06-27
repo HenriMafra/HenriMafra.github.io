@@ -5,7 +5,7 @@ export default function Stack() {
   return (
     <Section id="stack">
       <SectionHeading
-        index="03"
+        index="04"
         id="capacidades"
         title="Stack & capacidades"
         subtitle="As ferramentas que uso no dia a dia, agrupadas por domínio. O que ainda estou estudando fica separado, no roadmap — honestidade técnica importa."
@@ -44,7 +44,7 @@ export default function Stack() {
             ))}
           </ul>
           <p className="mt-4 text-xs leading-relaxed text-muted">
-            Em estudo ativo e aplicação progressiva aos fluxos de automação que já mantenho.
+            Em estudo ativo, aplicado aos meus projetos à medida que avanço na graduação.
           </p>
         </div>
       </div>

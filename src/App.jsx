@@ -1,30 +1,18 @@
-import { useEffect } from 'react'
 import { useTheme } from './hooks'
 import Topbar from './components/Topbar'
 import Hero from './components/Hero'
-import Pipeline from './components/Pipeline'
 import About from './components/About'
+import Services from './components/Services'
+import AITools from './components/AITools'
 import Stack from './components/Stack'
 import Projects from './components/Projects'
-import Timeline from './components/Timeline'
-import Links from './components/Links'
+import Process from './components/Process'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import WhatsappFloat from './components/WhatsappFloat'
 
 export default function App() {
   const [theme, toggleTheme] = useTheme()
-
-  // Easter egg: pressionar "P" abre o Neon Snake (ignora quando digitando em campos).
-  useEffect(() => {
-    const onKey = (e) => {
-      const tag = (e.target?.tagName || '').toLowerCase()
-      if (tag === 'input' || tag === 'textarea' || e.metaKey || e.ctrlKey || e.altKey) return
-      if (e.key === 'p' || e.key === 'P') window.location.href = '/game/'
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
 
   return (
     <div className="min-h-screen bg-bg text-ink">
@@ -37,12 +25,12 @@ export default function App() {
       <Topbar theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Hero />
-        <Pipeline />
         <About />
+        <Services />
+        <AITools />
         <Stack />
         <Projects />
-        <Timeline />
-        <Links />
+        <Process />
         <Contact />
       </main>
       <Footer />

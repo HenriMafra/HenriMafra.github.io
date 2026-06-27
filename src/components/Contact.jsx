@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { contact, profile, whatsappLink } from '../siteData'
+import { contact, profile, whatsappLink, links } from '../siteData'
 import { useReveal } from '../hooks'
-import { IconMail, IconLinkedin, IconGithub, IconWhatsapp, IconCopy, IconCheck, IconDownload } from './icons'
+import { iconMap, IconMail, IconLinkedin, IconGithub, IconWhatsapp, IconCopy, IconCheck, IconExternal } from './icons'
 
 const channels = [
   { id: 'email', cmd: 'email', value: profile.email, href: `mailto:${profile.email}`, icon: IconMail, copy: profile.email },
@@ -75,12 +75,34 @@ export default function Contact() {
                 <IconWhatsapp className="h-[18px] w-[18px]" /> Conversar no WhatsApp
               </a>
               <a
-                href={profile.cv}
-                download
+                href={`mailto:${profile.email}`}
                 className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
               >
-                <IconDownload className="h-4 w-4" /> Baixar currículo
+                <IconMail className="h-[18px] w-[18px]" /> Enviar e-mail
               </a>
+            </div>
+
+            {/* Perfis técnicos */}
+            <div className="mt-7">
+              <div className="mb-3 font-mono text-[11px] uppercase tracking-wide text-muted">também me encontre em</div>
+              <div className="flex flex-wrap gap-2">
+                {links.map((l) => {
+                  const Icon = iconMap[l.icon]
+                  return (
+                    <a
+                      key={l.label}
+                      href={l.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={l.label}
+                      className="group inline-flex items-center gap-2 rounded-md border border-line bg-bg/40 px-3 py-2 text-xs font-medium text-muted transition hover:border-primary/60 hover:text-ink"
+                    >
+                      {Icon && <Icon className="h-4 w-4 transition group-hover:text-primary" />}
+                      {l.label}
+                    </a>
+                  )
+                })}
+              </div>
             </div>
           </div>
 

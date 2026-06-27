@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { hero, profile, whatsappLink } from '../siteData'
 import { usePrefersReducedMotion, useCountUp } from '../hooks'
-import { IconArrowRight, IconDownload, IconLinkedin } from './icons'
+import { IconArrowRight, IconWhatsapp, IconLinkedin } from './icons'
 
 function Terminal() {
   const reduced = usePrefersReducedMotion()
@@ -58,7 +58,7 @@ function Terminal() {
         <span className="h-3 w-3 rounded-full bg-pink/80" />
         <span className="h-3 w-3 rounded-full bg-[#f7c948]/80" />
         <span className="h-3 w-3 rounded-full bg-accent2/80" />
-        <span className="ml-2 font-mono text-xs text-muted">henri@ntsec: ~/portfolio</span>
+        <span className="ml-2 font-mono text-xs text-muted">henri@portfolio: ~</span>
       </div>
       <div ref={containerRef} className="space-y-2.5 p-4 font-mono text-[13px] leading-relaxed sm:p-5 sm:text-sm">
         {rendered.map((l, i) => {
@@ -67,7 +67,7 @@ function Terminal() {
             <div key={i}>
               <p className="text-ink">
                 <span className="text-accent2">$</span>{' '}
-                <span>{(l.typed ?? l.cmd).replace('henri@ntsec:~$ ', '')}</span>
+                <span>{(l.typed ?? l.cmd).replace(/^.*?\$\s*/, '')}</span>
                 {!l.done && isLast && !reduced && <span className="caret align-middle" aria-hidden="true" />}
               </p>
               {l.done && <p className="pl-3.5 text-muted">{l.out}</p>}
@@ -112,17 +112,18 @@ export default function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href="#projetos"
+              href={whatsappLink()}
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110"
             >
-              Ver projetos <IconArrowRight className="h-4 w-4" />
+              <IconWhatsapp className="h-[18px] w-[18px]" /> Fale comigo
             </a>
             <a
-              href={profile.cv}
-              download
+              href="#projetos"
               className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
             >
-              <IconDownload className="h-4 w-4" /> Baixar currículo
+              Ver projetos <IconArrowRight className="h-4 w-4" />
             </a>
             <a
               href={profile.linkedin}

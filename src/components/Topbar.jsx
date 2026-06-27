@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { nav, profile } from '../siteData'
+import { nav, whatsappLink } from '../siteData'
 import { useBrasiliaClock } from '../hooks'
-import { IconSun, IconMoon, IconMenu, IconClose, IconDownload } from './icons'
+import { IconSun, IconMoon, IconMenu, IconClose, IconWhatsapp } from './icons'
 
 export default function Topbar({ theme, toggleTheme }) {
   const clock = useBrasiliaClock()
@@ -61,12 +61,13 @@ export default function Topbar({ theme, toggleTheme }) {
             {theme === 'dark' ? <IconSun className="h-[18px] w-[18px]" /> : <IconMoon className="h-[18px] w-[18px]" />}
           </button>
           <a
-            href={profile.cv}
-            download
+            href={whatsappLink()}
+            target="_blank"
+            rel="noreferrer"
             className="hidden items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-[#04121a] transition hover:brightness-110 sm:flex"
           >
-            <IconDownload className="h-4 w-4" />
-            Currículo
+            <IconWhatsapp className="h-[18px] w-[18px]" />
+            Fale comigo
           </a>
           <button
             type="button"
@@ -94,13 +95,14 @@ export default function Topbar({ theme, toggleTheme }) {
             </a>
           ))}
           <a
-            href={profile.cv}
-            download
+            href={whatsappLink()}
+            target="_blank"
+            rel="noreferrer"
             onClick={() => setOpen(false)}
             className="mt-2 flex items-center justify-center gap-2 rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-[#04121a]"
           >
-            <IconDownload className="h-4 w-4" />
-            Baixar currículo
+            <IconWhatsapp className="h-[18px] w-[18px]" />
+            Fale comigo
           </a>
         </nav>
       )}

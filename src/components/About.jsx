@@ -4,7 +4,7 @@ import { Section, SectionHeading } from './Section'
 export default function About() {
   return (
     <Section id="sobre">
-      <SectionHeading index="02" id="perfil" title={about.heading} />
+      <SectionHeading index="01" id="sobre" title={about.heading} />
       <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
         <div className="space-y-4">
           {about.paragraphs.map((p, i) => (
@@ -16,7 +16,7 @@ export default function About() {
 
         <aside className="h-fit rounded-xl border border-line bg-surface/60 p-5">
           <div className="mb-4 flex items-center gap-2 font-mono text-xs text-muted">
-            <span className="text-accent2">$</span> cat perfil.json
+            <span className="text-accent2">$</span> cat sobre.json
           </div>
           <dl className="divide-y divide-line">
             {about.spec.map((s) => (
