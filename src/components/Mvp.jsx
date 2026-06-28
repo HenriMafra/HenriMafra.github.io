@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Section, SectionHeading } from './Section'
 import { whatsappLink, profile } from '../siteData'
 import { submitBrief } from '../config'
+import { PIX, pixCode } from '../pix'
 import { IconWhatsapp, IconCheck, IconArrowRight, IconCopy, IconMail } from './icons'
 
 const emailLink = (brief) =>
@@ -100,6 +101,14 @@ export default function Mvp() {
   const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [pixCopied, setPixCopied] = useState(false)
+  const copyPix = async () => {
+    try {
+      await navigator.clipboard.writeText(pixCode())
+      setPixCopied(true)
+      setTimeout(() => setPixCopied(false), 1800)
+    } catch { /* ignore */ }
+  }
   const [d, setD] = useState({
     tipo: '', objetivos: [], negocio: '', segmento: '', publico: '',
     vibes: [], paleta: '', tema: '', secoes: [], integracoes: [], conteudo: [],
@@ -220,6 +229,33 @@ export default function Mvp() {
                 <button type="button" onClick={copy} className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary">
                   {copied ? <IconCheck className="h-4 w-4 text-accent2" /> : <IconCopy className="h-4 w-4" />} {copied ? 'Copiado!' : 'Copiar'}
                 </button>
+              </div>
+
+              {/* Pagamento Pix da prévia */}
+              <div className="mx-auto mt-8 max-w-md rounded-xl border border-primary/30 bg-primary/[0.04] p-5 text-left">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="font-display text-base font-bold text-ink">Liberar a prévia</span>
+                  <span className="font-mono text-lg font-bold text-primary">{PIX.amountLabel}</span>
+                </div>
+                <p className="mt-1.5 text-xs leading-relaxed text-muted">
+                  Pague via Pix para eu montar a sua prévia. Esse valor é <span className="text-accent2">abatido do projeto final</span> se você fechar — ou seja, você não perde nada.
+                </p>
+                <div className="mt-4 flex items-stretch gap-2">
+                  <code className="flex-1 truncate rounded-md border border-line bg-bg/50 px-3 py-2.5 font-mono text-[11px] text-muted">
+                    {pixCode()}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={copyPix}
+                    className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-md bg-primary px-3.5 py-2.5 text-xs font-semibold text-[#04121a] transition hover:brightness-110"
+                  >
+                    {pixCopied ? <IconCheck className="h-4 w-4" /> : <IconCopy className="h-4 w-4" />}
+                    {pixCopied ? 'Copiado!' : 'Copiar Pix'}
+                  </button>
+                </div>
+                <p className="mt-3 text-[11px] leading-relaxed text-muted">
+                  No app do seu banco: <span className="text-ink">Pix → Pix Copia e Cola</span>, cole o código e confirme. Depois é só me mandar o comprovante no WhatsApp.
+                </p>
               </div>
             </div>
           ) : (
