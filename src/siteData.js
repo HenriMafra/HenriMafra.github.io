@@ -1,6 +1,6 @@
 /* ============================================================
-   Conteúdo do portfólio — foco freelance.
-   Apenas fatos reais e públicos. Sem métricas inventadas.
+   Conteúdo do portfólio — foco freelance, linguagem acessível.
+   Apenas fatos reais e públicos. Sem citar instituição de ensino.
    ============================================================ */
 
 export const profile = {
@@ -21,7 +21,7 @@ export const whatsappLink = (
 export const seo = {
   title: 'Henri Mafra — Ciência de Dados, Machine Learning e Desenvolvimento',
   description:
-    'Henri Mafra, estudante de Ciência de Dados e Machine Learning. Faço dashboards, automações, modelos e sites — soluções práticas de dados e web para o seu negócio, com desenvolvimento orientado por IA.',
+    'Henri Mafra, estudante de Ciência de Dados e Machine Learning. Faço dashboards, automações, modelos e landing pages — soluções práticas de dados e web para o seu negócio, com desenvolvimento orientado por IA.',
 }
 
 export const hero = {
@@ -29,34 +29,34 @@ export const hero = {
   name: 'Henri Mafra',
   headline: 'Dados, automação e sites que ajudam o seu negócio a crescer.',
   subheadline:
-    'Estudante de Ciência de Dados e Machine Learning. Transformo dados em dashboards, automatizo tarefas repetitivas e crio sites modernos — com desenvolvimento orientado por IA, do dado bruto ao produto no ar.',
+    'Estudante de Ciência de Dados e Machine Learning. Transformo dados em dashboards, automatizo tarefas repetitivas e crio landing pages modernas — com as ferramentas de IA mais avançadas do mundo, do dado bruto ao produto no ar.',
   terminalLines: [
     { cmd: 'henri@portfolio:~$ whoami', out: 'estudante de ciência de dados e machine learning' },
     { cmd: 'henri@portfolio:~$ services', out: 'dashboards · automação · machine learning · sites' },
     { cmd: 'henri@portfolio:~$ stack', out: 'python · sql · javascript/typescript · react · ia' },
   ],
   metrics: [
-    { value: 'CD & ML', label: 'Estudante · UniCEUB' },
-    { value: '2025–2028', label: 'Graduação em andamento' },
+    { value: 'CD & ML', label: 'Ciência de Dados e Machine Learning' },
+    { value: '30+', label: 'ferramentas de IA no fluxo', countTo: 30, suffix: '+' },
     { value: 'Freelance', label: 'aberto a projetos' },
-    { value: '13+', label: 'ferramentas de IA no fluxo', countTo: 13, suffix: '+' },
+    { value: '24/7', label: 'projetos em VPS, sempre no ar' },
   ],
 }
 
 export const about = {
   heading: 'Sobre mim',
   paragraphs: [
-    'Sou estudante de Ciência de Dados e Machine Learning na UniCEUB (Brasília) e, nas horas livres, ajudo pessoas e pequenos negócios a organizar dados, automatizar tarefas repetitivas e ganhar presença online.',
-    'Trabalho com transparência, prazos claros e foco em resultado prático para o seu dia a dia. Uso desenvolvimento orientado por IA como ferramenta central — o que me deixa rápido para tirar uma ideia do papel e entregar algo que realmente funciona.',
-    'Gosto de problemas onde dado, automação e web se encontram — e prezo por honestidade técnica: digo o que dá pra fazer, em quanto tempo, e entrego.',
+    'Sou estudante de Ciência de Dados e Machine Learning e, no dia a dia, ajudo pessoas e pequenos negócios a organizar dados, automatizar tarefas repetitivas e ganhar presença online com landing pages bonitas e rápidas.',
+    'Em vez de explicar termos técnicos, eu resolvo o seu problema: você me diz o que precisa, eu cuido da parte difícil e te entrego algo simples de usar. Trabalho com transparência, prazos claros e foco em resultado prático.',
+    'Uso as ferramentas de IA mais avançadas do mundo como aliadas — o que me deixa rápido para tirar uma ideia do papel e entregar algo que realmente funciona, com cuidado de segurança em tudo que construo.',
   ],
   spec: [
-    { k: 'Formação', v: 'Ciência de Dados e ML · UniCEUB' },
-    { k: 'Período', v: 'fev/2025 – jun/2028' },
+    { k: 'Área', v: 'Ciência de Dados e Machine Learning' },
+    { k: 'Foco', v: 'Dados · Automação · Landing pages' },
     { k: 'Local', v: 'Brasília, DF · Brasil' },
-    { k: 'Foco', v: 'Dados · Automação · Web · IA' },
     { k: 'Modelo', v: 'Freelance · projetos sob demanda' },
-    { k: 'Idiomas', v: 'Português (nativo) · Inglês técnico' },
+    { k: 'Disponibilidade', v: 'Projetos em VPS 24/7' },
+    { k: 'Idiomas', v: 'Português (nativo) · Inglês avançado' },
   ],
 }
 
@@ -65,46 +65,51 @@ export const services = [
     title: 'Dashboards & BI',
     icon: 'chart',
     description:
-      'Painéis interativos para acompanhar vendas, finanças e indicadores do seu negócio em tempo real.',
+      'Painéis visuais e fáceis de ler para acompanhar vendas, finanças e os números do seu negócio em tempo real.',
   },
   {
-    title: 'Automação de processos',
+    title: 'Automação de tarefas',
     icon: 'gear',
     description:
-      'Relatórios e tarefas repetitivas feitos automaticamente — menos trabalho manual, menos erro.',
+      'Aquela tarefa chata e repetitiva passa a acontecer sozinha — você ganha tempo e evita erros manuais.',
   },
   {
     title: 'Machine Learning',
     icon: 'brain',
     description:
-      'Modelos de previsão e classificação para apoiar decisões com base em dados, não em achismo.',
+      'Previsões e recomendações a partir dos seus dados, para você decidir com base em fatos, não em achismo.',
   },
   {
-    title: 'Sites & Landing Pages',
+    title: 'Landing pages & sites',
     icon: 'globe',
     description:
-      'Páginas rápidas, modernas e responsivas para apresentar o seu negócio e atrair clientes.',
+      'Páginas rápidas, modernas e responsivas para apresentar o seu negócio e transformar visitantes em clientes.',
   },
 ]
 
-/* Ferramentas de IA que uso no fluxo de trabalho. */
+/* Ferramentas de IA que uso no fluxo de trabalho. Em linguagem simples:
+   são os "assistentes" mais avançados do mundo, que me deixam mais rápido e melhor. */
 export const aiTools = {
   intro:
-    'Desenvolvimento orientado por IA é o centro do meu fluxo. Combino assistentes, agentes de código e construtores de apps para entregar mais rápido e com mais qualidade.',
+    'O que faz a diferença na minha entrega: uso, de forma combinada, as melhores ferramentas de inteligência artificial do mundo — para escrever código, criar imagens, pesquisar e acelerar tudo. Você não precisa entender nenhuma delas; o resultado chega pronto.',
   groups: [
-    { group: 'Assistentes de IA', items: ['Claude', 'ChatGPT', 'Gemini', 'Grok', 'Perplexity', 'GLM'] },
-    { group: 'Desenvolvimento com IA', items: ['Claude Code', 'Codex', 'Antigravity', 'Blackbox', 'Cowork'] },
-    { group: 'Construção de apps com IA', items: ['Base44', 'Lovable'] },
-    { group: 'Modelos locais', items: ['Ollama'] },
+    { group: 'Assistentes de IA', items: ['Claude', 'ChatGPT', 'Gemini', 'Grok', 'DeepSeek', 'Perplexity', 'Copilot', 'Meta AI', 'Le Chat', 'GLM', 'Qwen'] },
+    { group: 'Pesquisa & conhecimento', items: ['NotebookLM', 'Claude Projects', 'Gemini Deep Research'] },
+    { group: 'Desenvolvimento com IA', items: ['Claude Code', 'Codex', 'Cursor', 'GitHub Copilot', 'Antigravity', 'Windsurf', 'Blackbox', 'Cowork'] },
+    { group: 'Criação de apps & sites com IA', items: ['Base44', 'Lovable', 'v0', 'Bolt', 'Firebase Studio'] },
+    { group: 'Geração de imagem', items: ['Midjourney', 'DALL·E', 'Stable Diffusion', 'Flux', 'Leonardo AI', 'Ideogram', 'Adobe Firefly', 'Imagen / Whisk', 'Recraft'] },
+    { group: 'Vídeo, áudio & mídia', items: ['Sora', 'Runway', 'Kling', 'Veo', 'Pika', 'Suno', 'ElevenLabs'] },
+    { group: 'Modelos locais (no meu hardware)', items: ['Ollama', 'LM Studio', 'Jan'] },
   ],
-  note: 'entre outras — o ecossistema muda rápido e eu acompanho.',
+  note: 'entre muitas outras — o ecossistema de IA muda toda semana e eu acompanho de perto.',
 }
 
 export const skills = [
   { group: 'Linguagens', items: ['Python', 'SQL', 'JavaScript', 'TypeScript'] },
   { group: 'Dados & BI', items: ['Modelagem dimensional', 'ETL', 'Power BI', 'DAX', 'Pandas', 'Streamlit'] },
-  { group: 'Web & Cloud', items: ['React', 'Vite', 'Node.js', 'Cloudflare', 'Supabase/PostgreSQL'] },
-  { group: 'Automação', items: ['Playwright', 'Scraping', 'Integração de APIs', 'Git', 'GitHub Actions'] },
+  { group: 'Web & Cloud', items: ['React', 'Vite', 'Node.js', 'Tailwind', 'Cloudflare', 'Firebase', 'Supabase/PostgreSQL'] },
+  { group: 'Infra & Deploy', items: ['GitHub Actions', 'VPS 24/7', 'Cloudflare Pages/Workers', 'Git'] },
+  { group: 'Automação', items: ['Playwright', 'Scraping', 'Integração de APIs', 'Webhooks'] },
 ]
 
 export const roadmap = {
@@ -160,7 +165,7 @@ export const links = [
 export const contact = {
   heading: 'Vamos tirar o seu projeto do papel?',
   subheading:
-    'Precisa de um dashboard, uma automação, um modelo de Machine Learning ou um site? Me chame no WhatsApp ou por e-mail e eu retorno rapidinho com uma proposta sem compromisso.',
+    'Precisa de um dashboard, uma automação ou uma landing page? Me chame no WhatsApp ou por e-mail e eu retorno rapidinho com uma proposta sem compromisso. Quer ver antes como ficaria? Peça uma prévia (MVP).',
 }
 
 export const footerText = 'Estudante de Ciência de Dados e Machine Learning · Brasília, DF'
@@ -170,6 +175,6 @@ export const nav = [
   { href: '#servicos', label: 'Serviços' },
   { href: '#ia', label: 'IA' },
   { href: '#projetos', label: 'Projetos' },
-  { href: '#processo', label: 'Como funciona' },
+  { href: '#mvp', label: 'Peça um MVP' },
   { href: '#contato', label: 'Contato' },
 ]

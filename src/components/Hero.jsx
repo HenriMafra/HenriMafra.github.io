@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { hero, profile, whatsappLink } from '../siteData'
 import { usePrefersReducedMotion, useCountUp } from '../hooks'
 import { IconArrowRight, IconWhatsapp, IconLinkedin } from './icons'
+import Particles from './Particles'
 
 function Terminal() {
   const reduced = usePrefersReducedMotion()
@@ -94,6 +95,7 @@ export default function Hero() {
   return (
     <section id="topo" className="relative overflow-hidden">
       <div className="aurora" aria-hidden="true" />
+      <Particles />
       <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-[1120px] items-center gap-12 px-5 pb-16 pt-16 sm:px-8 md:pt-24 lg:grid-cols-[1.35fr_1fr] lg:gap-10">
         {/* Coluna esquerda */}

@@ -6,7 +6,7 @@ export default function Process() {
   return (
     <Section id="processo">
       <SectionHeading
-        index="06"
+        index="07"
         id="processo"
         title="Como funciona"
         subtitle="Um processo simples, sem burocracia, do primeiro contato até a entrega."

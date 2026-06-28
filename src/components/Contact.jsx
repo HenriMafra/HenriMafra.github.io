@@ -58,7 +58,7 @@ export default function Contact() {
         <div className="relative grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
             <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-primary">
-              <span>07</span>
+              <span>08</span>
               <span className="h-px w-8 bg-primary/50" />
               <span className="text-muted">contato</span>
             </div>

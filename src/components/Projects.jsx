@@ -1,6 +1,7 @@
 import { projects } from '../siteData'
 import { Section, SectionHeading } from './Section'
 import { IconExternal, IconArrowRight } from './icons'
+import { useTilt } from '../anim'
 
 const statusMeta = {
   deploy: { label: 'Ao vivo', cls: 'text-primary border-primary/40 bg-primary/10' },
@@ -17,8 +18,10 @@ function slug(t) {
 function ProjectCard({ p }) {
   const st = statusMeta[p.status] ?? statusMeta.open
   const isSoon = p.status === 'soon'
+  const tilt = useTilt()
   return (
     <article
+      ref={isSoon ? null : tilt}
       className={`flex flex-col rounded-xl border bg-surface/60 p-5 ${
         isSoon ? 'border-dashed border-lineh/70' : 'card-lift border-line'
       }`}
