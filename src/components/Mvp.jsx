@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Section, SectionHeading } from './Section'
 import { whatsappLink, profile } from '../siteData'
 import { submitBrief } from '../config'
@@ -9,28 +9,46 @@ const emailLink = (brief) =>
   `mailto:${profile.email}?subject=${encodeURIComponent('Pedido de MVP — henrimafra.github.io')}&body=${encodeURIComponent(brief)}`
 
 /* ------------------------------------------------------------------
-   Wizard de pedido de MVP (prévia). Linguagem simples, para leigos.
-   Campos majoritariamente de marcar/escolher (reduz prompt injection);
-   só nome, contato e "observações" são texto livre.
+   Wizard de pedido de MVP. Linguagem simples, para leigos.
+   Campos majoritariamente de marcar / busca-autocomplete (reduz prompt
+   injection); só nome, contato e "observações" são texto livre.
 ------------------------------------------------------------------ */
 
 const TIPOS = [
-  'Landing page (página única)',
-  'Site institucional (várias páginas)',
-  'Página de vendas',
-  'Portfólio pessoal',
-  'Catálogo de produtos/serviços',
-  'Página de evento',
-  'Link na bio / cartão digital',
-  'Ainda não sei (me ajude a decidir)',
+  'Landing page (página única)', 'Site institucional (várias páginas)', 'Página de vendas',
+  'Portfólio pessoal', 'Catálogo de produtos/serviços', 'Página de evento',
+  'Link na bio / cartão digital', 'Página de captura (lista de e-mails)', 'Ainda não sei (me ajude a decidir)',
 ]
 const OBJETIVOS = [
   'Gerar contatos/leads', 'Vender um produto', 'Vender um serviço', 'Agendar atendimentos',
-  'Divulgar a marca', 'Captar inscrições', 'Mostrar meu trabalho', 'Aumentar seguidores',
+  'Divulgar a marca', 'Captar inscrições', 'Mostrar meu trabalho', 'Aumentar seguidores', 'Receber currículos',
 ]
+const PAGINAS = ['Só 1 página', '2 a 4 páginas', '5 ou mais', 'Não sei ainda']
+const DOMINIO = ['Já tenho domínio', 'Quero registrar um', 'Pode ser um link grátis', 'Não sei o que é']
+const NICHOS = [
+  'Restaurante / Lanchonete', 'Cafeteria', 'Padaria / Confeitaria', 'Pizzaria', 'Food truck',
+  'Salão de beleza', 'Barbearia', 'Estética / Spa', 'Manicure / Nail designer', 'Maquiagem',
+  'Academia / Crossfit', 'Personal trainer', 'Estúdio de pilates / yoga', 'Nutricionista', 'Fisioterapeuta',
+  'Médico / Clínica', 'Dentista', 'Psicólogo / Terapeuta', 'Veterinário / Pet shop',
+  'Advogado / Escritório de advocacia', 'Contador / Contabilidade', 'Corretor de imóveis', 'Imobiliária',
+  'Arquiteto', 'Designer de interiores', 'Engenheiro', 'Construtora / Reformas', 'Marcenaria',
+  'Loja de roupas', 'Loja de calçados', 'Joalheria / Semijoias', 'Ótica', 'Loja de cosméticos',
+  'E-commerce / Loja virtual', 'Artesanato', 'Floricultura', 'Vinícola / Adega', 'Distribuidora de bebidas',
+  'Fotógrafo', 'Videomaker', 'Produtora de eventos', 'Buffet / Festas', 'DJ / Banda / Músico',
+  'Escola / Curso', 'Professor particular', 'Curso online / Infoproduto', 'Coach / Mentor',
+  'Agência de marketing', 'Designer / Freelancer', 'Desenvolvedor / TI', 'Consultoria',
+  'Mecânica / Auto center', 'Lava-rápido', 'Funilaria', 'Loja de autopeças',
+  'Imobiliária rural / Agronegócio', 'Turismo / Agência de viagens', 'Pousada / Hotel', 'Airbnb / Aluguel por temporada',
+  'ONG / Igreja / Projeto social', 'Político / Candidato', 'Influenciador / Criador de conteúdo', 'Outro',
+]
+const PUBLICOS = [
+  'Público geral', 'Jovens (18-30)', 'Adultos (30-50)', 'Famílias', 'Empresas (B2B)',
+  'Alto padrão / Luxo', 'Econômico / Popular', 'Local / Da minha cidade', 'Todo o Brasil', 'Internacional',
+]
+const REDES = ['Instagram', 'Facebook', 'TikTok', 'WhatsApp', 'YouTube', 'LinkedIn', 'Não tenho ainda']
 const VIBES = [
   'Minimalista', 'Moderno/tech', 'Elegante/luxuoso', 'Divertido/colorido',
-  'Sério/corporativo', 'Acolhedor/humano', 'Ousado/criativo', 'Clean/claro',
+  'Sério/corporativo', 'Acolhedor/humano', 'Ousado/criativo', 'Clean/claro', 'Retrô/vintage', 'Natural/orgânico',
 ]
 const PALETAS = [
   { n: 'Escuro neon', c: ['#0a0e14', '#22d3ee', '#a855f7'] },
@@ -39,21 +57,25 @@ const PALETAS = [
   { n: 'Vinho/sofisticado', c: ['#1a0d12', '#7b1e3b', '#d4af6a'] },
   { n: 'Pastel suave', c: ['#fdf6f9', '#f7a8c4', '#7cc4d6'] },
   { n: 'Preto e dourado', c: ['#0c0c0c', '#caa451', '#f5f5f5'] },
+  { n: 'Vibrante/colorido', c: ['#ff5d8f', '#7df9ff', '#ffd166'] },
   { n: 'A definir com você', c: ['#94a3b8', '#64748b', '#334155'] },
 ]
+const TOM = ['Formal e profissional', 'Descontraído e próximo', 'Inspirador/motivacional', 'Direto ao ponto', 'Divertido/bem-humorado', 'Sofisticado/exclusivo']
 const SECOES = [
   'Topo de impacto (hero)', 'Sobre / quem somos', 'Serviços / produtos', 'Diferenciais',
   'Galeria de fotos', 'Depoimentos de clientes', 'Tabela de preços', 'Perguntas frequentes (FAQ)',
-  'Equipe', 'Mapa / localização', 'Blog / novidades', 'Formulário de contato',
+  'Equipe', 'Mapa / localização', 'Blog / novidades', 'Antes e depois', 'Formulário de contato', 'Rodapé com redes',
 ]
+const CTA = ['Chamar no WhatsApp', 'Comprar agora', 'Agendar / Reservar', 'Pedir orçamento', 'Ligar', 'Preencher formulário', 'Seguir nas redes', 'Baixar algo']
 const INTEGRACOES = [
-  'Botão de WhatsApp', 'Formulário de contato', 'Instagram', 'Google Maps',
-  'Agendamento online', 'Pagamento via Pix', 'Newsletter (e-mail)', 'Chat ao vivo',
+  'Botão de WhatsApp', 'Formulário de contato', 'Instagram embutido', 'Google Maps',
+  'Agendamento online', 'Pagamento via Pix', 'Newsletter (e-mail)', 'Chat ao vivo', 'Google Analytics', 'Pixel do Facebook',
 ]
 const CONTEUDO = [
   'Já tenho os textos', 'Já tenho as fotos', 'Tenho a logo', 'Preciso que você crie os textos',
-  'Preciso de imagens (posso usar IA)', 'Preciso de uma logo',
+  'Preciso de imagens (pode usar IA)', 'Preciso de uma logo', 'Tenho vídeos', 'Não tenho quase nada ainda',
 ]
+const IDIOMA = ['Português', 'Português + Inglês', 'Inglês', 'Espanhol', 'Outro']
 const PRAZOS = ['Sem pressa', 'Nas próximas semanas', 'O quanto antes', 'É urgente']
 const ORCAMENTOS = ['Quero entender os valores', 'Enxuto', 'Intermediário', 'Tô tranquilo com o investimento']
 
@@ -70,9 +92,7 @@ function Chips({ options, value, onToggle, single }) {
             onClick={() => onToggle(opt)}
             aria-pressed={active}
             className={`rounded-full border px-3.5 py-2 text-sm transition ${
-              active
-                ? 'border-primary bg-primary/15 text-primary'
-                : 'border-line bg-bg/40 text-muted hover:border-lineh hover:text-ink'
+              active ? 'border-primary bg-primary/15 text-primary' : 'border-line bg-bg/40 text-muted hover:border-lineh hover:text-ink'
             }`}
           >
             {active && <IconCheck className="mr-1.5 inline h-3.5 w-3.5" />}
@@ -84,84 +104,103 @@ function Chips({ options, value, onToggle, single }) {
   )
 }
 
+/* Campo de busca-autocomplete: digita para filtrar e escolhe uma opção. */
+function SearchSelect({ options, value, onChange, placeholder }) {
+  const [q, setQ] = useState(value || '')
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+  useEffect(() => {
+    const close = (e) => ref.current && !ref.current.contains(e.target) && setOpen(false)
+    document.addEventListener('mousedown', close)
+    return () => document.removeEventListener('mousedown', close)
+  }, [])
+  const filtered = options.filter((o) => o.toLowerCase().includes(q.toLowerCase())).slice(0, 8)
+  return (
+    <div ref={ref} className="relative">
+      <input
+        value={q}
+        onChange={(e) => { setQ(e.target.value); onChange(e.target.value); setOpen(true) }}
+        onFocus={() => setOpen(true)}
+        placeholder={placeholder}
+        className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary"
+      />
+      {open && filtered.length > 0 && (
+        <ul className="absolute z-30 mt-1 max-h-56 w-full overflow-auto rounded-md border border-lineh bg-surface2 py-1 shadow-2xl shadow-black/40">
+          {filtered.map((o) => (
+            <li key={o}>
+              <button
+                type="button"
+                onMouseDown={() => { setQ(o); onChange(o); setOpen(false) }}
+                className="block w-full px-3.5 py-2 text-left text-sm text-ink hover:bg-primary/10 hover:text-primary"
+              >
+                {o}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
 function Field({ label, hint, children }) {
   return (
     <div className="mb-6">
       <label className="block text-sm font-semibold text-ink">{label}</label>
-      {hint && <p className="mb-3 mt-0.5 text-xs text-muted">{hint}</p>}
-      {!hint && <div className="mb-3" />}
+      {hint ? <p className="mb-3 mt-0.5 text-xs text-muted">{hint}</p> : <div className="mb-3" />}
       {children}
     </div>
   )
 }
 
-const STEPS = ['O que você quer', 'Seu negócio', 'Visual', 'Conteúdo', 'Detalhes & enviar']
+const inputCls = 'w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary'
+const STEPS = ['O que você quer', 'Seu negócio', 'Visual & tom', 'Estrutura', 'Referências', 'Enviar']
 
 export default function Mvp() {
   const [step, setStep] = useState(0)
   const [done, setDone] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [saved, setSaved] = useState(false)
   const [pixCopied, setPixCopied] = useState(false)
-  const copyPix = async () => {
-    try {
-      await navigator.clipboard.writeText(pixCode())
-      setPixCopied(true)
-      setTimeout(() => setPixCopied(false), 1800)
-    } catch { /* ignore */ }
-  }
   const [d, setD] = useState({
-    tipo: '', objetivos: [], negocio: '', segmento: '', publico: '',
-    vibes: [], paleta: '', tema: '', secoes: [], integracoes: [], conteudo: [],
-    referencias: '', prazo: '', orcamento: '', obs: '', nome: '', contato: '',
+    tipo: '', objetivos: [], paginas: '', dominio: '',
+    negocio: '', segmento: '', publico: [], regiao: '', redes: [],
+    vibes: [], paleta: '', tema: '', tom: '', fontes: '',
+    secoes: [], cta: '', integracoes: [], conteudo: [], idioma: '',
+    referencias: '', concorrentes: '', evitar: '', prazo: '', orcamento: '',
+    obs: '', nome: '', contato: '',
   })
 
   const set = (k, v) => setD((s) => ({ ...s, [k]: v }))
   const toggle = (k, v) => setD((s) => ({ ...s, [k]: s[k].includes(v) ? s[k].filter((x) => x !== v) : [...s[k], v] }))
 
   const brief = useMemo(() => {
-    const L = []
-    L.push('PEDIDO DE MVP / PRÉVIA — via henrimafra.github.io')
-    L.push('')
-    if (d.nome) L.push(`Nome: ${d.nome}`)
-    if (d.contato) L.push(`Contato: ${d.contato}`)
-    L.push('')
-    L.push(`Tipo: ${d.tipo || '—'}`)
-    L.push(`Objetivos: ${d.objetivos.join(', ') || '—'}`)
-    L.push(`Negócio: ${d.negocio || '—'}`)
-    L.push(`Segmento: ${d.segmento || '—'}`)
-    L.push(`Público-alvo: ${d.publico || '—'}`)
-    L.push(`Estilo/vibe: ${d.vibes.join(', ') || '—'}`)
-    L.push(`Paleta: ${d.paleta || '—'} | Tema: ${d.tema || '—'}`)
-    L.push(`Seções: ${d.secoes.join(', ') || '—'}`)
-    L.push(`Integrações: ${d.integracoes.join(', ') || '—'}`)
-    L.push(`Conteúdo: ${d.conteudo.join(', ') || '—'}`)
-    L.push(`Referências: ${d.referencias || '—'}`)
-    L.push(`Prazo: ${d.prazo || '—'} | Investimento: ${d.orcamento || '—'}`)
-    if (d.obs) L.push(`Observações: ${d.obs}`)
-    L.push('')
-    L.push('(Vou anexar logo/imagens aqui na conversa, se tiver.)')
-    return L.join('\n')
+    const row = (k, v) => `${k}: ${Array.isArray(v) ? (v.join(', ') || '—') : (v || '—')}`
+    return [
+      'PEDIDO DE MVP / PRÉVIA — via henrimafra.github.io', '',
+      d.nome && `Nome: ${d.nome}`, d.contato && `Contato: ${d.contato}`, '',
+      row('Tipo', d.tipo), row('Objetivos', d.objetivos), row('Nº de páginas', d.paginas), row('Domínio', d.dominio),
+      row('Negócio', d.negocio), row('Segmento/nicho', d.segmento), row('Público', d.publico), row('Região', d.regiao), row('Redes', d.redes),
+      row('Estilo/vibe', d.vibes), row('Paleta', d.paleta), row('Tema', d.tema), row('Tom de voz', d.tom), row('Fontes/estilo', d.fontes),
+      row('Seções', d.secoes), row('Ação principal (CTA)', d.cta), row('Integrações', d.integracoes), row('Conteúdo', d.conteudo), row('Idioma', d.idioma),
+      row('Referências', d.referencias), row('Concorrentes', d.concorrentes), row('Evitar', d.evitar), row('Prazo', d.prazo), row('Investimento', d.orcamento),
+      d.obs && `Observações: ${d.obs}`, '',
+      '(Vou anexar logo/imagens aqui na conversa, se tiver.)',
+    ].filter((x) => x !== undefined && x !== false).join('\n')
   }, [d])
 
-  const [saved, setSaved] = useState(false)
   const send = async () => {
     setDone(true)
     try { navigator.clipboard.writeText(brief) } catch { /* ignore */ }
-    const ok = await submitBrief({
-      name: d.nome,
-      contact: d.contato,
-      summary: brief,
-      payload: d,
-    })
+    const ok = await submitBrief({ name: d.nome, contact: d.contato, summary: brief, payload: d })
     setSaved(ok)
     window.open(whatsappLink(brief), '_blank', 'noopener')
   }
   const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(brief)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 1600)
-    } catch { /* ignore */ }
+    try { await navigator.clipboard.writeText(brief); setCopied(true); setTimeout(() => setCopied(false), 1600) } catch { /* ignore */ }
+  }
+  const copyPix = async () => {
+    try { await navigator.clipboard.writeText(pixCode()); setPixCopied(true); setTimeout(() => setPixCopied(false), 1800) } catch { /* ignore */ }
   }
 
   const last = STEPS.length - 1
@@ -172,11 +211,10 @@ export default function Mvp() {
         index="06"
         id="peça-uma-prévia"
         title="Peça uma prévia do seu projeto"
-        subtitle="Quer ver como o seu site ficaria antes de fechar? Responda o quanto quiser abaixo — quanto mais você contar, mais perfeita fica a prévia (MVP). Sem termos técnicos, só o que você imagina."
+        subtitle="Quer ver como o seu site ficaria antes de fechar? Responda o quanto quiser abaixo — quanto mais você contar, mais perfeita fica a prévia (MVP). Sem termos técnicos, só o que você imagina. Quase tudo é de marcar ou buscar; pode pular o que não souber."
       />
 
       <div className="overflow-hidden rounded-2xl border border-line bg-surface/60">
-        {/* progresso */}
         <div className="flex flex-wrap gap-1.5 border-b border-line px-5 py-4 sm:px-7">
           {STEPS.map((s, i) => (
             <button
@@ -184,11 +222,7 @@ export default function Mvp() {
               type="button"
               onClick={() => !done && setStep(i)}
               className={`flex items-center gap-2 rounded-full px-3 py-1.5 font-mono text-[11px] transition ${
-                i === step && !done
-                  ? 'bg-primary/15 text-primary'
-                  : i < step || done
-                    ? 'text-accent2'
-                    : 'text-muted hover:text-ink'
+                i === step && !done ? 'bg-primary/15 text-primary' : i < step || done ? 'text-accent2' : 'text-muted hover:text-ink'
               }`}
             >
               <span className={`flex h-5 w-5 items-center justify-center rounded-full border text-[10px] ${
@@ -209,10 +243,8 @@ export default function Mvp() {
               </div>
               <h3 className="font-display text-xl font-bold text-ink">Pedido recebido! 🎉</h3>
               <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-                {saved
-                  ? 'Seu pedido foi registrado com segurança e o WhatsApp abriu com tudo preenchido.'
-                  : 'Seu resumo foi copiado e o WhatsApp abriu com tudo preenchido.'}{' '}
-                É só enviar (e anexar sua logo/imagens, se tiver). Eu volto rapidinho com a prévia e o valor.
+                {saved ? 'Seu pedido foi registrado com segurança e o WhatsApp abriu com tudo preenchido.' : 'Seu resumo foi copiado e o WhatsApp abriu com tudo preenchido.'}{' '}
+                É só enviar (e anexar sua logo/imagens, se tiver).
               </p>
               {saved && (
                 <p className="mx-auto mt-2 inline-flex items-center gap-1.5 rounded-full border border-accent2/40 bg-accent2/10 px-3 py-1 font-mono text-[11px] text-accent2">
@@ -231,7 +263,6 @@ export default function Mvp() {
                 </button>
               </div>
 
-              {/* Pagamento Pix da prévia */}
               <div className="mx-auto mt-8 max-w-md rounded-xl border border-primary/30 bg-primary/[0.04] p-5 text-left">
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-display text-base font-bold text-ink">Liberar a prévia</span>
@@ -241,16 +272,9 @@ export default function Mvp() {
                   Pague via Pix para eu montar a sua prévia. Esse valor é <span className="text-accent2">abatido do projeto final</span> se você fechar — ou seja, você não perde nada.
                 </p>
                 <div className="mt-4 flex items-stretch gap-2">
-                  <code className="flex-1 truncate rounded-md border border-line bg-bg/50 px-3 py-2.5 font-mono text-[11px] text-muted">
-                    {pixCode()}
-                  </code>
-                  <button
-                    type="button"
-                    onClick={copyPix}
-                    className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-md bg-primary px-3.5 py-2.5 text-xs font-semibold text-[#04121a] transition hover:brightness-110"
-                  >
-                    {pixCopied ? <IconCheck className="h-4 w-4" /> : <IconCopy className="h-4 w-4" />}
-                    {pixCopied ? 'Copiado!' : 'Copiar Pix'}
+                  <code className="flex-1 truncate rounded-md border border-line bg-bg/50 px-3 py-2.5 font-mono text-[11px] text-muted">{pixCode()}</code>
+                  <button type="button" onClick={copyPix} className="inline-flex flex-shrink-0 items-center gap-1.5 rounded-md bg-primary px-3.5 py-2.5 text-xs font-semibold text-[#04121a] transition hover:brightness-110">
+                    {pixCopied ? <IconCheck className="h-4 w-4" /> : <IconCopy className="h-4 w-4" />} {pixCopied ? 'Copiado!' : 'Copiar Pix'}
                   </button>
                 </div>
                 <p className="mt-3 text-[11px] leading-relaxed text-muted">
@@ -268,20 +292,30 @@ export default function Mvp() {
                   <Field label="Qual o principal objetivo?" hint="Pode marcar mais de um.">
                     <Chips options={OBJETIVOS} value={d.objetivos} onToggle={(v) => toggle('objetivos', v)} />
                   </Field>
+                  <div className="grid gap-x-5 sm:grid-cols-2">
+                    <Field label="Quantas páginas?"><Chips options={PAGINAS} value={d.paginas} onToggle={(v) => set('paginas', v)} single /></Field>
+                    <Field label="Você tem um domínio (www)?"><Chips options={DOMINIO} value={d.dominio} onToggle={(v) => set('dominio', v)} single /></Field>
+                  </div>
                 </div>
               )}
 
               {step === 1 && (
                 <div>
                   <Field label="Nome do seu negócio ou projeto">
-                    <input value={d.negocio} onChange={(e) => set('negocio', e.target.value)} placeholder="Ex.: Café da Esquina" className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" />
+                    <input value={d.negocio} onChange={(e) => set('negocio', e.target.value)} placeholder="Ex.: Café da Esquina" className={inputCls} />
                   </Field>
-                  <Field label="Do que se trata?" hint="Em poucas palavras, o que você faz/vende.">
-                    <input value={d.segmento} onChange={(e) => set('segmento', e.target.value)} placeholder="Ex.: cafeteria artesanal no centro" className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" />
+                  <Field label="Qual o seu segmento?" hint="Comece a digitar e escolha na lista (ou escreva o seu).">
+                    <SearchSelect options={NICHOS} value={d.segmento} onChange={(v) => set('segmento', v)} placeholder="Ex.: cafeteria, advogado, loja de roupas..." />
                   </Field>
-                  <Field label="Quem você quer atrair?" hint="Seu cliente ideal (opcional).">
-                    <input value={d.publico} onChange={(e) => set('publico', e.target.value)} placeholder="Ex.: jovens que trabalham por perto" className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" />
+                  <Field label="Quem você quer atrair?" hint="Pode marcar mais de um.">
+                    <Chips options={PUBLICOS} value={d.publico} onToggle={(v) => toggle('publico', v)} />
                   </Field>
+                  <div className="grid gap-x-5 sm:grid-cols-2">
+                    <Field label="Região de atuação" hint="Opcional.">
+                      <input value={d.regiao} onChange={(e) => set('regiao', e.target.value)} placeholder="Ex.: Brasília e região" className={inputCls} />
+                    </Field>
+                    <Field label="Redes sociais que você usa"><Chips options={REDES} value={d.redes} onToggle={(v) => toggle('redes', v)} /></Field>
+                  </div>
                 </div>
               )}
 
@@ -295,16 +329,18 @@ export default function Mvp() {
                       {PALETAS.map((p) => (
                         <button key={p.n} type="button" data-magnetic onClick={() => set('paleta', p.n)} aria-pressed={d.paleta === p.n}
                           className={`flex items-center gap-2.5 rounded-lg border px-3 py-2 text-xs transition ${d.paleta === p.n ? 'border-primary bg-primary/10 text-ink' : 'border-line bg-bg/40 text-muted hover:border-lineh'}`}>
-                          <span className="flex">
-                            {p.c.map((c) => <span key={c} className="h-4 w-4 rounded-full border border-black/20" style={{ background: c, marginLeft: '-4px' }} />)}
-                          </span>
+                          <span className="flex">{p.c.map((c) => <span key={c} className="h-4 w-4 rounded-full border border-black/20" style={{ background: c, marginLeft: '-4px' }} />)}</span>
                           {p.n}
                         </button>
                       ))}
                     </div>
                   </Field>
-                  <Field label="Prefere claro ou escuro?">
-                    <Chips options={['Claro', 'Escuro', 'Tanto faz / você decide']} value={d.tema} onToggle={(v) => set('tema', v)} single />
+                  <div className="grid gap-x-5 sm:grid-cols-2">
+                    <Field label="Prefere claro ou escuro?"><Chips options={['Claro', 'Escuro', 'Tanto faz / você decide']} value={d.tema} onToggle={(v) => set('tema', v)} single /></Field>
+                    <Field label="Tom de voz da marca"><Chips options={TOM} value={d.tom} onToggle={(v) => set('tom', v)} single /></Field>
+                  </div>
+                  <Field label="Estilo de letra preferido" hint="Opcional.">
+                    <Chips options={['Moderna/sem serifa', 'Clássica/com serifa', 'Manuscrita/elegante', 'Tecnológica', 'Você decide']} value={d.fontes} onToggle={(v) => set('fontes', v)} single />
                   </Field>
                 </div>
               )}
@@ -314,38 +350,52 @@ export default function Mvp() {
                   <Field label="Quais partes o site deve ter?" hint="Marque tudo que fizer sentido — eu organizo a ordem.">
                     <Chips options={SECOES} value={d.secoes} onToggle={(v) => toggle('secoes', v)} />
                   </Field>
+                  <Field label="Qual a ação principal que o visitante deve fazer?">
+                    <Chips options={CTA} value={d.cta} onToggle={(v) => set('cta', v)} single />
+                  </Field>
                   <Field label="O que você quer que funcione no site?" hint="Recursos e integrações.">
                     <Chips options={INTEGRACOES} value={d.integracoes} onToggle={(v) => toggle('integracoes', v)} />
                   </Field>
-                  <Field label="Sobre o conteúdo (textos, fotos, logo)">
-                    <Chips options={CONTEUDO} value={d.conteudo} onToggle={(v) => toggle('conteudo', v)} />
-                  </Field>
+                  <div className="grid gap-x-5 sm:grid-cols-2">
+                    <Field label="Sobre o conteúdo (textos, fotos, logo)"><Chips options={CONTEUDO} value={d.conteudo} onToggle={(v) => toggle('conteudo', v)} /></Field>
+                    <Field label="Idioma do site"><Chips options={IDIOMA} value={d.idioma} onToggle={(v) => set('idioma', v)} single /></Field>
+                  </div>
                 </div>
               )}
 
               {step === 4 && (
                 <div>
                   <Field label="Sites/marcas que você admira" hint="Opcional. Cole links ou cite nomes — ajuda a acertar o estilo.">
-                    <input value={d.referencias} onChange={(e) => set('referencias', e.target.value)} placeholder="Ex.: apple.com, aquele site da concorrência..." className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" />
+                    <input value={d.referencias} onChange={(e) => set('referencias', e.target.value)} placeholder="Ex.: apple.com, aquele site bonito que você viu..." className={inputCls} />
+                  </Field>
+                  <Field label="Concorrentes (pra eu me inspirar ou superar)" hint="Opcional.">
+                    <input value={d.concorrentes} onChange={(e) => set('concorrentes', e.target.value)} placeholder="Ex.: nome ou site de quem você concorre" className={inputCls} />
+                  </Field>
+                  <Field label="Tem algo que você NÃO quer no site?" hint="Opcional.">
+                    <Chips options={['Sem estoque de imagens genéricas', 'Sem muito texto', 'Sem cores berrantes', 'Sem pop-ups', 'Sem nada disso (tô tranquilo)']} value={d.evitar} onToggle={(v) => set('evitar', v)} single />
                   </Field>
                   <div className="grid gap-x-5 sm:grid-cols-2">
                     <Field label="Prazo"><Chips options={PRAZOS} value={d.prazo} onToggle={(v) => set('prazo', v)} single /></Field>
                     <Field label="Investimento"><Chips options={ORCAMENTOS} value={d.orcamento} onToggle={(v) => set('orcamento', v)} single /></Field>
                   </div>
+                </div>
+              )}
+
+              {step === 5 && (
+                <div>
                   <Field label="Quer acrescentar algo?" hint="Opcional. Conte qualquer detalhe que ajude a deixar perfeito.">
-                    <textarea value={d.obs} onChange={(e) => set('obs', e.target.value)} rows={3} placeholder="Escreva à vontade..." className="w-full resize-y rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" />
+                    <textarea value={d.obs} onChange={(e) => set('obs', e.target.value)} rows={3} placeholder="Escreva à vontade..." className={`${inputCls} resize-y`} />
                   </Field>
                   <div className="grid gap-x-5 sm:grid-cols-2">
-                    <Field label="Seu nome"><input value={d.nome} onChange={(e) => set('nome', e.target.value)} placeholder="Como te chamo?" className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" /></Field>
-                    <Field label="WhatsApp ou e-mail"><input value={d.contato} onChange={(e) => set('contato', e.target.value)} placeholder="Para eu te enviar a prévia" className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" /></Field>
+                    <Field label="Seu nome"><input value={d.nome} onChange={(e) => set('nome', e.target.value)} placeholder="Como te chamo?" className={inputCls} /></Field>
+                    <Field label="WhatsApp ou e-mail"><input value={d.contato} onChange={(e) => set('contato', e.target.value)} placeholder="Para eu te enviar a prévia" className={inputCls} /></Field>
                   </div>
                   <p className="rounded-lg border border-line bg-bg/40 px-4 py-3 text-xs leading-relaxed text-muted">
-                    💡 A prévia (MVP) é uma demonstração de como o seu projeto ficaria, por um valor simbólico pago via <span className="text-ink">Pix</span> — combinamos tudo no contato, sem compromisso de fechar.
+                    💡 A prévia (MVP) é uma demonstração de como o seu projeto ficaria, por um valor simbólico pago via <span className="text-ink">Pix ({PIX.amountLabel})</span> e <span className="text-ink">abatido do projeto final</span> se você fechar. Sem compromisso.
                   </p>
                 </div>
               )}
 
-              {/* navegação */}
               <div className="mt-7 flex items-center justify-between gap-3">
                 <button type="button" onClick={() => setStep((s) => Math.max(0, s - 1))} disabled={step === 0}
                   className="rounded-md px-4 py-2.5 text-sm font-semibold text-muted transition enabled:hover:text-ink disabled:opacity-0">
