@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react'
 import { Section, SectionHeading } from './Section'
-import { whatsappLink } from '../siteData'
-import { IconWhatsapp, IconCheck, IconArrowRight, IconCopy } from './icons'
+import { whatsappLink, profile } from '../siteData'
+import { submitBrief } from '../config'
+import { IconWhatsapp, IconCheck, IconArrowRight, IconCopy, IconMail } from './icons'
+
+const emailLink = (brief) =>
+  `mailto:${profile.email}?subject=${encodeURIComponent('Pedido de MVP — henrimafra.github.io')}&body=${encodeURIComponent(brief)}`
 
 /* ------------------------------------------------------------------
    Wizard de pedido de MVP (prévia). Linguagem simples, para leigos.
@@ -130,9 +134,17 @@ export default function Mvp() {
     return L.join('\n')
   }, [d])
 
-  const send = () => {
+  const [saved, setSaved] = useState(false)
+  const send = async () => {
     setDone(true)
     try { navigator.clipboard.writeText(brief) } catch { /* ignore */ }
+    const ok = await submitBrief({
+      name: d.nome,
+      contact: d.contato,
+      summary: brief,
+      payload: d,
+    })
+    setSaved(ok)
     window.open(whatsappLink(brief), '_blank', 'noopener')
   }
   const copy = async () => {
@@ -186,16 +198,27 @@ export default function Mvp() {
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent2/15 text-accent2">
                 <IconCheck className="h-7 w-7" />
               </div>
-              <h3 className="font-display text-xl font-bold text-ink">Pedido montado! 🎉</h3>
+              <h3 className="font-display text-xl font-bold text-ink">Pedido recebido! 🎉</h3>
               <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-                Seu resumo foi copiado e o WhatsApp abriu com tudo preenchido. É só enviar (e anexar sua logo/imagens, se tiver). Eu volto rapidinho com a prévia e o valor.
+                {saved
+                  ? 'Seu pedido foi registrado com segurança e o WhatsApp abriu com tudo preenchido.'
+                  : 'Seu resumo foi copiado e o WhatsApp abriu com tudo preenchido.'}{' '}
+                É só enviar (e anexar sua logo/imagens, se tiver). Eu volto rapidinho com a prévia e o valor.
               </p>
+              {saved && (
+                <p className="mx-auto mt-2 inline-flex items-center gap-1.5 rounded-full border border-accent2/40 bg-accent2/10 px-3 py-1 font-mono text-[11px] text-accent2">
+                  <IconCheck className="h-3.5 w-3.5" /> registrado com segurança
+                </p>
+              )}
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <a href={whatsappLink(brief)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110">
-                  <IconWhatsapp className="h-[18px] w-[18px]" /> Abrir o WhatsApp de novo
+                  <IconWhatsapp className="h-[18px] w-[18px]" /> WhatsApp
+                </a>
+                <a href={emailLink(brief)} className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary">
+                  <IconMail className="h-[18px] w-[18px]" /> Enviar por e-mail
                 </a>
                 <button type="button" onClick={copy} className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary">
-                  {copied ? <IconCheck className="h-4 w-4 text-accent2" /> : <IconCopy className="h-4 w-4" />} {copied ? 'Copiado!' : 'Copiar resumo'}
+                  {copied ? <IconCheck className="h-4 w-4 text-accent2" /> : <IconCopy className="h-4 w-4" />} {copied ? 'Copiado!' : 'Copiar'}
                 </button>
               </div>
             </div>
@@ -281,7 +304,7 @@ export default function Mvp() {
                     <Field label="WhatsApp ou e-mail"><input value={d.contato} onChange={(e) => set('contato', e.target.value)} placeholder="Para eu te enviar a prévia" className="w-full rounded-md border border-line bg-bg/40 px-3.5 py-2.5 text-sm text-ink outline-none placeholder:text-muted/60 focus:border-primary" /></Field>
                   </div>
                   <p className="rounded-lg border border-line bg-bg/40 px-4 py-3 text-xs leading-relaxed text-muted">
-                    💡 A prévia (MVP) é uma demonstração de como o seu projeto ficaria, por um valor simbólico que combinamos no contato. Sem compromisso de fechar.
+                    💡 A prévia (MVP) é uma demonstração de como o seu projeto ficaria, por um valor simbólico pago via <span className="text-ink">Pix</span> — combinamos tudo no contato, sem compromisso de fechar.
                   </p>
                 </div>
               )}
