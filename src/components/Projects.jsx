@@ -91,7 +91,7 @@ export default function Projects() {
   return (
     <Section id="projetos">
       <SectionHeading
-        index="05"
+        index="03"
         id="projetos"
         title="Projetos"
         subtitle="Trabalhos que mostram como aplico dados, web e IA na prática. Mais projetos a caminho."

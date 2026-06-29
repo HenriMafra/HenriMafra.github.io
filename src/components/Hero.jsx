@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { hero, profile, whatsappLink } from '../siteData'
+import { hero, profile } from '../siteData'
 import { usePrefersReducedMotion, useCountUp } from '../hooks'
-import { IconArrowRight, IconWhatsapp } from './icons'
+import { IconArrowRight } from './icons'
 import Particles from './Particles'
 
 function Terminal() {
@@ -114,26 +114,21 @@ export default function Hero() {
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110"
+              href="#mvp"
+              className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3.5 text-sm font-semibold text-[#04121a] shadow-lg shadow-primary/20 transition hover:brightness-110"
             >
-              <IconWhatsapp className="h-[18px] w-[18px]" /> Fale comigo
+              ✨ Peça sua prévia <IconArrowRight className="h-4 w-4" />
             </a>
             <a
               href="#projetos"
-              className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
+              className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3.5 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
             >
-              Ver projetos <IconArrowRight className="h-4 w-4" />
-            </a>
-            <a
-              href="#mvp"
-              className="inline-flex items-center gap-2 rounded-md px-3 py-3 text-sm font-semibold text-muted transition hover:text-primary"
-            >
-              Peça uma prévia <IconArrowRight className="h-4 w-4" />
+              Ver projetos
             </a>
           </div>
+          <p className="mt-3 text-xs text-muted">
+            Veja como seu site ficaria <span className="text-ink">antes de fechar</span> — prévia por R$ 39,90, abatível no projeto.
+          </p>
         </div>
 
         {/* Coluna direita */}

@@ -4,7 +4,7 @@ import { Section, SectionHeading } from './Section'
 export default function About() {
   return (
     <Section id="sobre">
-      <SectionHeading index="01" id="sobre" title={about.heading} />
+      <SectionHeading index="04" id="sobre" title={about.heading} />
       <div className="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-14">
         <div className="space-y-4">
           {about.paragraphs.map((p, i) => (

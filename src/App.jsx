@@ -12,7 +12,6 @@ import Mvp from './components/Mvp'
 import Process from './components/Process'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import WhatsappFloat from './components/WhatsappFloat'
 
 export default function App() {
   const [theme, toggleTheme] = useTheme()
@@ -22,25 +21,24 @@ export default function App() {
       <Intro />
       <Cursor />
       <a
-        href="#projetos"
+        href="#mvp"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-[60] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:font-semibold focus:text-[#04121a]"
       >
-        Pular para os projetos
+        Pular para o pedido de prévia
       </a>
       <Topbar theme={theme} toggleTheme={toggleTheme} />
       <main>
         <Hero />
-        <About />
+        <Mvp />
         <Services />
+        <Projects />
+        <About />
         <AITools />
         <Stack />
-        <Projects />
-        <Mvp />
         <Process />
         <Contact />
       </main>
       <Footer />
-      <WhatsappFloat />
     </div>
   )
 }

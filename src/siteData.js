@@ -8,14 +8,13 @@ export const profile = {
   role: 'Estudante de Ciência de Dados e Machine Learning',
   location: 'Brasília, DF',
   email: 'helberthsys@gmail.com',
-  whatsapp: '5561982305184',
-  whatsappLabel: '+55 61 98230-5184',
   github: 'https://github.com/HenriMafra',
 }
 
-export const whatsappLink = (
-  message = 'Olá, Henri! Vi seu portfólio e gostaria de conversar sobre um projeto.',
-) => `https://wa.me/${profile.whatsapp}?text=${encodeURIComponent(message)}`
+export const mailtoLink = (
+  subject = 'Contato pelo portfólio',
+  body = 'Olá, Henri! Vi seu portfólio e gostaria de conversar sobre um projeto.',
+) => `mailto:${profile.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
 
 export const seo = {
   title: 'Henri Mafra — Ciência de Dados, Machine Learning e Desenvolvimento',
@@ -146,7 +145,7 @@ export const projects = [
 ]
 
 export const process = [
-  { step: '1', title: 'Contato', description: 'Você me conta o que precisa pelo WhatsApp ou e-mail, sem compromisso.' },
+  { step: '1', title: 'Contato', description: 'Você pede a prévia aqui no site (ou me manda um e-mail), sem compromisso.' },
   { step: '2', title: 'Entendimento', description: 'Conversamos sobre o seu objetivo e definimos juntos a solução e o prazo.' },
   { step: '3', title: 'Desenvolvimento', description: 'Eu desenvolvo a solução e compartilho o progresso com você ao longo do caminho.' },
   { step: '4', title: 'Entrega', description: 'Você recebe tudo pronto, com uma explicação simples de como usar.' },
@@ -163,16 +162,15 @@ export const links = [
 export const contact = {
   heading: 'Vamos tirar o seu projeto do papel?',
   subheading:
-    'Precisa de um dashboard, uma automação ou uma landing page? Me chame no WhatsApp ou por e-mail e eu retorno rapidinho com uma proposta sem compromisso. Quer ver antes como ficaria? Peça uma prévia (MVP).',
+    'O jeito mais rápido de começar é pedir a sua prévia (MVP) ali em cima. Prefere conversar antes? Me mande um e-mail e eu retorno rapidinho com uma proposta, sem compromisso.',
 }
 
 export const footerText = 'Estudante de Ciência de Dados e Machine Learning · Brasília, DF'
 
 export const nav = [
-  { href: '#sobre', label: 'Sobre' },
+  { href: '#mvp', label: 'Peça uma prévia', highlight: true },
   { href: '#servicos', label: 'Serviços' },
-  { href: '#ia', label: 'IA' },
   { href: '#projetos', label: 'Projetos' },
-  { href: '#mvp', label: 'Peça um MVP' },
+  { href: '#sobre', label: 'Sobre' },
   { href: '#contato', label: 'Contato' },
 ]

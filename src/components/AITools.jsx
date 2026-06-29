@@ -5,7 +5,7 @@ export default function AITools() {
   return (
     <Section id="ia">
       <SectionHeading
-        index="03"
+        index="05"
         id="ia-tools"
         title="Ferramentas de IA"
         subtitle={aiTools.intro}

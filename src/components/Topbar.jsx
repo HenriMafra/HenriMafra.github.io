@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { nav, whatsappLink } from '../siteData'
+import { nav } from '../siteData'
 import { useBrasiliaClock } from '../hooks'
-import { IconSun, IconMoon, IconMenu, IconClose, IconWhatsapp } from './icons'
+import { IconSun, IconMoon, IconMenu, IconClose, IconArrowRight } from './icons'
 
 export default function Topbar({ theme, toggleTheme }) {
   const clock = useBrasiliaClock()
@@ -15,6 +15,11 @@ export default function Topbar({ theme, toggleTheme }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const navCls = (l) =>
+    l.highlight
+      ? 'rounded-md px-3 py-1.5 text-sm font-semibold text-primary transition hover:bg-primary/10'
+      : 'rounded-md px-3 py-1.5 text-sm font-medium text-muted transition hover:bg-surface hover:text-ink'
+
   return (
     <header
       className={`sticky top-0 z-50 topbar-bg transition-colors ${
@@ -22,7 +27,6 @@ export default function Topbar({ theme, toggleTheme }) {
       }`}
     >
       <div className="mx-auto flex h-14 max-w-[1120px] items-center justify-between gap-4 px-5 sm:px-8">
-        {/* Identidade + status */}
         <div className="flex items-center gap-4 min-w-0">
           <a href="#topo" className="flex items-center gap-2 font-mono text-sm text-ink">
             <span className="text-primary">~/</span>
@@ -34,20 +38,14 @@ export default function Topbar({ theme, toggleTheme }) {
           </span>
         </div>
 
-        {/* Nav desktop */}
         <nav className="hidden items-center gap-1 lg:flex">
           {nav.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="rounded-md px-3 py-1.5 text-sm font-medium text-muted transition hover:bg-surface hover:text-ink"
-            >
+            <a key={l.href} href={l.href} className={navCls(l)}>
               {l.label}
             </a>
           ))}
         </nav>
 
-        {/* Ações */}
         <div className="flex items-center gap-2">
           <span className="hidden font-mono text-xs tabular-nums text-muted xl:inline" aria-hidden="true">
             BRT {clock}
@@ -61,13 +59,10 @@ export default function Topbar({ theme, toggleTheme }) {
             {theme === 'dark' ? <IconSun className="h-[18px] w-[18px]" /> : <IconMoon className="h-[18px] w-[18px]" />}
           </button>
           <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noreferrer"
+            href="#mvp"
             className="hidden items-center gap-2 rounded-md bg-primary px-3.5 py-2 text-sm font-semibold text-[#04121a] transition hover:brightness-110 sm:flex"
           >
-            <IconWhatsapp className="h-[18px] w-[18px]" />
-            Fale comigo
+            Peça uma prévia <IconArrowRight className="h-4 w-4" />
           </a>
           <button
             type="button"
@@ -81,7 +76,6 @@ export default function Topbar({ theme, toggleTheme }) {
         </div>
       </div>
 
-      {/* Menu mobile */}
       {open && (
         <nav className="border-t border-line bg-bg px-5 py-3 lg:hidden">
           {nav.map((l) => (
@@ -89,20 +83,19 @@ export default function Topbar({ theme, toggleTheme }) {
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="block rounded-md px-3 py-2.5 text-sm font-medium text-muted hover:bg-surface hover:text-ink"
+              className={`block rounded-md px-3 py-2.5 text-sm hover:bg-surface ${
+                l.highlight ? 'font-semibold text-primary' : 'font-medium text-muted hover:text-ink'
+              }`}
             >
               {l.label}
             </a>
           ))}
           <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noreferrer"
+            href="#mvp"
             onClick={() => setOpen(false)}
             className="mt-2 flex items-center justify-center gap-2 rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-[#04121a]"
           >
-            <IconWhatsapp className="h-[18px] w-[18px]" />
-            Fale comigo
+            Peça uma prévia <IconArrowRight className="h-4 w-4" />
           </a>
         </nav>
       )}

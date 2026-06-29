@@ -7,7 +7,7 @@ export const SUPABASE_ANON_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlcHR1ZHlwcHNxcW90dGZ2aWJmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNDM3NDEsImV4cCI6MjA5MjcxOTc0MX0.8BbEneYZcMmcNJ0pmeWLq_e-9qAixIQ5qZMPzjAtzZI'
 
 /* Insere um pedido de MVP. Retorna true se gravou. Falha em silêncio
-   (o cliente ainda recebe os caminhos de WhatsApp/e-mail). */
+   (o cliente ainda tem o caminho de e-mail). */
 export async function submitBrief({ name, contact, summary, payload }) {
   try {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/mvp_briefs`, {

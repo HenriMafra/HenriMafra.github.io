@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from './Section'
-import { whatsappLink, profile } from '../siteData'
+import { profile } from '../siteData'
 import { submitBrief } from '../config'
 import { PIX, pixCode } from '../pix'
-import { IconWhatsapp, IconCheck, IconArrowRight, IconCopy, IconMail } from './icons'
+import { IconCheck, IconArrowRight, IconCopy, IconMail } from './icons'
 
 const emailLink = (brief) =>
   `mailto:${profile.email}?subject=${encodeURIComponent('Pedido de MVP — henrimafra.github.io')}&body=${encodeURIComponent(brief)}`
@@ -185,7 +185,7 @@ export default function Mvp() {
       row('Seções', d.secoes), row('Ação principal (CTA)', d.cta), row('Integrações', d.integracoes), row('Conteúdo', d.conteudo), row('Idioma', d.idioma),
       row('Referências', d.referencias), row('Concorrentes', d.concorrentes), row('Evitar', d.evitar), row('Prazo', d.prazo), row('Investimento', d.orcamento),
       d.obs && `Observações: ${d.obs}`, '',
-      '(Vou anexar logo/imagens aqui na conversa, se tiver.)',
+      '(Posso anexar logo/imagens neste e-mail, se tiver.)',
     ].filter((x) => x !== undefined && x !== false).join('\n')
   }, [d])
 
@@ -194,7 +194,6 @@ export default function Mvp() {
     try { navigator.clipboard.writeText(brief) } catch { /* ignore */ }
     const ok = await submitBrief({ name: d.nome, contact: d.contato, summary: brief, payload: d })
     setSaved(ok)
-    window.open(whatsappLink(brief), '_blank', 'noopener')
   }
   const copy = async () => {
     try { await navigator.clipboard.writeText(brief); setCopied(true); setTimeout(() => setCopied(false), 1600) } catch { /* ignore */ }
@@ -212,7 +211,7 @@ export default function Mvp() {
       <div className="relative">
         <div className="mx-auto max-w-2xl text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 font-mono text-xs text-primary">
-            <span className="status-dot" aria-hidden="true" /> 06 — experimente · leva 1 minuto
+            <span className="status-dot" aria-hidden="true" /> o intuito principal daqui · leva 1 minuto
           </span>
           <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-ink md:text-[2.6rem]">
             Veja seu site <span className="text-primary">pronto</span> antes de investir
@@ -252,7 +251,15 @@ export default function Mvp() {
         </div>
       </div>
 
-      <div className="relative mt-8 overflow-hidden rounded-2xl border border-primary/30 bg-surface/60 shadow-2xl shadow-primary/5">
+      <div className="mx-auto mt-6 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-muted">
+        {['Sem compromisso', 'Leva ~1 minuto', 'Seus dados ficam seguros', 'Valor abatível no projeto'].map((t) => (
+          <span key={t} className="inline-flex items-center gap-1.5">
+            <IconCheck className="h-3.5 w-3.5 text-accent2" /> {t}
+          </span>
+        ))}
+      </div>
+
+      <div className="relative mt-6 overflow-hidden rounded-2xl border border-primary/30 bg-surface/60 shadow-2xl shadow-primary/5">
         <div className="flex flex-wrap gap-1.5 border-b border-line px-5 py-4 sm:px-7">
           {STEPS.map((s, i) => (
             <button
@@ -281,8 +288,8 @@ export default function Mvp() {
               </div>
               <h3 className="font-display text-xl font-bold text-ink">Pedido recebido! 🎉</h3>
               <p className="mx-auto mt-2 max-w-md text-sm text-muted">
-                {saved ? 'Seu pedido foi registrado com segurança e o WhatsApp abriu com tudo preenchido.' : 'Seu resumo foi copiado e o WhatsApp abriu com tudo preenchido.'}{' '}
-                É só enviar (e anexar sua logo/imagens, se tiver).
+                {saved ? 'Seu pedido foi registrado com segurança.' : 'Seu resumo foi copiado.'}{' '}
+                Agora é só me enviar por e-mail (pode anexar sua logo e imagens) e fazer o Pix abaixo — eu volto rapidinho com a sua prévia.
               </p>
               {saved && (
                 <p className="mx-auto mt-2 inline-flex items-center gap-1.5 rounded-full border border-accent2/40 bg-accent2/10 px-3 py-1 font-mono text-[11px] text-accent2">
@@ -290,14 +297,11 @@ export default function Mvp() {
                 </p>
               )}
               <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <a href={whatsappLink(brief)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110">
-                  <IconWhatsapp className="h-[18px] w-[18px]" /> WhatsApp
-                </a>
-                <a href={emailLink(brief)} className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary">
+                <a href={emailLink(brief)} className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110">
                   <IconMail className="h-[18px] w-[18px]" /> Enviar por e-mail
                 </a>
                 <button type="button" onClick={copy} className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary">
-                  {copied ? <IconCheck className="h-4 w-4 text-accent2" /> : <IconCopy className="h-4 w-4" />} {copied ? 'Copiado!' : 'Copiar'}
+                  {copied ? <IconCheck className="h-4 w-4 text-accent2" /> : <IconCopy className="h-4 w-4" />} {copied ? 'Copiado!' : 'Copiar resumo'}
                 </button>
               </div>
 
@@ -316,7 +320,7 @@ export default function Mvp() {
                   </button>
                 </div>
                 <p className="mt-3 text-[11px] leading-relaxed text-muted">
-                  No app do seu banco: <span className="text-ink">Pix → Pix Copia e Cola</span>, cole o código e confirme. Depois é só me mandar o comprovante no WhatsApp.
+                  No app do seu banco: <span className="text-ink">Pix → Pix Copia e Cola</span>, cole o código e confirme. Depois é só me mandar o comprovante por e-mail.
                 </p>
               </div>
             </div>
@@ -426,7 +430,7 @@ export default function Mvp() {
                   </Field>
                   <div className="grid gap-x-5 sm:grid-cols-2">
                     <Field label="Seu nome"><input value={d.nome} onChange={(e) => set('nome', e.target.value)} placeholder="Como te chamo?" className={inputCls} /></Field>
-                    <Field label="WhatsApp ou e-mail"><input value={d.contato} onChange={(e) => set('contato', e.target.value)} placeholder="Para eu te enviar a prévia" className={inputCls} /></Field>
+                    <Field label="Seu e-mail"><input type="email" value={d.contato} onChange={(e) => set('contato', e.target.value)} placeholder="Para eu te enviar a prévia" className={inputCls} /></Field>
                   </div>
                   <p className="rounded-lg border border-line bg-bg/40 px-4 py-3 text-xs leading-relaxed text-muted">
                     💡 A prévia (MVP) é uma demonstração de como o seu projeto ficaria, por um valor simbólico pago via <span className="text-ink">Pix ({PIX.amountLabel})</span> e <span className="text-ink">abatido do projeto final</span> se você fechar. Sem compromisso.
@@ -447,7 +451,7 @@ export default function Mvp() {
                 ) : (
                   <button type="button" data-magnetic onClick={send}
                     className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110">
-                    <IconWhatsapp className="h-[18px] w-[18px]" /> Enviar pedido
+                    <IconCheck className="h-[18px] w-[18px]" /> Enviar pedido
                   </button>
                 )}
               </div>

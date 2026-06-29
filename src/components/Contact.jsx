@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { contact, profile, whatsappLink, links } from '../siteData'
+import { contact, profile, links } from '../siteData'
 import { useReveal } from '../hooks'
-import { iconMap, IconMail, IconGithub, IconWhatsapp, IconCopy, IconCheck } from './icons'
+import { iconMap, IconMail, IconGithub, IconCopy, IconCheck } from './icons'
 
 const channels = [
   { id: 'email', cmd: 'email', value: profile.email, href: `mailto:${profile.email}`, icon: IconMail, copy: profile.email },
-  { id: 'whatsapp', cmd: 'whatsapp', value: profile.whatsappLabel, href: whatsappLink(), icon: IconWhatsapp, copy: profile.whatsappLabel },
   { id: 'github', cmd: 'github', value: 'HenriMafra', href: profile.github, icon: IconGithub, copy: profile.github },
 ]
 
@@ -66,18 +65,16 @@ export default function Contact() {
 
             <div className="mt-7 flex flex-wrap gap-3">
               <a
-                href={whatsappLink()}
-                target="_blank"
-                rel="noreferrer"
+                href={`mailto:${profile.email}?subject=${encodeURIComponent('Contato pelo portfólio')}`}
                 className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-semibold text-[#04121a] transition hover:brightness-110"
               >
-                <IconWhatsapp className="h-[18px] w-[18px]" /> Conversar no WhatsApp
+                <IconMail className="h-[18px] w-[18px]" /> Enviar e-mail
               </a>
               <a
-                href={`mailto:${profile.email}`}
+                href="#mvp"
                 className="inline-flex items-center gap-2 rounded-md border border-lineh px-5 py-3 text-sm font-semibold text-ink transition hover:border-primary hover:text-primary"
               >
-                <IconMail className="h-[18px] w-[18px]" /> Enviar e-mail
+                ✨ Pedir uma prévia
               </a>
             </div>
 

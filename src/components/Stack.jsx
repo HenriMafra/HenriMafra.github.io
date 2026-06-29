@@ -5,7 +5,7 @@ export default function Stack() {
   return (
     <Section id="stack">
       <SectionHeading
-        index="04"
+        index="06"
         id="capacidades"
         title="Stack & capacidades"
         subtitle="As ferramentas que uso no dia a dia, agrupadas por domínio. O que ainda estou estudando fica separado, no roadmap — honestidade técnica importa."
