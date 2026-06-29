@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { hero, profile, whatsappLink } from '../siteData'
 import { usePrefersReducedMotion, useCountUp } from '../hooks'
-import { IconArrowRight, IconWhatsapp, IconLinkedin } from './icons'
+import { IconArrowRight, IconWhatsapp } from './icons'
 import Particles from './Particles'
 
 function Terminal() {
@@ -128,12 +128,10 @@ export default function Hero() {
               Ver projetos <IconArrowRight className="h-4 w-4" />
             </a>
             <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-md px-3 py-3 text-sm font-semibold text-muted transition hover:text-ink"
+              href="#mvp"
+              className="inline-flex items-center gap-2 rounded-md px-3 py-3 text-sm font-semibold text-muted transition hover:text-primary"
             >
-              <IconLinkedin className="h-[18px] w-[18px]" /> LinkedIn
+              Peça uma prévia <IconArrowRight className="h-4 w-4" />
             </a>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Section, SectionHeading } from './Section'
+import { Section } from './Section'
 import { whatsappLink, profile } from '../siteData'
 import { submitBrief } from '../config'
 import { PIX, pixCode } from '../pix'
@@ -207,14 +207,52 @@ export default function Mvp() {
 
   return (
     <Section id="mvp">
-      <SectionHeading
-        index="06"
-        id="peça-uma-prévia"
-        title="Peça uma prévia do seu projeto"
-        subtitle="Quer ver como o seu site ficaria antes de fechar? Responda o quanto quiser abaixo — quanto mais você contar, mais perfeita fica a prévia (MVP). Sem termos técnicos, só o que você imagina. Quase tudo é de marcar ou buscar; pode pular o que não souber."
-      />
+      <div className="aurora" aria-hidden="true" />
 
-      <div className="overflow-hidden rounded-2xl border border-line bg-surface/60">
+      <div className="relative">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-1.5 font-mono text-xs text-primary">
+            <span className="status-dot" aria-hidden="true" /> 06 — experimente · leva 1 minuto
+          </span>
+          <h2 className="mt-5 font-display text-3xl font-bold leading-tight text-ink md:text-[2.6rem]">
+            Veja seu site <span className="text-primary">pronto</span> antes de investir
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-muted">
+            Monte aqui um pedido de prévia em 1 minuto. Quanto mais você contar, mais perfeito fica —
+            sem termos técnicos, quase tudo é só marcar ou buscar.
+          </p>
+        </div>
+
+        {/* O que é um MVP */}
+        <div className="mx-auto mt-7 max-w-2xl rounded-xl border border-primary/20 bg-primary/[0.04] p-5 text-left">
+          <div className="font-mono text-xs uppercase tracking-wider text-primary">o que é um “MVP”?</div>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            <strong className="text-ink">MVP</strong> vem do inglês{' '}
+            <em className="text-ink">Minimum Viable Product</em> — em português,{' '}
+            <strong className="text-ink">Produto Mínimo Viável</strong>. Sem o “tecniquês”: é uma{' '}
+            <strong className="text-ink">primeira versão enxuta</strong> do seu site, feita rápido e por um
+            valor simbólico, só para você <strong className="text-ink">ver como ficaria de verdade</strong>{' '}
+            antes de fechar o projeto completo.
+          </p>
+        </div>
+
+        {/* Benefícios */}
+        <div className="mx-auto mt-4 grid max-w-2xl gap-3 sm:grid-cols-3">
+          {[
+            { e: '👀', t: 'Veja antes de investir', d: 'Você aprova com os próprios olhos.' },
+            { e: '⚡', t: 'Pronto rapidinho', d: 'Uma prévia real em pouco tempo.' },
+            { e: '💸', t: 'Valor abatido', d: 'Abate no projeto se você fechar.' },
+          ].map((b) => (
+            <div key={b.t} className="rounded-xl border border-line bg-bg/40 p-4 text-center">
+              <div className="text-2xl">{b.e}</div>
+              <div className="mt-1.5 text-sm font-semibold text-ink">{b.t}</div>
+              <div className="mt-0.5 text-xs leading-snug text-muted">{b.d}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="relative mt-8 overflow-hidden rounded-2xl border border-primary/30 bg-surface/60 shadow-2xl shadow-primary/5">
         <div className="flex flex-wrap gap-1.5 border-b border-line px-5 py-4 sm:px-7">
           {STEPS.map((s, i) => (
             <button

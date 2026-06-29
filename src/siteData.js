@@ -10,7 +10,6 @@ export const profile = {
   email: 'helberthsys@gmail.com',
   whatsapp: '5561982305184',
   whatsappLabel: '+55 61 98230-5184',
-  linkedin: 'https://www.linkedin.com/in/henrimafra',
   github: 'https://github.com/HenriMafra',
 }
 
@@ -105,7 +104,7 @@ export const aiTools = {
 }
 
 export const skills = [
-  { group: 'Linguagens', items: ['Python', 'SQL', 'JavaScript', 'TypeScript'] },
+  { group: 'Linguagens', items: ['Python', 'SQL', 'JavaScript', 'TypeScript', 'HTML', 'CSS'] },
   { group: 'Dados & BI', items: ['Modelagem dimensional', 'ETL', 'Power BI', 'DAX', 'Pandas', 'Streamlit'] },
   { group: 'Web & Cloud', items: ['React', 'Vite', 'Node.js', 'Tailwind', 'Cloudflare', 'Firebase', 'Supabase/PostgreSQL'] },
   { group: 'Infra & Deploy', items: ['GitHub Actions', 'VPS 24/7', 'Cloudflare Pages/Workers', 'Git'] },
@@ -114,7 +113,7 @@ export const skills = [
 
 export const roadmap = {
   group: 'Em desenvolvimento / Roadmap',
-  items: ['Arquiteturas de agentes', 'RAG', 'Bancos vetoriais (pgvector, Qdrant)', 'Observabilidade de IA'],
+  items: ['Visão computacional', 'Arquiteturas de agentes', 'RAG', 'Bancos vetoriais (pgvector, Qdrant)', 'Observabilidade de IA'],
 }
 
 /* status: deploy (ao vivo) | producao | open | academico | soon */
@@ -155,7 +154,6 @@ export const process = [
 
 export const links = [
   { label: 'GitHub', handle: 'HenriMafra', url: 'https://github.com/HenriMafra', icon: 'github' },
-  { label: 'LinkedIn', handle: 'in/henrimafra', url: 'https://www.linkedin.com/in/henrimafra', icon: 'linkedin' },
   { label: 'Hugging Face', handle: 'HENRI10', url: 'https://huggingface.co/HENRI10', icon: 'hf' },
   { label: 'Kaggle', handle: 'henrimafra', url: 'https://www.kaggle.com/henrimafra', icon: 'kaggle' },
   { label: 'LeetCode', handle: 'Henri1', url: 'https://leetcode.com/u/Henri1/', icon: 'leetcode' },

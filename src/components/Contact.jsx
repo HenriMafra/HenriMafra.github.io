@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { contact, profile, whatsappLink, links } from '../siteData'
 import { useReveal } from '../hooks'
-import { iconMap, IconMail, IconLinkedin, IconGithub, IconWhatsapp, IconCopy, IconCheck, IconExternal } from './icons'
+import { iconMap, IconMail, IconGithub, IconWhatsapp, IconCopy, IconCheck } from './icons'
 
 const channels = [
   { id: 'email', cmd: 'email', value: profile.email, href: `mailto:${profile.email}`, icon: IconMail, copy: profile.email },
   { id: 'whatsapp', cmd: 'whatsapp', value: profile.whatsappLabel, href: whatsappLink(), icon: IconWhatsapp, copy: profile.whatsappLabel },
-  { id: 'linkedin', cmd: 'linkedin', value: 'in/henrimafra', href: profile.linkedin, icon: IconLinkedin, copy: profile.linkedin },
   { id: 'github', cmd: 'github', value: 'HenriMafra', href: profile.github, icon: IconGithub, copy: profile.github },
 ]
 
